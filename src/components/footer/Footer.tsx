@@ -76,11 +76,6 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/join" className="text-sm hover:text-gray-900">
-                  Gå med
-                </Link>
-              </li>
-              <li>
                 <Link href="/about" className="text-sm hover:text-gray-900">
                   Om oss
                 </Link>
@@ -88,10 +83,10 @@ export default function Footer() {
             </ul>
           </div>
           <div>
-            <div className="mb-8">
+            {/* <div className="mb-8">
             <h2 className="text-lg font-semibold mb-4">Håll dig uppdaterad</h2>
-            {/*<Newsletter/>*/}
-            </div>
+            <Newsletter/>
+            </div> */}
             
             <h2 className="text-lg font-semibold mb-4">Kontaka oss</h2>
             <div className="space-y-2 mb-6">
@@ -102,14 +97,14 @@ export default function Footer() {
                 className="flex items-center text-sm hover:text-gray-900"
               >
                 <MapPin className="h-4 w-4 mr-2" />
-                KTH Kungliga Tekniska högskolan
+                Nathorstvägen 46, 121 37 Johanneshov
               </Link>
               <Link
                 href="mailto:info@platoon.se"
                 className="flex items-center text-sm hover:text-gray-900"
               >
                 <Mail className="h-4 w-4 mr-2" />
-                bokning@platoon.se
+                david.fornander@hotmail.com
               </Link>
             </div>
           </div>
@@ -117,7 +112,7 @@ export default function Footer() {
 
         <div className="relative items-center flex w-full h-auto mb-8">
           <ScreenFitText
-            text="PLATOON DJS"
+            text="Stockholm.DJ"
             repeat={undefined}
             repeatTimes={undefined}
             className={
@@ -128,9 +123,13 @@ export default function Footer() {
 
         <div className="border-t border-gray-200 mt-8 pt-8 text-center">
           <p className="text-sm">
-            © {new Date().getFullYear()} Platoon DJs. All rights reserved.
+            © {new Date().getFullYear()}  Echo Ventures. All rights reserved.
           </p>
         </div>
+          
+
+        {/* spacer to prevent overlap */}
+        <div className="h-16"></div>
       </div>
     </footer>
   );

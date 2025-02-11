@@ -1,6 +1,11 @@
 "use client";
 import React from "react";
 import { useState } from "react";
+import dynamic from "next/dynamic";
+
+const ModelViewer = dynamic(() => import("@/app/utils/ModelViewer"), {
+  ssr: false,
+});
 
 const StickyShowcase = () => {
   // Base price for your service or product
@@ -103,6 +108,16 @@ const StickyShowcase = () => {
           src="/assets/temp/Cool.png"
           alt="Mac mini"
           className="sticky-image"
+        />
+        <ModelViewer
+          src="/assets/models/untitled.glb"
+          alt="Neil Armstrong's Spacesuit from the Smithsonian Digitization Programs Office and National Air and Space Museum"
+          poster="/shared-assets/models/NeilArmstrong.webp"
+          environmentImage="/shared-assets/environments/moon_1k.hdr"
+          shadowIntensity="1"
+          cameraControls
+          touchAction="pan-y"
+          ar
         />
       </div>
       <div className="scrolling-content">
@@ -322,7 +337,7 @@ const StickyShowcase = () => {
       </div>
       
       {/* Floating Footer */}
-      <footer className="fixed bottom-0 left-0 w-full bg-black border-t border-gray-200">
+      <footer className="fixed bottom-0 left-0 w-full bg-black border-t border-gray-200 z-50">
         <div className="max-w-screen-xl mx-auto px-4 py-4 flex justify-between items-center">
           <span className="text-xl font-semibold">
             Totalpris: {totalCost} kr

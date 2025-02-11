@@ -16,9 +16,7 @@ import Link from "next/link"; // Importera Link från Next.js
 const tabs = [
   { name: "Hem", path: "/" },
   { name: "Event", path: "/events" },
-  { name: "Boka", path: "/boka" },
-  { name: "Gå med", path: "/join" },
-  { name: "Om oss", path: "/about" },
+  { name: "Boka", path: "/bokabeta3" },
 ];
 
 export const Navbar = () => {

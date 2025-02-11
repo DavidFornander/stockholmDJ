@@ -27,6 +27,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        {/* ...other meta tags... */}
+        <script
+          type="module"
+          src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"
+        ></script>
+        <script
+          noModule
+          src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"
+        ></script>
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
@@ -34,7 +45,6 @@ export default function RootLayout({
         {children}
         <Footer/>
       </body>
-      
     </html>
   );
 }
