@@ -1,11 +1,8 @@
 "use client";
 import React from "react";
 import { useState } from "react";
-import dynamic from "next/dynamic";
+import DjSetup from "@/components/3d/DjSetup";
 
-const ModelViewer = dynamic(() => import("@/app/utils/ModelViewer"), {
-  ssr: false,
-});
 
 const StickyShowcase = () => {
   // Base price for your service or product
@@ -102,25 +99,18 @@ const StickyShowcase = () => {
     saxofonist.cost;
 
   return (
-    <div className="showcase-container">
-      <div className="sticky-item">
-        <img
-          src="/assets/temp/Cool.png"
-          alt="Mac mini"
-          className="sticky-image"
-        />
-        <ModelViewer
-          src="/assets/models/untitled.glb"
-          alt="Neil Armstrong's Spacesuit from the Smithsonian Digitization Programs Office and National Air and Space Museum"
-          poster="/shared-assets/models/NeilArmstrong.webp"
-          environmentImage="/shared-assets/environments/moon_1k.hdr"
-          shadowIntensity="1"
-          cameraControls
-          touchAction="pan-y"
-          ar
-        />
+    <div className="showcase-container flex flex-col md:flex-row min-h-screen">
+      {/* Left Card */}
+      <div className="md:w-1/3 w-full p-4">
+        <div className="md:sticky top-4">
+          <div className="card bg-white shadow-lg rounded-lg p-4 h-[400px] max-w-md mx-auto">
+            <DjSetup />
+          </div>
+        </div>
       </div>
-      <div className="scrolling-content">
+
+      {/* Scrolling Content */}
+      <div className="scrolling-content md:w-2/3 w-full p-4">
         {/* Right Form Section */}
         <div className="flex-1 mt-6 md:mt-0">
           <h2 className="text-2xl font-semibold text-gray-800">
