@@ -1,12 +1,15 @@
 "use client";
-import React from "react";
-import { useState } from "react";
-import DjSetup from "@/components/3d/DjSetup";
+import React, { useState, useRef, useCallback, useEffect } from "react";
+import dynamic from "next/dynamic";
 
+// Dynamically import ModelViewer to ensure client-only rendering.
+const ModelViewer = dynamic(() => import("@/components/3d/ModelViewer"), {
+  ssr: false,
+});
 
-const StickyShowcase = () => {
+const BookingFlow: React.FC = () => {
   // Base price for your service or product
-  const basePrice = 5000; // Adjust this value as needed
+  const basePrice = 5000; // Adjust as needed
 
   // Options for each category with separate costs
   const speakerOptions = [
@@ -34,7 +37,7 @@ const StickyShowcase = () => {
     { name: "Trådlös (2st)", cost: 1500 },
   ];
 
-  // Define options for the additional items
+  // Options for additional items
   const uplightingOptions = [
     { name: "Nej, tack", cost: 0 },
     { name: "Ja, tack", cost: 1000 },
@@ -98,17 +101,105 @@ const StickyShowcase = () => {
     photoBooth.cost +
     saxofonist.cost;
 
+  // Inline DjSetup code:
+  const modelRef = useRef<any>(null);
+
+  const updateSceneVisibility = useCallback(() => {
+    console.log("Updating scene visibility...");
+    console.log("Speaker option selected:", speaker.name);
+    console.log("DJ Table option selected:", djTable.name);
+    console.log("Uplighting option selected:", uplighting.name);
+    const modelElement = modelRef.current;
+    console.log("Model ref:", modelElement);
+
+    // Access the underlying Three.js model via the model-viewer API.
+    const threeModel = modelElement?.model;
+    if (!threeModel) {
+      console.log("Three.js model is not available yet.");
+      return;
+    }
+    console.log("Three.js model available:", threeModel);
+    console.log(threeModel);
+    
+
+    // Toggle speaker material opacity.
+    const speakerMaterial = threeModel.getMaterialByName("evolve50");
+    if (speakerMaterial) {
+      speakerMaterial.setAlphaMode("BLEND");
+      const pbr = speakerMaterial.pbrMetallicRoughness;
+      const baseColor = [...pbr.baseColorFactor];
+      baseColor[3] = speaker.name === "Ljud finns i lokalen" ? 0 : 1;
+      pbr.setBaseColorFactor(baseColor);
+      console.log("Updated speaker material opacity to:", baseColor[3]);
+    } else {
+      console.log("Speaker material 'evolve50' not found in model!");
+    }
+
+    // Toggle DJ table material opacity.
+    const djTableMaterial = threeModel.getMaterialByName("dj_table");
+    if (djTableMaterial) {
+      djTableMaterial.setAlphaMode("BLEND");
+      const pbr = djTableMaterial.pbrMetallicRoughness;
+      const baseColor = [...pbr.baseColorFactor];
+      baseColor[3] = djTable.name === "Finns i lokalen" ? 0 : 1;
+      pbr.setBaseColorFactor(baseColor);
+      console.log("Updated DJ table material opacity to:", baseColor[3]);
+    } else {
+      console.log("DJ table material 'dj_table' not found in model!");
+    }
+
+    // Toggle uplighting material opacity.
+    const uplightingMaterial = threeModel.getMaterialByName("uplighting");
+    if (uplightingMaterial) {
+      uplightingMaterial.setAlphaMode("BLEND");
+      const pbr = uplightingMaterial.pbrMetallicRoughness;
+      const baseColor = [...pbr.baseColorFactor];
+      baseColor[3] = uplighting.name === "Nej, tack" ? 0 : 1;
+      pbr.setBaseColorFactor(baseColor);
+      console.log("Updated uplighting material opacity to:", baseColor[3]);
+    } else {
+      console.log("Uplighting material 'uplighting' not found in model!");
+    }
+  }, [speaker, djTable, uplighting]);
+
+  useEffect(() => {
+    const modelElement = modelRef.current;
+    if (!modelElement) return;
+
+    const handleLoad = () => {
+      console.log("Model loaded, updating scene visibility...");
+      updateSceneVisibility();
+    };
+
+    // Check for the load event provided by model-viewer.
+    if (modelElement.hasLoaded) {
+      handleLoad();
+    } else {
+      modelElement.addEventListener("load", handleLoad);
+    }
+
+    return () => {
+      modelElement.removeEventListener("load", handleLoad);
+    };
+  }, [updateSceneVisibility]);
+
+  useEffect(() => {
+    updateSceneVisibility();
+  }, [speaker, djTable, uplighting, updateSceneVisibility]);
+
   return (
     <div className="showcase-container flex flex-col md:flex-row min-h-screen">
-      {/* Left Card */}
+      {/* Left Card (3D Model Viewer Inlined) */}
       <div className="md:w-1/3 w-full p-4">
         <div className="md:sticky top-4">
           <div className="card bg-white shadow-lg rounded-lg p-4 h-[400px] max-w-md mx-auto">
-            <DjSetup
-              speaker={speaker}
-              djTable={djTable}
-              uplighting={uplighting}
-              // pass additional options as needed
+            <ModelViewer
+              ref={modelRef}
+              src="/assets/models/ev50_table.glb"
+              alt="3D model for DJ Setup"
+              cameraControls
+              shadowIntensity="1"
+              touchAction="pan-y"
             />
           </div>
         </div>
@@ -135,16 +226,13 @@ const StickyShowcase = () => {
               {speakerOptions.map((option) => {
                 const costDifference = option.cost - speaker.cost;
                 let displayCost = "";
-
                 if (option.name === speaker.name) {
-                  displayCost = ""; // Selected option
+                  displayCost = "";
                 } else if (costDifference > 0) {
                   displayCost = `+ ${costDifference} kr`;
                 } else if (costDifference < 0) {
                   displayCost = `- ${Math.abs(costDifference)} kr`;
-                  // Or use `- ${Math.abs(costDifference)} kr` if preferred
                 }
-
                 return (
                   <button
                     key={option.name}
@@ -165,8 +253,6 @@ const StickyShowcase = () => {
             </div>
           </div>
 
-          {/* Repeat similar sections for DJ Table, Player, Microphone, etc. */}
-
           {/* DJ Table Section */}
           <div className="mt-6">
             <h3 className="text-lg font-medium text-gray-700">DJ Bord</h3>
@@ -177,7 +263,6 @@ const StickyShowcase = () => {
               {djTableOptions.map((option) => {
                 const costDifference = option.cost - djTable.cost;
                 let displayCost = "";
-
                 if (option.name === djTable.name) {
                   displayCost = "";
                 } else if (costDifference > 0) {
@@ -185,7 +270,6 @@ const StickyShowcase = () => {
                 } else if (costDifference < 0) {
                   displayCost = `- ${Math.abs(costDifference)} kr`;
                 }
-
                 return (
                   <button
                     key={option.name}
@@ -206,120 +290,7 @@ const StickyShowcase = () => {
             </div>
           </div>
 
-          {/* Player Section */}
-          <div className="mt-6">
-            <h3 className="text-lg font-medium text-gray-700">Spelare</h3>
-            <p className="text-sm text-gray-500">
-              Vilken spelare är rätt för dig?
-            </p>
-            <div className="space-y-2 mt-3">
-              {playerOptions.map((option) => {
-                const costDifference = option.cost - player.cost;
-                let displayCost = "";
-
-                if (option.name === player.name) {
-                  displayCost = "";
-                } else if (costDifference > 0) {
-                  displayCost = `+ ${costDifference} kr`;
-                } else if (costDifference < 0) {
-                  displayCost = `- ${Math.abs(costDifference)} kr`;
-                }
-
-                return (
-                  <button
-                    key={option.name}
-                    onClick={() => setPlayer(option)}
-                    className={`block w-full text-left px-4 py-3 border rounded-lg ${
-                      player.name === option.name
-                        ? "border-blue-500"
-                        : "border-gray-300"
-                    }`}
-                  >
-                    <div className="flex justify-between">
-                      <span>{option.name}</span>
-                      <span>{displayCost}</span>
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Microphone Section */}
-          <div className="mt-6">
-            <h3 className="text-lg font-medium text-gray-700">Mikrofon</h3>
-            <p className="text-sm text-gray-500">Behöver du mikrofon?</p>
-            <div className="space-y-2 mt-3">
-              {microphoneOptions.map((option) => {
-                const costDifference = option.cost - microphone.cost;
-                let displayCost = "";
-
-                if (option.name === microphone.name) {
-                  displayCost = "";
-                } else if (costDifference > 0) {
-                  displayCost = `+ ${costDifference} kr`;
-                } else if (costDifference < 0) {
-                  displayCost = `- ${Math.abs(costDifference)} kr`;
-                }
-
-                return (
-                  <button
-                    key={option.name}
-                    onClick={() => setMicrophone(option)}
-                    className={`block w-full text-left px-4 py-3 border rounded-lg ${
-                      microphone.name === option.name
-                        ? "border-blue-500"
-                        : "border-gray-300"
-                    }`}
-                  >
-                    <div className="flex justify-between">
-                      <span>{option.name}</span>
-                      <span>{displayCost}</span>
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Uplighting Section */}
-          <div className="mt-6">
-            <h3 className="text-lg font-medium text-gray-700">Uplighting</h3>
-            <p className="text-sm text-gray-500">Vill du ha uplighting?</p>
-            <div className="space-y-2 mt-3">
-              {uplightingOptions.map((option) => {
-                const costDifference = option.cost - uplighting.cost;
-                let displayCost = "";
-
-                if (option.name === uplighting.name) {
-                  displayCost = "";
-                } else if (costDifference > 0) {
-                  displayCost = `+ ${costDifference} kr`;
-                } else if (costDifference < 0) {
-                  displayCost = `- ${Math.abs(costDifference)} kr`;
-                }
-
-                return (
-                  <button
-                    key={option.name}
-                    onClick={() => setUplighting(option)}
-                    className={`block w-full text-left px-4 py-3 border rounded-lg ${
-                      uplighting.name === option.name
-                        ? "border-blue-500"
-                        : "border-gray-300"
-                    }`}
-                  >
-                    <div className="flex justify-between">
-                      <span>{option.name}</span>
-                      <span>{displayCost}</span>
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Continue with other sections: Strobe, Ljuspelare, Rökmaskin, etc. */}
+          {/* Additional sections (Player, Microphone, etc.) can go here */}
 
           {/* Total Cost */}
           <div className="mt-6 text-center">
@@ -330,13 +301,11 @@ const StickyShowcase = () => {
           </div>
         </div>
       </div>
-      
+
       {/* Floating Footer */}
       <footer className="fixed bottom-0 left-0 w-full bg-black border-t border-gray-200 z-50">
         <div className="max-w-screen-xl mx-auto px-4 py-4 flex justify-between items-center">
-          <span className="text-xl font-semibold">
-            Totalpris: {totalCost} kr
-          </span>
+          <span className="text-xl font-semibold">Totalpris: {totalCost} kr</span>
           <button className="bg-blue-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-blue-700">
             Finalisera din konfiguration
           </button>
@@ -346,4 +315,4 @@ const StickyShowcase = () => {
   );
 };
 
-export default StickyShowcase;
+export default BookingFlow;
