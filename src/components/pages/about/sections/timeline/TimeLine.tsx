@@ -14,7 +14,7 @@ export default function TimelineDemo() {
           </p>
           <div>
             <Image
-              src="/assets/guide/Lokal.jpeg"
+              src=""
               alt="Södra Teatern"
               title="Södra Teatern"
               width={500}
@@ -38,7 +38,7 @@ export default function TimelineDemo() {
           </p>
           <div>
             <Image
-              src="/assets/guide/Tidslinje.webp"
+              src=""
               alt="Södra Teatern"
               title="Södra Teatern"
               width={500}
@@ -54,9 +54,9 @@ export default function TimelineDemo() {
       title: "Steg 3",
       content: (
         <div>
-          <h2 className="text-3xl text-white font-bold mb-4"> Fundera på hur många ni blir</h2>
+          <h2 className="text-3xl text-white font-bold mb-4"> ...</h2>
           <p className=" dark:text-neutral-200 text-base font-normal mb-8">
-            Det finns några saker som avgör hur mycket utrustning din DJ behöver ta med sig. 
+            ... 
           </p>
           <div>
             <Image
@@ -77,13 +77,10 @@ export default function TimelineDemo() {
       content: (
         <div>
           <h2 className="text-3xl text-white font-bold mb-4">
-            Platoon DJs X Steve Angello
+            ....
           </h2>
           <p className=" dark:text-neutral-200 text-base font-normal mb-8">
-            Vi var otroligt glada över att kunna avslöja vårt samarbete med den
-            legendariska Steve Angello, medlem av den ikoniska Swedish House
-            Mafia, och hans monumentala skivbolag, SIZE Records, som firade sitt
-            20-årsjubileum i år
+            ....
           </p>
           <div>
             <Image
@@ -104,14 +101,10 @@ export default function TimelineDemo() {
       content: (
         <div>
           <h2 className="text-3xl text-white font-bold mb-4">
-            Café Opera DJ Challenge
+            ...
           </h2>
           <p className=" dark:text-neutral-200 text-base font-normal mb-8">
-            Platoon DJs tog hem 2:a platsen på Café Opera DJ Challenge 2017! Med
-            en uppvisning av både teknik och kreativitet, imponerade vi på både
-            juryn och publiken. Den här framgången är ett bevis på vårt hårda
-            arbete och vår passion för musik. Tack till alla som stöttade oss—vi
-            hade inte klarat det utan er!
+            ...
           </p>
           <div>
             <Image
@@ -131,14 +124,9 @@ export default function TimelineDemo() {
       title: "Steg 6",
       content: (
         <div>
-          <h2 className="text-3xl text-white font-bold mb-4">Kravallen</h2>
+          <h2 className="text-3xl text-white font-bold mb-4">...</h2>
           <p className=" dark:text-neutral-200 text-base font-normal mb-8">
-            Platoon DJs debuterade för första gången på Kravallen på KTH! Med en
-            energifylld setlist och en engagerad publik, blev kvällen snabbt en
-            succé. Vi tog med oss våra unika beats och rytmer, och responsen
-            från dansgolvet var inget mindre än elektrisk. Det här var en natt
-            vi sent kommer att glömma, och vi hoppas att alla som var där kände
-            samma magi!
+            ...
           </p>
           <div>
             <Image

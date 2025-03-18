@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./styles/globals.css";
 import { Navbar } from '../components/navbar/Navbar'; // Adjust the import path as necessary
 import Footer from '../components/footer/Footer'; // Adjust the import path as necessary
+import Script from 'next/script';
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -29,14 +30,16 @@ export default function RootLayout({
     <html lang="en">
       <head>
         {/* ...other meta tags... */}
-        <script
+        <Script
           type="module"
           src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"
-        ></script>
-        <script
+          strategy="afterInteractive"
+        />
+        <Script
           noModule
           src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"
-        ></script>
+          strategy="afterInteractive"
+        />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}

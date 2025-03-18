@@ -2,6 +2,20 @@
 import React, { useState, useRef, useCallback, useEffect } from "react";
 import dynamic from "next/dynamic";
 
+// Define an interface for the model viewer element
+interface ModelViewerElement extends HTMLElement {
+  model: {
+    getMaterialByName: (name: string) => {
+      setAlphaMode: (mode: string) => void;
+      pbrMetallicRoughness: {
+        baseColorFactor: number[];
+        setBaseColorFactor: (color: number[]) => void;
+      };
+    } | null;
+  };
+  hasLoaded: boolean;
+}
+
 // Dynamically import ModelViewer to ensure client-only rendering.
 const ModelViewer = dynamic(() => import("@/components/3d/ModelViewer"), {
   ssr: false,
@@ -102,7 +116,7 @@ const BookingFlow: React.FC = () => {
     saxofonist.cost;
 
   // Inline DjSetup code:
-  const modelRef = useRef<any>(null);
+  const modelRef = useRef<ModelViewerElement | null>(null);
 
   const updateSceneVisibility = useCallback(() => {
     console.log("Updating scene visibility...");
@@ -187,6 +201,43 @@ const BookingFlow: React.FC = () => {
     updateSceneVisibility();
   }, [speaker, djTable, uplighting, updateSceneVisibility]);
 
+  // Helper function for option buttons to reduce repetition
+  const renderOptionButtons = (
+    options: { name: string; cost: number }[],
+    selectedOption: { name: string; cost: number },
+    setOption: React.Dispatch<
+      React.SetStateAction<{ name: string; cost: number }>
+    >
+  ) => {
+    return options.map((option) => {
+      const costDifference = option.cost - selectedOption.cost;
+      let displayCost = "";
+      if (option.name === selectedOption.name) {
+        displayCost = "";
+      } else if (costDifference > 0) {
+        displayCost = `+ ${costDifference} kr`;
+      } else if (costDifference < 0) {
+        displayCost = `- ${Math.abs(costDifference)} kr`;
+      }
+      return (
+        <button
+          key={option.name}
+          onClick={() => setOption(option)}
+          className={`block w-full text-left px-4 py-3 border rounded-lg ${
+            selectedOption.name === option.name
+              ? "border-blue-500"
+              : "border-gray-300"
+          }`}
+        >
+          <div className="flex justify-between">
+            <span>{option.name}</span>
+            <span>{displayCost}</span>
+          </div>
+        </button>
+      );
+    });
+  };
+
   return (
     <div className="showcase-container flex flex-col md:flex-row min-h-screen">
       {/* Left Card (3D Model Viewer Inlined) */}
@@ -223,33 +274,7 @@ const BookingFlow: React.FC = () => {
               Vilka högtalare är rätt för dig?
             </p>
             <div className="space-y-2 mt-3">
-              {speakerOptions.map((option) => {
-                const costDifference = option.cost - speaker.cost;
-                let displayCost = "";
-                if (option.name === speaker.name) {
-                  displayCost = "";
-                } else if (costDifference > 0) {
-                  displayCost = `+ ${costDifference} kr`;
-                } else if (costDifference < 0) {
-                  displayCost = `- ${Math.abs(costDifference)} kr`;
-                }
-                return (
-                  <button
-                    key={option.name}
-                    onClick={() => setSpeaker(option)}
-                    className={`block w-full text-left px-4 py-3 border rounded-lg ${
-                      speaker.name === option.name
-                        ? "border-blue-500"
-                        : "border-gray-300"
-                    }`}
-                  >
-                    <div className="flex justify-between">
-                      <span>{option.name}</span>
-                      <span>{displayCost}</span>
-                    </div>
-                  </button>
-                );
-              })}
+              {renderOptionButtons(speakerOptions, speaker, setSpeaker)}
             </div>
           </div>
 
@@ -260,37 +285,108 @@ const BookingFlow: React.FC = () => {
               Vilket DJ-bord är rätt för dig?
             </p>
             <div className="space-y-2 mt-3">
-              {djTableOptions.map((option) => {
-                const costDifference = option.cost - djTable.cost;
-                let displayCost = "";
-                if (option.name === djTable.name) {
-                  displayCost = "";
-                } else if (costDifference > 0) {
-                  displayCost = `+ ${costDifference} kr`;
-                } else if (costDifference < 0) {
-                  displayCost = `- ${Math.abs(costDifference)} kr`;
-                }
-                return (
-                  <button
-                    key={option.name}
-                    onClick={() => setDjTable(option)}
-                    className={`block w-full text-left px-4 py-3 border rounded-lg ${
-                      djTable.name === option.name
-                        ? "border-blue-500"
-                        : "border-gray-300"
-                    }`}
-                  >
-                    <div className="flex justify-between">
-                      <span>{option.name}</span>
-                      <span>{displayCost}</span>
-                    </div>
-                  </button>
-                );
-              })}
+              {renderOptionButtons(djTableOptions, djTable, setDjTable)}
+            </div>
+          </div>
+          
+          {/* Player Section */}
+          <div className="mt-6">
+            <h3 className="text-lg font-medium text-gray-700">Spelare</h3>
+            <p className="text-sm text-gray-500">
+              Vilken typ av spelare önskas?
+            </p>
+            <div className="space-y-2 mt-3">
+              {renderOptionButtons(playerOptions, player, setPlayer)}
             </div>
           </div>
 
-          {/* Additional sections (Player, Microphone, etc.) can go here */}
+          {/* Microphone Section */}
+          <div className="mt-6">
+            <h3 className="text-lg font-medium text-gray-700">Mikrofon</h3>
+            <p className="text-sm text-gray-500">
+              Behöver du mikrofon för ditt event?
+            </p>
+            <div className="space-y-2 mt-3">
+              {renderOptionButtons(microphoneOptions, microphone, setMicrophone)}
+            </div>
+          </div>
+
+          {/* Uplighting Section */}
+          <div className="mt-6">
+            <h3 className="text-lg font-medium text-gray-700">Uplighting</h3>
+            <p className="text-sm text-gray-500">
+              Vill du ha uplighting för ditt event?
+            </p>
+            <div className="space-y-2 mt-3">
+              {renderOptionButtons(uplightingOptions, uplighting, setUplighting)}
+            </div>
+          </div>
+
+          {/* Strobe Section */}
+          <div className="mt-6">
+            <h3 className="text-lg font-medium text-gray-700">Stroboskop</h3>
+            <p className="text-sm text-gray-500">
+              Vill du ha stroboskop för ditt event?
+            </p>
+            <div className="space-y-2 mt-3">
+              {renderOptionButtons(strobeOptions, strobe, setStrobe)}
+            </div>
+          </div>
+
+          {/* Ljuspelare Section */}
+          <div className="mt-6">
+            <h3 className="text-lg font-medium text-gray-700">Ljuspelare</h3>
+            <p className="text-sm text-gray-500">
+              Vill du ha ljuspelare för ditt event?
+            </p>
+            <div className="space-y-2 mt-3">
+              {renderOptionButtons(ljuspelareOptions, ljuspelare, setLjuspelare)}
+            </div>
+          </div>
+
+          {/* Rökmaskin Section */}
+          <div className="mt-6">
+            <h3 className="text-lg font-medium text-gray-700">Rökmaskin</h3>
+            <p className="text-sm text-gray-500">
+              Önskas rökmaskin till eventet?
+            </p>
+            <div className="space-y-2 mt-3">
+              {renderOptionButtons(rokmaskinOptions, rokmaskin, setRokmaskin)}
+            </div>
+          </div>
+
+          {/* Projektor Section */}
+          <div className="mt-6">
+            <h3 className="text-lg font-medium text-gray-700">Projektor</h3>
+            <p className="text-sm text-gray-500">
+              Vill du ha projektor för ditt event?
+            </p>
+            <div className="space-y-2 mt-3">
+              {renderOptionButtons(projektorOptions, projektor, setProjektor)}
+            </div>
+          </div>
+
+          {/* Photo Booth Section */}
+          <div className="mt-6">
+            <h3 className="text-lg font-medium text-gray-700">Photo Booth</h3>
+            <p className="text-sm text-gray-500">
+              Önskas photo booth för att föreviga minnena?
+            </p>
+            <div className="space-y-2 mt-3">
+              {renderOptionButtons(photoBoothOptions, photoBooth, setPhotoBooth)}
+            </div>
+          </div>
+
+          {/* Saxofonist Section */}
+          <div className="mt-6">
+            <h3 className="text-lg font-medium text-gray-700">Saxofonist</h3>
+            <p className="text-sm text-gray-500">
+              Vill du ha en saxofonist till ditt event?
+            </p>
+            <div className="space-y-2 mt-3">
+              {renderOptionButtons(saxofonistOptions, saxofonist, setSaxofonist)}
+            </div>
+          </div>
 
           {/* Total Cost */}
           <div className="mt-6 text-center">

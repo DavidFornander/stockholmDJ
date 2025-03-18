@@ -76,12 +76,21 @@ const StickyShowcase = () => {
   const [player, setPlayer] = useState(playerOptions[0]);
   const [microphone, setMicrophone] = useState(microphoneOptions[0]);
   const [uplighting, setUplighting] = useState(uplightingOptions[0]);
-  const [strobe, setStrobe] = useState(strobeOptions[0]);
-  const [ljuspelare, setLjuspelare] = useState(ljuspelareOptions[0]);
-  const [rokmaskin, setRokmaskin] = useState(rokmaskinOptions[0]);
-  const [projektor, setProjektor] = useState(projektorOptions[0]);
-  const [photoBooth, setPhotoBooth] = useState(photoBoothOptions[0]);
-  const [saxofonist, setSaxofonist] = useState(saxofonistOptions[0]);
+  // Remove these unused state variables:
+  // const [strobe, setStrobe] = useState(strobeOptions[0]);
+  // const [ljuspelare, setLjuspelare] = useState(ljuspelareOptions[0]);
+  // const [rokmaskin, setRokmaskin] = useState(rokmaskinOptions[0]);
+  // const [projektor, setProjektor] = useState(projektorOptions[0]);
+  // const [photoBooth, setPhotoBooth] = useState(photoBoothOptions[0]);
+  // const [saxofonist, setSaxofonist] = useState(saxofonistOptions[0]);
+
+  // Keep the needed options for calculation
+  const strobe = strobeOptions[0];
+  const ljuspelare = ljuspelareOptions[0];
+  const rokmaskin = rokmaskinOptions[0];
+  const projektor = projektorOptions[0];
+  const photoBooth = photoBoothOptions[0];
+  const saxofonist = saxofonistOptions[0];
 
   // Calculate total cost
   const totalCost =

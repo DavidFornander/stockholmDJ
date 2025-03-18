@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { Mail, MapPin } from "lucide-react";
 import Link from "next/link";
 import {
   PiFacebookLogo,
@@ -18,30 +18,28 @@ export default function Footer() {
       <div className="container mx-auto px-6 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
           <div className="mb-8 md:mb-0">
-            <h2 className="text-lg font-semibold mb-4">Platoon DJs</h2>
+            <h2 className="text-lg font-semibold mb-4">Stockholm.DJ</h2>
             <p className="text-sm mb-6">
-              Vi erbjuder tjänster för bröllop, privata fester och
-              företagsevent. Oavsett tillfälle anpassar vi oss till dina
-              önskemål och skapar den perfekta stämningen med våra DJ-set.
+              Text om Stockholm.DJ. Lorem ipsum dolor sit amet, consectetur
             </p>
             <h3 className="text-md font-semibold mb-3">Följ oss</h3>
             <div className="flex space-x-4">
-              <Link href="https://www.facebook.com/platoondjs" passHref>
+              <Link href="https://www.facebook.com/" passHref>
                 <Button size="icon" variant="ghost" aria-label="Facebook">
                   <PiFacebookLogo className="h-5 w-5" />
                 </Button>
               </Link>
-              <Link href="https://www.tiktok.com/@platoondjs" passHref>
+              <Link href="https://www.tiktok.com/" passHref>
                 <Button size="icon" variant="ghost" aria-label="TikTok">
                   <PiTiktokLogo className="h-5 w-5" />
                 </Button>
               </Link>
-              <Link href="https://www.instagram.com/platoondjs" passHref>
+              <Link href="https://www.instagram.com/" passHref>
                 <Button size="icon" variant="ghost" aria-label="Instagram">
                   <PiInstagramLogo className="h-5 w-5" />
                 </Button>
               </Link>
-              <Link href="https://soundcloud.com/platoon-djs" passHref>
+              <Link href="https://soundcloud.com/" passHref>
                 <Button size="icon" variant="ghost" aria-label="Soundcloud">
                   <PiSoundcloudLogo className="h-5 w-5" />
                 </Button>
@@ -88,7 +86,7 @@ export default function Footer() {
             <Newsletter/>
             </div> */}
             
-            <h2 className="text-lg font-semibold mb-4">Kontaka oss</h2>
+            <h2 className="text-lg font-semibold mb-4">Kontak</h2>
             <div className="space-y-2 mb-6">
               <Link
                 href="https://maps.app.goo.gl/WZQJWDUrwCTsraiP7"
