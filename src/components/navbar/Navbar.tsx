@@ -9,9 +9,9 @@ import {
 import React, { useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { usePathname } from "next/navigation";
-import PlatoonLogo from "./logo/PlatoonLogo";
+import StockholmDJLogo from "./logo/StockholmDJLogo";
 import { FiMenu, FiX } from "react-icons/fi";
-import Link from "next/link"; // Importera Link från Next.js
+import Link from "next/link";
 
 const tabs = [
   { name: "Hem", path: "/" },
@@ -46,12 +46,11 @@ export const Navbar = () => {
       aria-label="Primary Navigation"
     >
       <div className="flex-1 hidden text-xs text-neutral-50 text-center md:flex items-center uppercase">
-        DJ Förening från KTH i Stockholm, et.{" "}
-        <span className="text-neutral-300">1988</span>
+        DJ-Workshop | Event | Lable  | Stockholm DJ
       </div>
 
       <div className="flex flex-col items-center z-50">
-        <PlatoonLogo />
+        <StockholmDJLogo />
       </div>
 
       <div className="flex-1 hidden md:flex justify-end gap-3 text-sm">
@@ -62,10 +61,10 @@ export const Navbar = () => {
             aria-label={`Navigate to ${tab.name}`}
           >
             <Link
-              href={tab.path} // Använd Link för att hantera navigering
+              href={tab.path}
               className={twMerge(
-                "text-neutral-50 leading-none hover:text-platoon-orange transition-colors uppercase",
-                pathname === tab.path ? "text-platoon-orange" : ""
+                "text-neutral-50 leading-none hover:text-orange-500 transition-colors uppercase",
+                pathname === tab.path ? "text-orange-500" : ""
               )}
             >
               {tab.name}
@@ -108,10 +107,10 @@ export const Navbar = () => {
                   aria-label={`Navigate to ${tab.name}`}
                 >
                   <Link
-                    href={tab.path} // Använd Link för att hantera navigering
+                    href={tab.path}
                     className={twMerge(
-                      "px-3 flex-col flex items-center py-2 text-base font-medium text-neutral-50 hover:text-platoon-orange transition-colors uppercase",
-                      pathname === tab.path ? "text-platoon-orange" : ""
+                      "px-3 flex-col flex items-center py-2 text-base font-medium text-neutral-50 hover:text-orange-500 transition-colors uppercase",
+                      pathname === tab.path ? "text-orange-500" : ""
                     )}
                   >
                     {tab.name}
