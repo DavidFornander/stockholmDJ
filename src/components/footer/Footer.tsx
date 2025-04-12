@@ -9,8 +9,6 @@ import {
   PiSoundcloudLogo,
   PiTiktokLogo,
 } from "react-icons/pi";
-import ScreenFitText from "../text/ScreenFitText";
-//import Newsletter from "@/components/newsletter/newsletter";
 
 export default function Footer() {
   return (
@@ -108,24 +106,12 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="relative items-center flex w-full h-auto mb-8">
-          <ScreenFitText
-            text="Stockholm.DJ"
-            repeat={undefined}
-            repeatTimes={undefined}
-            className={
-              "bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-100"
-            }
-          />
-        </div>
-
         <div className="border-t border-gray-200 mt-8 pt-8 text-center">
           <p className="text-sm">
             © {new Date().getFullYear()}  Echo Ventures. All rights reserved.
           </p>
         </div>
           
-
         {/* spacer to prevent overlap */}
         <div className="h-16"></div>
       </div>
