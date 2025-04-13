@@ -5,43 +5,43 @@ import EventCard from './EventCard';
 const eventsData = [
   {
     id: '1',
-    title: 'Summer Techno Festival',
+    title: 'House Night at Patricia',
     date: '15 Juni 2025',
-    time: '20:00 - 02:00',
-    location: 'Södra Teatern, Stockholm',
-    description: 'En helkväll med stockholms bästa techno-DJs. Vi tar över alla 5 våningar på Södra Teatern för en oförglömlig upplevelse.',
+    time: '22:00 - 05:00',
+    location: 'Patricia, Stockholm',
+    description: 'En natt med Stockholms bästa house-DJs på legendariska Patricia. Dansa till djupa beats och atmosfärisk house musik på båtens dansgolv.',
     imageUrl: '/assets/events/event1.jpg',
-    link: '/events/summer-techno-festival'
+    link: '/events/house-night-patricia'
   },
   {
     id: '2',
-    title: 'Corporate Mixer',
+    title: 'Throwback Friday',
     date: '22 Juli 2025',
-    time: '18:00 - 23:00',
-    location: 'Grand Hôtel, Stockholm',
-    description: 'En exklusiv företagsmingel med handplockade DJs som spelar diskret bakgrundsmusik som ändå sätter rätt stämning.',
+    time: '22:00 - 05:00',
+    location: 'Patricia, Stockholm',
+    description: 'Klassisk throwback-kväll där våra DJs spelar de bästa hitsen från 90-talet och 00-talet. Nostalgi-garanterat på Stockholms roligaste nattklubb.',
     imageUrl: '/assets/events/event2.jpg',
-    link: '/events/corporate-mixer'
+    link: '/events/throwback-friday-patricia'
   },
   {
     id: '3',
-    title: 'Wedding DJ Workshop',
+    title: 'Techno Takeover',
     date: '5 Augusti 2025',
-    time: '12:00 - 16:00',
-    location: 'Clarion Hotel, Stockholm',
-    description: 'Lär dig hur du skapar den perfekta spellistan för ditt bröllop. Tips och tricks från professionella DJs.',
+    time: '22:00 - 05:00',
+    location: 'Patricia, Stockholm',
+    description: 'Patricia förvandlas till ett techno-paradis med industriella beats och hypnotiska rytmer. Stockholms teknoscen samlas för en oförglömlig natt på vattnet.',
     imageUrl: '/assets/events/event3.jpg',
-    link: '/events/wedding-dj-workshop'
+    link: '/events/techno-takeover-patricia'
   },
   {
     id: '4',
-    title: 'Vinyl Night',
+    title: 'Sunset Sessions',
     date: '19 September 2025',
-    time: '19:00 - 01:00',
-    location: 'Trädgården, Stockholm',
-    description: 'En kväll dedikerad till vinylskivor. Kom och upplev den varma analoga ljudbilden som bara vinyl kan erbjuda.',
+    time: '19:00 - 02:00',
+    location: 'Patricia, Stockholm',
+    description: 'Börja kvällen med magnifika vyer när solen går ner över Stockholm medan våra DJs spelar atmosfärisk och melodisk musik på Patricias övre däck.',
     imageUrl: '/assets/events/event4.jpg',
-    link: '/events/vinyl-night'
+    link: '/events/sunset-sessions-patricia'
   }
 ];
 
