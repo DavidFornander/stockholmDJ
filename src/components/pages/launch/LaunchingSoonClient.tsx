@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Image from "next/image";
 import { motion } from "framer-motion";
 
 export default function LaunchingSoonClient() {
@@ -65,16 +64,6 @@ export default function LaunchingSoonClient() {
               <p className="text-sm md:text-lg">{box.label}</p>
             </div>
           ))}
-        </div>
-
-        <div className="max-w-md mx-auto">
-          <Image
-            src="/images/launching-soon.png"
-            alt="Launching Soon"
-            width={400}
-            height={300}
-            className="rounded-lg"
-          />
         </div>
       </motion.div>
     </main>
