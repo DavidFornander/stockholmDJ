@@ -10,7 +10,7 @@ interface ModelData {
 
 // Dynamically import ModelViewer so that it only renders on the client
 const ModelViewer = dynamic(
-  () => import("@/components/3d/ModelViewer"),
+  () => import("@/components/shared/3d/ModelViewer"),
   { ssr: false }
 );
 

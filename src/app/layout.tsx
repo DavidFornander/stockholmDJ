@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./styles/globals.css";
-import { Navbar } from '../components/navbar/Navbar'; // Adjust the import path as necessary
-import Footer from '../components/footer/Footer'; // Adjust the import path as necessary
+import { Navbar } from '../components/global/navbar/Navbar'; // Adjust the import path as necessary
+import Footer from '../components/global/footer/Footer'; // Adjust the import path as necessary
 import Script from 'next/script';
 
 const geistSans = localFont({

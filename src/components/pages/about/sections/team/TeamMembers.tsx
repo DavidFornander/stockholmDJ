@@ -1,6 +1,6 @@
 import Image from "next/image"; // Import Image from next/image
-import { Avatar } from "@/components/ui/avatar";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Avatar } from "@/components/global/ui/avatar";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/global/ui/card";
 import { Mail } from "lucide-react";
 
 interface TeamMember {

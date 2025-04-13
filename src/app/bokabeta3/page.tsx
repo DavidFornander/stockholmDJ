@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { useState } from "react";
-import DjSetup from "@/components/3d/DjSetup";
+import DjSetup from "@/components/shared/3d/DjSetup";
 
 
 const StickyShowcase = () => {

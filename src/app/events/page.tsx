@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import BookingFlow from "@/components/flows/BookingFlow";
+import BookingFlow from "@/components/shared/flows/BookingFlow";
 
 const EventsPage: React.FC = () => {
   return (

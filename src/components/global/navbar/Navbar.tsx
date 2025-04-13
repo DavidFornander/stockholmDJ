@@ -9,7 +9,7 @@ import {
 import React, { useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { usePathname } from "next/navigation";
-import StockholmDJLogo from "./logo/StockholmDJLogo";
+import StockholmDJLogo from "../logo/StockholmDJLogo";
 import { FiMenu, FiX } from "react-icons/fi";
 import Link from "next/link";
 
