@@ -42,6 +42,16 @@ const eventsData = [
     description: 'Börja kvällen med magnifika vyer när solen går ner över Stockholm medan våra DJs spelar atmosfärisk och melodisk musik på Patricias övre däck.',
     imageUrl: '/assets/events/event4.jpg',
     link: '/events/sunset-sessions-patricia'
+  },
+  {
+    id: '5',
+    title: 'Student-Skiva',
+    date: '12 Juni 2025',
+    time: '18:00 - 02:00',
+    location: 'Ljungströms, Stockholm',
+    description: 'Fira studenten med patricia! Speciellt anpassad musik för årets student med klassiska hits och moderna dansfavoriter.',
+    imageUrl: '/assets/events/event5.jpg',
+    link: '/events/student-skiva-ljungstroms'
   }
 ];
 
