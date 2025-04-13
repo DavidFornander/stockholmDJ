@@ -15,8 +15,8 @@ import Link from "next/link";
 
 const tabs = [
   { name: "Hem", path: "/" },
-  { name: "Event", path: "/events" },
-  { name: "Boka", path: "/bokabeta3" },
+  //{ name: "Event", path: "/events" }, temporarily disabled
+  //{ name: "Boka", path: "/bokabeta3" }, temporarily disabled
 ];
 
 export const Navbar = () => {
@@ -46,7 +46,7 @@ export const Navbar = () => {
       aria-label="Primary Navigation"
     >
       <div className="flex-1 hidden text-xs text-neutral-50 text-center md:flex items-center uppercase">
-        DJ-Workshop | Event | Lable  | Stockholm DJ
+        Find Events in Stockholm
       </div>
 
       <div className="flex flex-col items-center z-50">
