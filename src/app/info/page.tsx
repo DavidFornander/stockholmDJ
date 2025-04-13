@@ -4,6 +4,11 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
+export const metadata = {
+  title: "Stockholm.DJ | Launching Soon",
+  description: "Vi lanserar snart vår nya DJ-tjänst för Stockholms musikscen.",
+};
+
 export default function LaunchingSoon() {
   const [timeLeft, setTimeLeft] = useState({
     days: 0,

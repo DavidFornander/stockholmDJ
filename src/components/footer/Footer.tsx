@@ -84,7 +84,7 @@ export default function Footer() {
             <Newsletter/>
             </div> */}
             
-            <h2 className="text-lg font-semibold mb-4">Kontak</h2>
+            <h2 className="text-lg font-semibold mb-4">Kontakt</h2>
             <div className="space-y-2 mb-6">
               <Link
                 href="https://maps.app.goo.gl/WZQJWDUrwCTsraiP7"
