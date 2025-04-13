@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useCallback } from "react";
 import dynamic from "next/dynamic";
 
 // Dynamically import ModelViewer to ensure it loads only on the client side
-const ModelViewer = dynamic(() => import("@/components/3d/ModelViewer"), {
+const ModelViewer = dynamic(() => import("@/components/shared/3d/ModelViewer"), {
   ssr: false,
 });
 
