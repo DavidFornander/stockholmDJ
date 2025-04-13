@@ -46,8 +46,8 @@ const eventsData = [
   {
     id: '5',
     title: 'Student-Skiva',
-    date: '12 Juni 2025',
-    time: '18:00 - 02:00',
+    date: 'tbd',
+    time: '18:00 - 05:00',
     location: 'Ljungströms, Stockholm',
     description: 'Fira studenten med patricia! Speciellt anpassad musik för årets student med klassiska hits och moderna dansfavoriter.',
     imageUrl: '/assets/events/event5.jpg',
