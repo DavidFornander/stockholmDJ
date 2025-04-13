@@ -1,13 +1,14 @@
-"use client";
-import React from "react";
-import BookingFlow from "@/components/shared/flows/BookingFlow";
+import Events from "@/components/pages/events/Events";
 
-const EventsPage: React.FC = () => {
-  return (
-    <main>
-      <BookingFlow />
-    </main>
-  );
+export const metadata = {
+  title: "Events | Stockholm.DJ",
+  description: "Discover upcoming DJ events, workshops and performances by Stockholm.DJ",
 };
 
-export default EventsPage;
+export default function EventsPage() {
+  return (
+    <>
+      <Events />
+    </>
+  );
+}
