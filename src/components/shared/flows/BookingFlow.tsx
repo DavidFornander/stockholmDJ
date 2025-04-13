@@ -17,7 +17,7 @@ interface ModelViewerElement extends HTMLElement {
 }
 
 // Dynamically import ModelViewer to ensure client-only rendering.
-const ModelViewer = dynamic(() => import("@/components/3d/ModelViewer"), {
+const ModelViewer = dynamic(() => import("@/components/shared/3d/ModelViewer"), {
   ssr: false,
 });
 
