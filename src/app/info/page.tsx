@@ -5,7 +5,7 @@ export const metadata = {
 };
 
 // Import the client component
-import LaunchingSoonClient from "@/components/pages/about/LaunchingSoonClient";
+import LaunchingSoonClient from "@/components/pages/launch/LaunchingSoonClient";
 
 // Server component that renders the client component
 export default function LaunchingSoonPage() {
