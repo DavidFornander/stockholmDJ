@@ -17,10 +17,10 @@ export default function LaunchingSoon() {
     seconds: 0,
   });
 
-  // Set launch date to 30 days from now
+  // Set a fixed launch date instead of relative to page load
   useEffect(() => {
-    const launchDate = new Date();
-    launchDate.setDate(launchDate.getDate() + 30);
+    // Fixed launch date: June 15, 2025
+    const launchDate = new Date('2025-06-15T00:00:00');
 
     const timer = setInterval(() => {
       const now = new Date();
@@ -28,6 +28,7 @@ export default function LaunchingSoon() {
       
       if (difference <= 0) {
         clearInterval(timer);
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
         return;
       }
       
