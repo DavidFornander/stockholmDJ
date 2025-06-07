@@ -10,7 +10,7 @@ const StickyShowcase = () => {
 
   // Options for each category with separate costs
   const speakerOptions = [
-    { name: "Ljud finns i lokalen", cost: 0 },
+    { name: "Ljud finns i lokalen", cost: 0 },  
     { name: "2x 15' toppar", cost: 1000 },
     { name: "2x 15' toppar + 1x 18' sub", cost: 2000 },
     { name: "2x 15' toppar + 2x 18' sub", cost: 4000 },

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./styles/globals.css";
-import { Navbar } from '../components/global/navbar/Navbar'; // Adjust the import path as necessary
+// import { Navbar } from '../components/global/navbar/Navbar'; // Adjust the import path as necessary
 import Footer from '../components/global/footer/Footer'; // Adjust the import path as necessary
 import Script from 'next/script';
 
@@ -44,7 +44,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {<Navbar/>}
+        {/* <Navbar/> */}
         {children}
         {/* <Footer/> */}
       </body>

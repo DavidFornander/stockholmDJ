@@ -5,53 +5,53 @@ import EventCard from './EventCard';
 const eventsData = [
   {
     id: '1',
-    title: 'House Night at Patricia',
-    date: '15 Juni 2025',
-    time: '22:00 - 05:00',
-    location: 'Patricia, Stockholm',
-    description: 'En natt med Stockholms bästa house-DJs på legendariska Patricia. Dansa till djupa beats och atmosfärisk house musik på båtens dansgolv.',
-    imageUrl: '/assets/events/event1.jpg',
-    link: '/events/house-night-patricia'
+    title: 'Deep Underground',
+    date: '12 Februari 2025',
+    time: '23:00 - 08:00',
+    location: 'Bron, Stockholm',
+    description: 'Rå underground house i Stockholms mörkaste källare. Minimal techno och deep house med internationella DJs från Berlins underjordiska scen.',
+    imageUrl: '/assets/events/event3.jpg',
+    link: '/events/deep-underground'
   },
   {
     id: '2',
-    title: 'Throwback Friday',
-    date: '22 Juli 2025',
-    time: '22:00 - 05:00',
-    location: 'Patricia, Stockholm',
-    description: 'Klassisk throwback-kväll där våra DJs spelar de bästa hitsen från 90-talet och 00-talet. Nostalgi-garanterat på Stockholms roligaste nattklubb.',
-    imageUrl: '/assets/events/event2.jpg',
-    link: '/events/throwback-friday-patricia'
+    title: 'Warehouse Sessions',
+    date: '28 Mars 2025',
+    time: '22:00 - 06:00',
+    location: 'Secret Location, Södermalm',
+    description: 'Warehouse party med bara 200 personer. Pure underground house från Chicago och Detroit. Location släpps 2h innan start.',
+    imageUrl: '/assets/events/event3.jpg',
+    link: '/events/warehouse-sessions'
   },
   {
     id: '3',
-    title: 'Techno Takeover',
-    date: '5 Augusti 2025',
-    time: '22:00 - 05:00',
-    location: 'Patricia, Stockholm',
-    description: 'Patricia förvandlas till ett techno-paradis med industriella beats och hypnotiska rytmer. Stockholms teknoscen samlas för en oförglömlig natt på vattnet.',
+    title: 'Basement Collective',
+    date: '15 April 2025',
+    time: '00:00 - 10:00',
+    location: 'Under, Gamla Stan',
+    description: 'Mörk källarklubb med bara vinyl. Deep house, minimal och dub techno. Inga telefoner, bara ren musik och dans till gryningen.',
     imageUrl: '/assets/events/event3.jpg',
-    link: '/events/techno-takeover-patricia'
+    link: '/events/basement-collective'
   },
   {
     id: '4',
-    title: 'Sunset Sessions',
-    date: '19 September 2025',
-    time: '19:00 - 02:00',
-    location: 'Patricia, Stockholm',
-    description: 'Börja kvällen med magnifika vyer när solen går ner över Stockholm medan våra DJs spelar atmosfärisk och melodisk musik på Patricias övre däck.',
-    imageUrl: '/assets/events/event4.jpg',
-    link: '/events/sunset-sessions-patricia'
+    title: 'Acid House Revival',
+    date: '3 Maj 2025',
+    time: '23:30 - 08:00',
+    location: 'Industriområdet, Hammarby',
+    description: '90-talets acid house lever igen. TB-303 synthesizers och äkta Chicago house i övergiven fabrikslokal. Endast 150 personer.',
+    imageUrl: '/assets/events/event3.jpg',
+    link: '/events/acid-house-revival'
   },
   {
     id: '5',
-    title: 'Student-Skiva',
-    date: 'tbd',
-    time: '18:00 - 05:00',
-    location: 'Ljungströms, Stockholm',
-    description: 'Fira studenten med patricia! Speciellt anpassad musik för årets student med klassiska hits och moderna dansfavoriter.',
-    imageUrl: '/assets/events/event5.jpg',
-    link: '/events/student-skiva-ljungstroms'
+    title: 'Rooftop Underground',
+    date: '21 Juni 2025',
+    time: '20:00 - 06:00',
+    location: 'Secret Rooftop, Östermalm',
+    description: 'Underground house under Stockholms himmel. Hemliga takfesten med utsikt över staden. Deep house och minimal när solen går upp.',
+    imageUrl: '/assets/events/event3.jpg',
+    link: '/events/rooftop-underground'
   }
 ];
 
