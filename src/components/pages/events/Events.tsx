@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import EventCard from './EventCard';
-import Image from 'next/image'; // Added import for Image
+import Image from 'next/image';
+import { Search } from 'lucide-react';
 
 // Sample event data - in a real app, this would come from an API or CMS
 const eventsData = [
@@ -11,7 +12,7 @@ const eventsData = [
     time: '23:00 - 08:00',
     location: 'Bron, Stockholm',
     description: 'Rå underground house i Stockholms mörkaste källare. Minimal techno och deep house med internationella DJs från Berlins underjordiska scen.',
-    imageUrl: '/assets/events/event3.jpg',
+    imageUrl: '/assets/images/profiles/trending__page--lookbook-01.jpg',
     link: '/events/deep-underground'
   },
   {
@@ -21,7 +22,7 @@ const eventsData = [
     time: '22:00 - 06:00',
     location: 'Secret Location, Södermalm',
     description: 'Warehouse party med bara 200 personer. Pure underground house från Chicago och Detroit. Location släpps 2h innan start.',
-    imageUrl: '/assets/events/event3.jpg',
+    imageUrl: '/assets/images/profiles/wink__page--gallery-02.jpg',
     link: '/events/warehouse-sessions'
   },
   {
@@ -31,7 +32,7 @@ const eventsData = [
     time: '00:00 - 10:00',
     location: 'Under, Gamla Stan',
     description: 'Mörk källarklubb med bara vinyl. Deep house, minimal och dub techno. Inga telefoner, bara ren musik och dans till gryningen.',
-    imageUrl: '/assets/events/event3.jpg',
+    imageUrl: '/assets/images/profiles/glow__page--irl-looks-06.jpg',
     link: '/events/basement-collective'
   },
   {
@@ -41,7 +42,7 @@ const eventsData = [
     time: '23:30 - 08:00',
     location: 'Industriområdet, Hammarby',
     description: '90-talets acid house lever igen. TB-303 synthesizers och äkta Chicago house i övergiven fabrikslokal. Endast 150 personer.',
-    imageUrl: '/assets/events/event3.jpg',
+    imageUrl: '/assets/images/profiles/trending__page--lookbook-05.jpg',
     link: '/events/acid-house-revival'
   },
   {
@@ -51,7 +52,7 @@ const eventsData = [
     time: '20:00 - 06:00',
     location: 'Secret Rooftop, Östermalm',
     description: 'Underground house under Stockholms himmel. Hemliga takfesten med utsikt över staden. Deep house och minimal när solen går upp.',
-    imageUrl: '/assets/events/event3.jpg',
+    imageUrl: '/assets/images/profiles/wink__page--gallery-08.jpg',
     link: '/events/rooftop-underground'
   }
 ];
@@ -63,7 +64,7 @@ const Events: React.FC = () => {
         {/* Hero Image Section */}
         <div className="mb-12 w-full h-80 relative overflow-hidden rounded-lg shadow-lg">
           <Image
-            src="/assets/temp/2Q.png"
+            src="/assets/images/temp/2Q.png"
             alt="Hitta Events Hero"
             fill
             className="object-cover"
