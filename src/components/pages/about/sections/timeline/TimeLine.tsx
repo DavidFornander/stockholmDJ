@@ -85,8 +85,8 @@ export default function TimelineDemo() {
           <div>
             <Image
               src="/assets/guide/Tidslinje.webp"
-              alt="Steve Angello X Platoon"
-              title="Steve Angello X Platoon"
+              alt="Steve Angello X Stockholm.DJ"
+              title="Steve Angello X Stockholm.DJ"
               width={500}
               height={500}
               loading="lazy"

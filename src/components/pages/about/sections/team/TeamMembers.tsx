@@ -19,7 +19,7 @@ const teamMembers: TeamMember[] = [
       "Ansvarar för alla bokningsärenden och säkerställer en smidig kundupplevelse.",
     avatarUrl:
       "https://utfs.io/a/yvegegpc2k/V1Gok5KrkEqoT5g8VzuycaLVAdZovQkRX20MSWl1xmr4bDKp",
-    email: "bokning@platoon.se",
+    email: "bokning@stockholm.dj",
   },
   {
     name: "Elin Pukite",
@@ -28,7 +28,7 @@ const teamMembers: TeamMember[] = [
       "Leder styrelsens arbete, representerar och driver föreningen framåt.",
     avatarUrl:
       "https://utfs.io/a/yvegegpc2k/V1Gok5KrkEqoVHpGntKrkEqod4GfFw91XKhALY7WJalvVx2e",
-    email: "ordf@platoon.se",
+    email: "ordf@stockholm.dj",
   },
   {
     name: "Olle Strand",
@@ -36,7 +36,7 @@ const teamMembers: TeamMember[] = [
     description: "Hanterar och övervakar föreningens ekonomi.",
     avatarUrl:
       "https://utfs.io/a/yvegegpc2k/V1Gok5KrkEqoRglEBUyshcxUij3dzYSpob6BLaQGIFg0W2HN",
-    email: "ekonomi@platoon.se",
+    email: "ekonomi@stockholm.dj",
   },
 ];
 

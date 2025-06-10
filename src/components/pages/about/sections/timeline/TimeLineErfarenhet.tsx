@@ -77,7 +77,7 @@ export default function TimelineDemo() {
       content: (
         <div>
           <h2 className="text-3xl text-white font-bold mb-4">
-            Platoon DJs X Steve Angello
+            Stockholm.DJ X Steve Angello
           </h2>
           <p className=" dark:text-neutral-200 text-base font-normal mb-8">
             Vi var otroligt glada över att kunna avslöja vårt samarbete med den
@@ -88,8 +88,8 @@ export default function TimelineDemo() {
           <div>
             <Image
               src="/assets/guide/Tidslinje.webp"
-              alt="Steve Angello X Platoon"
-              title="Steve Angello X Platoon"
+              alt="Steve Angello X Stockholm.DJ"
+              title="Steve Angello X Stockholm.DJ"
               width={500}
               height={500}
               loading="lazy"
@@ -107,7 +107,7 @@ export default function TimelineDemo() {
             Café Opera DJ Challenge
           </h2>
           <p className=" dark:text-neutral-200 text-base font-normal mb-8">
-            Platoon DJs tog hem 2:a platsen på Café Opera DJ Challenge 2017! Med
+            Stockholm.DJ tog hem 2:a platsen på Café Opera DJ Challenge 2017! Med
             en uppvisning av både teknik och kreativitet, imponerade vi på både
             juryn och publiken. Den här framgången är ett bevis på vårt hårda
             arbete och vår passion för musik. Tack till alla som stöttade oss—vi
@@ -133,7 +133,7 @@ export default function TimelineDemo() {
         <div>
           <h2 className="text-3xl text-white font-bold mb-4">Kravallen</h2>
           <p className=" dark:text-neutral-200 text-base font-normal mb-8">
-            Platoon DJs debuterade för första gången på Kravallen på KTH! Med en
+            Stockholm.DJ debuterade för första gången på Kravallen på KTH! Med en
             energifylld setlist och en engagerad publik, blev kvällen snabbt en
             succé. Vi tog med oss våra unika beats och rytmer, och responsen
             från dansgolvet var inget mindre än elektrisk. Det här var en natt

@@ -18,26 +18,26 @@ export default function Footer() {
           <div className="mb-8 md:mb-0">
             <h2 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Stockholm.DJ</h2>
             <p className="text-sm mb-6">
-              Text om Stockholm.DJ. Lorem ipsum dolor sit amet, consectetur
+              Stockholms främsta DJ-tjänst för alla typer av event. Vi erbjuder professionella DJs och modern utrustning för bröllop, företagsevent och privata fester.
             </p>
             <h3 className="text-md font-semibold mb-3 text-gray-900 dark:text-white">Följ oss</h3>
             <div className="flex space-x-4">
-              <Link href="https://www.facebook.com/" passHref>
+              <Link href="https://www.facebook.com/stockholmdj" passHref>
                 <Button size="icon" variant="ghost" aria-label="Facebook">
                   <PiFacebookLogo className="h-5 w-5" />
                 </Button>
               </Link>
-              <Link href="https://www.tiktok.com/" passHref>
+              <Link href="https://www.tiktok.com/@stockholmdj" passHref>
                 <Button size="icon" variant="ghost" aria-label="TikTok">
                   <PiTiktokLogo className="h-5 w-5" />
                 </Button>
               </Link>
-              <Link href="https://www.instagram.com/" passHref>
+              <Link href="https://www.instagram.com/stockholmdj" passHref>
                 <Button size="icon" variant="ghost" aria-label="Instagram">
                   <PiInstagramLogo className="h-5 w-5" />
                 </Button>
               </Link>
-              <Link href="https://soundcloud.com/" passHref>
+              <Link href="https://soundcloud.com/stockholmdj" passHref>
                 <Button size="icon" variant="ghost" aria-label="Soundcloud">
                   <PiSoundcloudLogo className="h-5 w-5" />
                 </Button>
@@ -49,26 +49,34 @@ export default function Footer() {
             <ul className="space-y-2">
               <li>
                 <Link
-                  href="/book/wedding"
+                  href="/bookings"
                   className="text-sm hover:text-gray-900 dark:hover:text-white transition-colors"
                 >
-                  Bröllop
+                  Hantera Bokningar
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/book/company"
+                  href="/djs"
                   className="text-sm hover:text-gray-900 dark:hover:text-white transition-colors"
                 >
-                  Företagsevent
+                  Hitta DJs
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/book/private"
+                  href="/events"
                   className="text-sm hover:text-gray-900 dark:hover:text-white transition-colors"
                 >
-                  Privatfest
+                  Kommande Events
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/bokabeta3"
+                  className="text-sm hover:text-gray-900 dark:hover:text-white transition-colors"
+                >
+                  Boka Schema (Beta)
                 </Link>
               </li>
               <li>
@@ -96,11 +104,11 @@ export default function Footer() {
                 Nathorstvägen 46, 121 37 Johanneshov
               </Link>
               <Link
-                href="mailto:info@platoon.se"
+                href="mailto:info@stockholm.dj"
                 className="flex items-center text-sm hover:text-gray-900 dark:hover:text-white transition-colors"
               >
                 <Mail className="h-4 w-4 mr-2" />
-                david.fornander@hotmail.com
+                info@stockholm.dj
               </Link>
             </div>
           </div>
@@ -108,7 +116,7 @@ export default function Footer() {
 
         <div className="border-t border-gray-200 dark:border-gray-800 mt-8 pt-8 text-center transition-colors duration-200">
           <p className="text-sm">
-            © {new Date().getFullYear()}  Echo Ventures. All rights reserved.
+            © {new Date().getFullYear()} Stockholm.DJ. All rights reserved.
           </p>
         </div>
           

@@ -7,10 +7,10 @@ import { ThemeToggle } from "../theme/ThemeToggle";
 
 const tabs = [
   { name: "Hitta DJs", path: "/djs" },
-  { name: "Populära DJs", path: "/events" },
+  { name: "Kommande Events", path: "/events" },
   { name: "Boka Schema", path: "/bokabeta3" },
-  { name: "Konto Inställningar", path: "/about" },
-  { name: "Hantera Bokning", path: "/sample-packs" },
+  { name: "Konto Inställningar", path: "/account" },
+  { name: "Hantera Bokning", path: "/bookings" },
 ];
 
 export const Navbar = () => {
