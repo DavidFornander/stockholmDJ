@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from 'react';
 import EventCard from './EventCard';
 import Image from 'next/image';
@@ -58,26 +60,79 @@ const eventsData = [
 ];
 
 const Events: React.FC = () => {
+  const [searchLocation, setSearchLocation] = useState('');
+  const [searchEventType, setSearchEventType] = useState('');
+  const [eventDate, setEventDate] = useState('');
+  const [searchMusicStyle, setSearchMusicStyle] = useState('');
+
   return (
-    <div className="bg-white dark:bg-black text-gray-900 dark:text-white min-h-screen py-16">
-      <div className="container mx-auto px-4">
-        {/* Hero Image Section */}
-        <div className="mb-12 w-full h-80 relative overflow-hidden rounded-lg shadow-lg">
-          <Image
-            src="/assets/images/temp/2Q.png"
-            alt="Hitta Events Hero"
-            fill
-            className="object-cover"
-            priority
-          />
+    <div className="min-h-screen bg-gray-50 dark:bg-black transition-colors duration-200">
+      {/* Hero Image Section */}
+      <div className="relative w-full h-64 md:h-80 lg:h-96 overflow-hidden">
+        <Image
+          src="/assets/images/temp/2Q.png"
+          alt="Hitta Events Hero"
+          fill
+          className="object-cover object-center"
+          priority
+        />
+        <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+          <div className="text-center text-white">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
+              Hitta Events
+            </h1>
+            <p className="text-lg md:text-xl text-gray-200">
+              Upptäck Stockholms bästa events och evenemang
+            </p>
+          </div>
         </div>
 
-        <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold mb-4">Kommande Events</h1>
-          <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Upptäck våra kommande evenemang och workshops. Stockholm.DJ arrangerar allt från företagsevent till klubbkvällar och musikaliska workshops.
-          </p>
+        {/* Search Form Overlay */}
+        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-full max-w-4xl px-4">
+          <div className="bg-white dark:bg-gray-800 rounded-full shadow-md flex items-center divide-x divide-gray-200 dark:divide-gray-700">
+            <div className="flex-1 px-4 py-2">
+              <input
+                type="text"
+                placeholder="Plats"
+                value={searchLocation}
+                onChange={(e) => setSearchLocation(e.target.value)}
+                className="w-full bg-transparent focus:outline-none text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+              />
+            </div>
+            <div className="flex-1 px-4 py-2">
+              <input
+                type="text"
+                placeholder="Eventtyp"
+                value={searchEventType}
+                onChange={(e) => setSearchEventType(e.target.value)}
+                className="w-full bg-transparent focus:outline-none text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+              />
+            </div>
+            <div className="flex-1 px-4 py-2">
+              <input
+                type="date"
+                value={eventDate}
+                onChange={(e) => setEventDate(e.target.value)}
+                className="w-full bg-transparent focus:outline-none text-gray-900 dark:text-white"
+              />
+            </div>
+            <div className="flex-1 px-4 py-2">
+              <input
+                type="text"
+                placeholder="Musikstil"
+                value={searchMusicStyle}
+                onChange={(e) => setSearchMusicStyle(e.target.value)}
+                className="w-full bg-transparent focus:outline-none text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+              />
+            </div>
+            <button className="p-2 rounded-full bg-blue-600 hover:bg-blue-700 transition-colors px-4">
+              <Search className="w-5 h-5 text-white" />
+            </button>
+          </div>
         </div>
+      </div>
+
+      <div className="container mx-auto px-4 py-8">
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {eventsData.map((event) => (
@@ -87,7 +142,7 @@ const Events: React.FC = () => {
         
         <div className="text-center mt-16">
           <h2 className="text-2xl font-bold mb-4">Saknar du något?</h2>
-          <p className="text-gray-300 max-w-2xl mx-auto mb-8">
+          <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-8">
             Vi kan hjälpa dig arrangera ditt eget event, oavsett om det är en företagsfest, ett bröllop eller en privatfest.
           </p>
           <a 
