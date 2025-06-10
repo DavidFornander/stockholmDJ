@@ -7,9 +7,7 @@ import { ThemeToggle } from "../theme/ThemeToggle";
 
 const tabs = [
   { name: "Hitta DJs", path: "/djs" },
-  { name: "Kommande Events", path: "/events" },
-  { name: "Konto Inställningar", path: "/account" },
-  { name: "Hantera Bokning", path: "/bookings" },
+  { name: "Hitta Events", path: "/events" }, // Changed name from "Kommande Events"
 ];
 
 export const Navbar = () => {
@@ -62,6 +60,20 @@ export const Navbar = () => {
                     onClick={() => setIsMenuOpen(false)}
                   >
                     Boka Schema
+                  </Link>
+                  <Link
+                    href="/account"
+                    className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Konto Inställningar
+                  </Link>
+                  <Link
+                    href="/bookings"
+                    className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Hantera Bokning
                   </Link>
                   <button
                     className="w-full text-left block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
