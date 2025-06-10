@@ -131,8 +131,15 @@ const Events: React.FC = () => {
 
   const filteredEvents = filterEvents(eventsData);
   
-  const upcomingEvents = filteredEvents.filter(event => parseSwedishDate(event.date) >= today);
-  const pastEvents = filteredEvents.filter(event => parseSwedishDate(event.date) < today);
+  // Sort upcoming events by proximity to current date (closest first)
+  const upcomingEvents = filteredEvents
+    .filter(event => parseSwedishDate(event.date) >= today)
+    .sort((a, b) => parseSwedishDate(a.date).getTime() - parseSwedishDate(b.date).getTime());
+  
+  // Sort past events by recency (most recent first)
+  const pastEvents = filteredEvents
+    .filter(event => parseSwedishDate(event.date) < today)
+    .sort((a, b) => parseSwedishDate(b.date).getTime() - parseSwedishDate(a.date).getTime());
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-black transition-colors duration-200">
