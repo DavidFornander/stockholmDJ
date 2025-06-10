@@ -16,7 +16,7 @@ export default function TimelineDemo() {
           </p>
           <div>
             <Image
-              src=""
+              src="/assets/guide/Tidslinje.webp"
               alt="Södra Teatern"
               title="Södra Teatern"
               width={500}
@@ -38,7 +38,7 @@ export default function TimelineDemo() {
           </p>
           <div>
             <Image
-              src=""
+              src="/assets/guide/Tidslinje.webp"
               alt="Södra Teatern"
               title="Södra Teatern"
               width={500}
@@ -60,7 +60,7 @@ export default function TimelineDemo() {
           </p>
           <div>
             <Image
-              src=""
+              src="/assets/guide/Tidslinje.webp"
               alt="Fyre Festival"
               title="Fyre Festival"
               width={500}
@@ -87,7 +87,7 @@ export default function TimelineDemo() {
           </p>
           <div>
             <Image
-              src=""
+              src="/assets/guide/Tidslinje.webp"
               alt="Steve Angello X Platoon"
               title="Steve Angello X Platoon"
               width={500}
@@ -115,7 +115,7 @@ export default function TimelineDemo() {
           </p>
           <div>
             <Image
-              src=""
+              src="/assets/guide/Tidslinje.webp"
               alt="Café Opera DJ Challenge"
               title="Café Opera DJ Challenge"
               width={500}
@@ -142,7 +142,7 @@ export default function TimelineDemo() {
           </p>
           <div>
             <Image
-              src=""
+              src="/assets/guide/Tidslinje.webp"
               alt="Kravallen"
               title="Kravallen"
               width={500}

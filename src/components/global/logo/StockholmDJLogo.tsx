@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import Link from "next/link";
 
-const StockholmDJLogo = () => {
+const StockholmDJLogo: React.FC = () => {
   const { scrollY } = useScroll();
 
   const rotate = useTransform(scrollY, (value) => value * 0.4); // Multiplier controls speed

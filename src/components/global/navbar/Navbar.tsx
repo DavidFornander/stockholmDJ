@@ -16,7 +16,8 @@ import Link from "next/link";
 const tabs = [
   { name: "Hem", path: "/" },
   { name: "Event (Demo)", path: "/events" },
-  //{ name: "Boka", path: "/bokabeta3" }, temporarily disabled
+  { name: "Boka", path: "/bokabeta3" },
+  { name: "Om oss", path: "/about" },
 ];
 
 export const Navbar = () => {

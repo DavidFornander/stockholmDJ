@@ -1,9 +1,5 @@
-import LaunchingSoon from "./info/page";
+import Homepage from "../components/pages/home/Homepage";
 
-export default function Homepage() {
-  return (
-    <>
-      <LaunchingSoon />
-    </>
-  );
+export default function Page() {
+  return <Homepage />;
 }

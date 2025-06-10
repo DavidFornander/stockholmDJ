@@ -13,8 +13,8 @@ export default function LaunchingSoonClient() {
 
   // Set a fixed launch date instead of relative to page load
   useEffect(() => {
-    // Fixed launch date: June 15, 2025
-    const launchDate = new Date('2025-06-15T00:00:00');
+    // Fixed launch date: December 15, 2025 (updated to future date)
+    const launchDate = new Date('2025-12-15T00:00:00');
 
     const timer = setInterval(() => {
       const now = new Date();

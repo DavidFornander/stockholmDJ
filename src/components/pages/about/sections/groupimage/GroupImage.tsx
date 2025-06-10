@@ -25,9 +25,9 @@ export default function OptimizedHeroSection() {
     <section className="relative h-screen overflow-hidden mb-16 w-full">
       <div ref={parallaxRef} className="absolute inset-0 z-0">
         <Image
-          src="/assets/temp/Platoon_grupp.png"
-          alt="Platoon DJs Members"
-          title="Välkommen till Platoon DJs"
+          src="/assets/temp/Cool.png"
+          alt="Stockholm.DJ Team"
+          title="Välkommen till Stockholm.DJ"
           fill
           className="object-cover"
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 75vw, 50vw"
