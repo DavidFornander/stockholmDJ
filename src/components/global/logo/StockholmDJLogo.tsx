@@ -27,24 +27,25 @@ const StockholmDJLogo: React.FC = () => {
         style={{ rotate: rotateSpring }}
         role="img"
         aria-label="Stockholm DJ Logo"
+        className="text-gray-900 dark:text-white"
       >
         {/* Outer circle */}
-        <circle cx="50" cy="50" r="48" stroke="#fafafa" strokeWidth="4" fill="none" />
+        <circle cx="50" cy="50" r="48" stroke="currentColor" strokeWidth="4" fill="none" />
         
         {/* DJ stylized elements */}
         <path
           d="M30 30L70 50L30 70L30 30Z"
-          fill="#fafafa"
+          fill="currentColor"
         />
         
         {/* Record groove lines */}
-        <circle cx="50" cy="50" r="20" stroke="#fafafa" strokeWidth="1" fill="none" />
-        <circle cx="50" cy="50" r="30" stroke="#fafafa" strokeWidth="1" fill="none" />
-        <circle cx="50" cy="50" r="40" stroke="#fafafa" strokeWidth="1" fill="none" />
+        <circle cx="50" cy="50" r="20" stroke="currentColor" strokeWidth="1" fill="none" />
+        <circle cx="50" cy="50" r="30" stroke="currentColor" strokeWidth="1" fill="none" />
+        <circle cx="50" cy="50" r="40" stroke="currentColor" strokeWidth="1" fill="none" />
       </motion.svg>
 
       {/* Optional: text logo next to icon */}
-      <div className="ml-2 text-fafafa hidden sm:block font-semibold">
+      <div className="ml-2 text-gray-900 dark:text-white hidden sm:block font-semibold">
         Stockholm.DJ
       </div>
     </Link>

@@ -12,15 +12,15 @@ import {
 
 export default function Footer() {
   return (
-    <footer className="bg-white text-gray-600">
+    <footer className="bg-white dark:bg-black text-gray-600 dark:text-gray-400 transition-colors duration-200">
       <div className="container mx-auto px-6 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
           <div className="mb-8 md:mb-0">
-            <h2 className="text-lg font-semibold mb-4">Stockholm.DJ</h2>
+            <h2 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Stockholm.DJ</h2>
             <p className="text-sm mb-6">
               Text om Stockholm.DJ. Lorem ipsum dolor sit amet, consectetur
             </p>
-            <h3 className="text-md font-semibold mb-3">Följ oss</h3>
+            <h3 className="text-md font-semibold mb-3 text-gray-900 dark:text-white">Följ oss</h3>
             <div className="flex space-x-4">
               <Link href="https://www.facebook.com/" passHref>
                 <Button size="icon" variant="ghost" aria-label="Facebook">
@@ -45,12 +45,12 @@ export default function Footer() {
             </div>
           </div>
           <div>
-            <h2 className="text-lg font-semibold mb-4">Sidor</h2>
+            <h2 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Sidor</h2>
             <ul className="space-y-2">
               <li>
                 <Link
                   href="/book/wedding"
-                  className="text-sm hover:text-gray-900"
+                  className="text-sm hover:text-gray-900 dark:hover:text-white transition-colors"
                 >
                   Bröllop
                 </Link>
@@ -58,7 +58,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/book/company"
-                  className="text-sm hover:text-gray-900"
+                  className="text-sm hover:text-gray-900 dark:hover:text-white transition-colors"
                 >
                   Företagsevent
                 </Link>
@@ -66,13 +66,13 @@ export default function Footer() {
               <li>
                 <Link
                   href="/book/private"
-                  className="text-sm hover:text-gray-900"
+                  className="text-sm hover:text-gray-900 dark:hover:text-white transition-colors"
                 >
                   Privatfest
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="text-sm hover:text-gray-900">
+                <Link href="/about" className="text-sm hover:text-gray-900 dark:hover:text-white transition-colors">
                   Om oss
                 </Link>
               </li>
@@ -84,20 +84,20 @@ export default function Footer() {
             <Newsletter/>
             </div> */}
             
-            <h2 className="text-lg font-semibold mb-4">Kontakt</h2>
+            <h2 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Kontakt</h2>
             <div className="space-y-2 mb-6">
               <Link
                 href="https://maps.app.goo.gl/WZQJWDUrwCTsraiP7"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center text-sm hover:text-gray-900"
+                className="flex items-center text-sm hover:text-gray-900 dark:hover:text-white transition-colors"
               >
                 <MapPin className="h-4 w-4 mr-2" />
                 Nathorstvägen 46, 121 37 Johanneshov
               </Link>
               <Link
                 href="mailto:info@platoon.se"
-                className="flex items-center text-sm hover:text-gray-900"
+                className="flex items-center text-sm hover:text-gray-900 dark:hover:text-white transition-colors"
               >
                 <Mail className="h-4 w-4 mr-2" />
                 david.fornander@hotmail.com
@@ -106,7 +106,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-gray-200 mt-8 pt-8 text-center">
+        <div className="border-t border-gray-200 dark:border-gray-800 mt-8 pt-8 text-center transition-colors duration-200">
           <p className="text-sm">
             © {new Date().getFullYear()}  Echo Ventures. All rights reserved.
           </p>

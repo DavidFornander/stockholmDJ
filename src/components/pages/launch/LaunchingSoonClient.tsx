@@ -45,7 +45,7 @@ export default function LaunchingSoonClient() {
   ];
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-neutral-950 text-white px-4">
+    <main className="flex min-h-screen flex-col items-center justify-center bg-white dark:bg-black text-gray-900 dark:text-white px-4 transition-colors duration-200">
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -53,15 +53,15 @@ export default function LaunchingSoonClient() {
         className="text-center max-w-4xl"
       >
         <div className="mb-12">
-          <h1 className="text-4xl md:text-6xl font-bold mb-4">Launching Soon</h1>
-          <p className="text-lg md:text-xl">We're working hard to bring you something amazing. Stay tuned!</p>
+          <h1 className="text-4xl md:text-6xl font-bold mb-4 text-gray-900 dark:text-white">Launching Soon</h1>
+          <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300">We're working hard to bring you something amazing. Stay tuned!</p>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
           {counterBoxes.map((box, index) => (
-            <div key={index} className="bg-neutral-800 p-4 rounded-lg text-center">
-              <p className="text-2xl md:text-4xl font-bold">{box.value}</p>
-              <p className="text-sm md:text-lg">{box.label}</p>
+            <div key={index} className="bg-gray-100 dark:bg-gray-900 p-4 rounded-lg text-center border border-gray-300 dark:border-gray-800">
+              <p className="text-2xl md:text-4xl font-bold text-gray-900 dark:text-white">{box.value}</p>
+              <p className="text-sm md:text-lg text-gray-600 dark:text-gray-300">{box.label}</p>
             </div>
           ))}
         </div>

@@ -144,7 +144,7 @@ export default function TimelineDemo() {
     }
   ];
   return (
-    <section className="px-8 lg:px-32 py-16 bg-neutral-950">
+    <section className="px-8 lg:px-32 py-16 bg-white dark:bg-black">
       <div className="w-full justify-center flex">
         <Timeline data={data} />
       </div>

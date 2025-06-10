@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./styles/globals.css";
 import { Navbar } from '../components/global/navbar/Navbar';
 import Footer from '../components/global/footer/Footer';
+import { ThemeProvider } from '../components/global/theme/ThemeProvider';
 import Script from 'next/script';
 
 const geistSans = localFont({
@@ -42,11 +43,13 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-black text-gray-900 dark:text-gray-100 transition-colors duration-200`}
       >
-        <Navbar/>
-        {children}
-        <Footer/>
+        <ThemeProvider>
+          <Navbar/>
+          {children}
+          <Footer/>
+        </ThemeProvider>
       </body>
     </html>
   );

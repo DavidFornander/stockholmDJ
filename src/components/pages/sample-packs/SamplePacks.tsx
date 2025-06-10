@@ -43,7 +43,7 @@ const samplePacksData = [
 
 const SamplePacks: React.FC = () => {
   return (
-    <div className="bg-neutral-950 text-white min-h-screen py-16">
+    <div className="bg-white dark:bg-black text-gray-900 dark:text-white min-h-screen py-16">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h1 className="text-4xl font-bold mb-4">Sample Packs</h1>

@@ -5,7 +5,7 @@ import GroupImage from "@/components/pages/about/sections/groupimage/GroupImage"
 
 export default function About(): JSX.Element {
   return (
-    <div className="mx-auto flex flex-col items-center">
+    <div className="mx-auto flex flex-col items-center bg-white dark:bg-black transition-colors duration-200">
       <GroupImage />
       {/* <TeamMembers /> */}
       {/* <SoundCloud /> */}
