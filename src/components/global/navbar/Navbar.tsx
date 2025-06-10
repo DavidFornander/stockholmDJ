@@ -7,7 +7,8 @@ import { ThemeToggle } from "../theme/ThemeToggle";
 
 const tabs = [
   { name: "Hitta DJs", path: "/djs" },
-  { name: "Hitta Events", path: "/events" }, // Changed name from "Kommande Events"
+  { name: "Hitta Events", path: "/events" },
+  { name: "Hyr Utrustning", path: "/equipment" },
 ];
 
 export const Navbar = () => {
