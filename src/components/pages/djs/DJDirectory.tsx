@@ -18,7 +18,7 @@ const djsData = [
     experience: '8+ år',
     imageUrl: '/assets/images/profiles/dj_image.jpg',
     available: true,
-    duration: '9 timmar',
+    duration: '1-9 timmar',
     equipment: 'Komplett ljudanläggning'
   },
   {
@@ -33,7 +33,7 @@ const djsData = [
     experience: '6+ år',
     imageUrl: '/assets/images/profiles/glow__page--irl-looks-01.jpg',
     available: true,
-    duration: '6 timmar',
+    duration: '1-6 timmar',
     equipment: 'Premium ljudsystem'
   },
   {
@@ -48,7 +48,7 @@ const djsData = [
     experience: '10+ år',
     imageUrl: '/assets/images/profiles/glow__page--irl-looks-02.jpg',
     available: false,
-    duration: '5 timmar',
+    duration: '1-5 timmar',
     equipment: 'Professionell utrustning'
   },
   {
@@ -63,7 +63,7 @@ const djsData = [
     experience: '5+ år',
     imageUrl: '/assets/images/profiles/glow__page--irl-looks-03.jpg',
     available: true,
-    duration: '4 timmar',
+    duration: '1-4 timmar',
     equipment: 'Standardutrustning'
   },
   {
@@ -78,7 +78,7 @@ const djsData = [
     experience: '12+ år',
     imageUrl: '/assets/images/profiles/glow__page--irl-looks-04.jpg',
     available: true,
-    duration: '6 timmar',
+    duration: '1-6 timmar',
     equipment: 'Vintage vinyl setup'
   },
   {
@@ -93,7 +93,7 @@ const djsData = [
     experience: '7+ år',
     imageUrl: '/assets/images/profiles/glow__page--irl-looks-05.jpg',
     available: true,
-    duration: '5 timmar',
+    duration: '1-5 timmar',
     equipment: 'Diskret ljudsystem'
   }
 ];
