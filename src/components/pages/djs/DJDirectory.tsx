@@ -16,7 +16,7 @@ const djsData = [
     location: 'Stockholm City',
     specialties: ['House', 'Techno', 'Deep House'],
     experience: '8+ år',
-    imageUrl: '/assets/profiles/dj_image.jpg',
+    imageUrl: '/assets/images/profiles/dj_image.jpg',
     available: true,
     duration: '4 timmar',
     equipment: 'Komplett ljudanläggning'
@@ -31,7 +31,7 @@ const djsData = [
     location: 'Södermalm',
     specialties: ['Pop', 'RnB', 'Wedding'],
     experience: '6+ år',
-    imageUrl: '/assets/events/event1.jpg',
+    imageUrl: '/assets/images/profiles/glow__page--irl-looks-01.jpg',
     available: true,
     duration: '6 timmar',
     equipment: 'Premium ljudsystem'
@@ -46,7 +46,7 @@ const djsData = [
     location: 'Östermalm',
     specialties: ['Progressive', 'Trance', 'Electronic'],
     experience: '10+ år',
-    imageUrl: '/assets/events/event2.jpg',
+    imageUrl: '/assets/images/profiles/glow__page--irl-looks-02.jpg',
     available: false,
     duration: '5 timmar',
     equipment: 'Professionell utrustning'
@@ -61,7 +61,7 @@ const djsData = [
     location: 'Vasastan',
     specialties: ['Hip-Hop', 'RnB', 'Urban'],
     experience: '5+ år',
-    imageUrl: '/assets/events/event3.jpg',
+    imageUrl: '/assets/images/profiles/glow__page--irl-looks-03.jpg',
     available: true,
     duration: '4 timmar',
     equipment: 'Standardutrustning'
@@ -76,7 +76,7 @@ const djsData = [
     location: 'Gamla Stan',
     specialties: ['Vinyl', 'Classic House', 'Disco'],
     experience: '12+ år',
-    imageUrl: '/assets/events/event4.jpg',
+    imageUrl: '/assets/images/profiles/glow__page--irl-looks-04.jpg',
     available: true,
     duration: '6 timmar',
     equipment: 'Vintage vinyl setup'
@@ -91,7 +91,7 @@ const djsData = [
     location: 'Norrmalm',
     specialties: ['Corporate', 'Jazz', 'Lounge'],
     experience: '7+ år',
-    imageUrl: '/assets/events/event5.jpg',
+    imageUrl: '/assets/images/profiles/glow__page--irl-looks-05.jpg',
     available: true,
     duration: '5 timmar',
     equipment: 'Diskret ljudsystem'

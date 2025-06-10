@@ -1,5 +1,6 @@
 import React from 'react';
 import EventCard from './EventCard';
+import Image from 'next/image'; // Added import for Image
 
 // Sample event data - in a real app, this would come from an API or CMS
 const eventsData = [
@@ -59,6 +60,17 @@ const Events: React.FC = () => {
   return (
     <div className="bg-white dark:bg-black text-gray-900 dark:text-white min-h-screen py-16">
       <div className="container mx-auto px-4">
+        {/* Hero Image Section */}
+        <div className="mb-12 w-full h-80 relative overflow-hidden rounded-lg shadow-lg">
+          <Image
+            src="/assets/temp/2Q.png"
+            alt="Hitta Events Hero"
+            fill
+            className="object-cover"
+            priority
+          />
+        </div>
+
         <div className="text-center mb-16">
           <h1 className="text-4xl font-bold mb-4">Kommande Events</h1>
           <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
