@@ -306,8 +306,10 @@ const DJDirectory: React.FC = () => {
 
             {/* DJ Info */}
             <div className="flex-grow min-w-0">
-              <div className="flex items-start justify-between">
-                <div>
+              {/* Name, 3D/Calendar, and Rating Row */}
+              <div className="flex items-start justify-between gap-4">
+                {/* Name Section */}
+                <div className="flex-1 min-w-0">
                   <h3 className="font-semibold text-gray-900 dark:text-white text-lg">{dj.name}</h3>
                   <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">{dj.title}</p>
                   <div className="flex items-center gap-4 mt-2 text-sm text-gray-500 dark:text-gray-400">
@@ -321,9 +323,37 @@ const DJDirectory: React.FC = () => {
                     </div>
                   </div>
                 </div>
+
+                {/* 3D Model & Calendar Section - Between name and rating */}
+                <div className="flex gap-3 flex-shrink-0">
+                  <div className="w-[100px] h-[80px] hidden sm:block">
+                    <Compact3DViewer
+                      modelPath={dj.model3D}
+                      selectedGear={selectedGear}
+                      className="w-full h-full"
+                    />
+                  </div>
+                  <div className="w-[120px] h-[80px]">
+                    <MiniCalendar
+                      availability={dj.availability}
+                      selectedDate={selectedDate}
+                      onDateSelect={setSelectedDate}
+                      className="w-full h-full text-xs"
+                    />
+                  </div>
+                  
+                  {/* Mobile 3D Model - Below calendar on small screens */}
+                  <div className="w-[100px] h-[80px] sm:hidden">
+                    <Compact3DViewer
+                      modelPath={dj.model3D}
+                      selectedGear={selectedGear}
+                      className="w-full h-full"
+                    />
+                  </div>
+                </div>
                 
                 {/* Rating */}
-                <div className="text-right">
+                <div className="text-right flex-shrink-0">
                   <div className="flex items-center gap-1">
                     <Star className="w-4 h-4 fill-blue-500 text-blue-500" />
                     <span className="font-semibold text-gray-900 dark:text-white">{dj.rating}</span>
@@ -342,34 +372,6 @@ const DJDirectory: React.FC = () => {
                     {specialty}
                   </span>
                 ))}
-              </div>
-
-              {/* 3D Model & Calendar Section - Mobile Responsive */}
-              <div className="flex gap-3 mt-4">
-                <div className="w-[100px] h-[80px] hidden sm:block">
-                  <Compact3DViewer
-                    modelPath={dj.model3D}
-                    selectedGear={selectedGear}
-                    className="w-full h-full"
-                  />
-                </div>
-                <div className="w-[120px] h-[80px] sm:w-[120px]">
-                  <MiniCalendar
-                    availability={dj.availability}
-                    selectedDate={selectedDate}
-                    onDateSelect={setSelectedDate}
-                    className="w-full h-full text-xs"
-                  />
-                </div>
-                
-                {/* Mobile 3D Model - Below calendar on small screens */}
-                <div className="w-[100px] h-[80px] sm:hidden">
-                  <Compact3DViewer
-                    modelPath={dj.model3D}
-                    selectedGear={selectedGear}
-                    className="w-full h-full"
-                  />
-                </div>
               </div>
 
               {/* Interactive Controls & Pricing - Mobile Responsive */}
