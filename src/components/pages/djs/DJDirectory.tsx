@@ -115,7 +115,6 @@ interface DJ {
 }
 
 const DJDirectory: React.FC = () => {
-  const [activeTab, setActiveTab] = useState('search');
   const [searchFrom, setSearchFrom] = useState('');
   const [searchTo, setSearchTo] = useState('');
   const [eventDate, setEventDate] = useState('');
@@ -251,29 +250,6 @@ const DJDirectory: React.FC = () => {
       {/* Header Search Section */}
       <div className="bg-white dark:bg-black shadow-sm transition-colors duration-200">
         <div className="max-w-6xl mx-auto px-4 py-6">
-          {/* Tab Navigation */}
-          <div className="flex gap-8 mb-6 border-b border-gray-200 dark:border-gray-700">
-            <button
-              className={`pb-3 px-1 font-medium text-sm border-b-2 transition-colors ${
-                activeTab === 'search' 
-                  ? 'border-blue-600 text-blue-600 dark:text-blue-400' 
-                  : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
-              }`}
-              onClick={() => setActiveTab('search')}
-            >
-              Sök DJs
-            </button>
-            <button
-              className={`pb-3 px-1 font-medium text-sm border-b-2 transition-colors ${
-                activeTab === 'manage' 
-                  ? 'border-blue-600 text-blue-600 dark:text-blue-400' 
-                  : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
-              }`}
-              onClick={() => setActiveTab('manage')}
-            >
-              Hantera bokningar
-            </button>
-          </div>
 
           {/* Search Form */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
