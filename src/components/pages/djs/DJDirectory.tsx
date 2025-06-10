@@ -307,7 +307,7 @@ const DJDirectory: React.FC = () => {
             {/* DJ Info */}
             <div className="flex-grow min-w-0">
               {/* Name, 3D/Calendar, and Rating Row */}
-              <div className="flex items-start justify-between gap-4">
+              <div className="flex items-start">
                 {/* Name Section */}
                 <div className="flex-1 min-w-0">
                   <h3 className="font-semibold text-gray-900 dark:text-white text-lg">{dj.name}</h3>
@@ -324,8 +324,8 @@ const DJDirectory: React.FC = () => {
                   </div>
                 </div>
 
-                {/* 3D Model & Calendar Section - Between name and rating */}
-                <div className="flex gap-3 flex-shrink-0">
+                {/* 3D Model & Calendar Section - Centered */}
+                <div className="flex gap-3 flex-shrink-0 justify-center flex-1">
                   <div className="w-[100px] h-[80px] hidden sm:block">
                     <Compact3DViewer
                       modelPath={dj.model3D}
@@ -353,12 +353,14 @@ const DJDirectory: React.FC = () => {
                 </div>
                 
                 {/* Rating */}
-                <div className="text-right flex-shrink-0">
-                  <div className="flex items-center gap-1">
-                    <Star className="w-4 h-4 fill-blue-500 text-blue-500" />
-                    <span className="font-semibold text-gray-900 dark:text-white">{dj.rating}</span>
+                <div className="text-right flex-shrink-0 flex-1 flex justify-end">
+                  <div>
+                    <div className="flex items-center gap-1">
+                      <Star className="w-4 h-4 fill-blue-500 text-blue-500" />
+                      <span className="font-semibold text-gray-900 dark:text-white">{dj.rating}</span>
+                    </div>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">{dj.reviewCount} recensioner</p>
                   </div>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">{dj.reviewCount} recensioner</p>
                 </div>
               </div>
 
