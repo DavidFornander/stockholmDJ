@@ -57,6 +57,86 @@ const eventsData = [
     imageUrl: '/assets/images/profiles/wink__page--gallery-08.jpg',
     link: '/events/rooftop-underground'
   },
+  {
+    id: '9',
+    title: 'Summer Solstice Rave',
+    date: '15 Juni 2025',
+    time: '18:00 - 08:00',
+    location: 'Skärgården, Stockholm',
+    description: 'Midsommarfirande med elektronisk twist. Naturens egna danslokal under ljusa natten. Progressive house och ambient från svenska stjärnor.',
+    imageUrl: '/assets/images/profiles/moda__page--lookbook-03.jpg',
+    link: '/events/summer-solstice-rave'
+  },
+  {
+    id: '10',
+    title: 'Vinyl Only Marathon',
+    date: '29 Juni 2025',
+    time: '22:00 - 12:00',
+    location: 'Record Store, Södermalm',
+    description: '14 timmar av ren vinyl-magi. Bara skivspelare och äkta wax. Deep cuts från världens bästa vinyl-junkies och rare grooves.',
+    imageUrl: '/assets/images/profiles/trending__page--lookbook-02.jpg',
+    link: '/events/vinyl-only-marathon'
+  },
+  {
+    id: '11',
+    title: 'Techno Sunrise',
+    date: '5 Juli 2025',
+    time: '02:00 - 14:00',
+    location: 'Strand, Långholmen',
+    description: 'Dans fram till soluppgången och sedan vidare. 12 timmar av ren techno vid vattnet. Detroit legends möter svenska producers.',
+    imageUrl: '/assets/images/profiles/glow__page--irl-looks-08.jpg',
+    link: '/events/techno-sunrise'
+  },
+  {
+    id: '12',
+    title: 'Underground Jazz & House',
+    date: '18 Juli 2025',
+    time: '21:00 - 05:00',
+    location: 'Jazz Cellar, Gamla Stan',
+    description: 'Fusion av jazz och elektronisk musik. Live-musiker jammar med house-producenter. Unik upplevelse för öppna sinnen.',
+    imageUrl: '/assets/images/profiles/moda__page--lookbook-04.jpg',
+    link: '/events/underground-jazz-house'
+  },
+  {
+    id: '13',
+    title: 'Minimalism Festival',
+    date: '2 Augusti 2025',
+    time: '20:00 - 10:00',
+    location: 'Konstgalleri, Vasastan',
+    description: 'Minimal techno i konstens tecken. Ljud- och ljusinstallationer skapar immersiv upplevelse. Europeiska minimal-mästare.',
+    imageUrl: '/assets/images/profiles/trending__page--lookbook-03.jpg',
+    link: '/events/minimalism-festival'
+  },
+  {
+    id: '14',
+    title: 'Breakbeat Revolution',
+    date: '16 Augusti 2025',
+    time: '23:00 - 07:00',
+    location: 'Industrial Space, Nacka',
+    description: 'Breakbeat och drum\'n\'bass revival. UK legends gästar Stockholm. Jungle, hardcore och liquid DnB i perfekt mix.',
+    imageUrl: '/assets/images/profiles/glow__page--irl-looks-07.jpg',
+    link: '/events/breakbeat-revolution'
+  },
+  {
+    id: '15',
+    title: 'Ambient Soundscapes',
+    date: '30 Augusti 2025',
+    time: '19:00 - 03:00',
+    location: 'Botaniska Trädgården',
+    description: 'Ambient elektronika bland växterna. Meditativ ljudresa genom naturens harmoni. Brain Dance och chillout i grön miljö.',
+    imageUrl: '/assets/images/profiles/moda__page--lookbook-05.jpg',
+    link: '/events/ambient-soundscapes'
+  },
+  {
+    id: '16',
+    title: 'September Sessions',
+    date: '12 September 2025',
+    time: '22:30 - 06:30',
+    location: 'Underground, Hornstull',
+    description: 'Höstens första riktiga rave. Deep techno och progressive house när temperaturen sjunker. Kvalité över kvantitet.',
+    imageUrl: '/assets/images/profiles/trending__page--lookbook-04.jpg',
+    link: '/events/september-sessions'
+  },
   // Past events
   {
     id: '6',
