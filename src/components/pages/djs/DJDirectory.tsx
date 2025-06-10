@@ -227,6 +227,27 @@ const DJDirectory: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-black transition-colors duration-200">
+      {/* Hero Image Section */}
+      <div className="relative w-full h-64 md:h-80 lg:h-96 overflow-hidden">
+        <Image
+          src="/assets/temp/2Q.png"
+          alt="DJ performing at event"
+          fill
+          className="object-cover object-center"
+          priority
+        />
+        <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+          <div className="text-center text-white">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
+              Hitta DJs
+            </h1>
+            <p className="text-lg md:text-xl text-gray-200">
+              Upptäck Stockholms bästa DJs för ditt event
+            </p>
+          </div>
+        </div>
+      </div>
+
       {/* Header Search Section */}
       <div className="bg-white dark:bg-black shadow-sm transition-colors duration-200">
         <div className="max-w-6xl mx-auto px-4 py-6">
