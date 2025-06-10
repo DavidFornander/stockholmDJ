@@ -8,17 +8,17 @@ import { Search, SlidersHorizontal, MapPin, Star, Music2, Clock } from 'lucide-r
 const djsData = [
   {
     id: '1',
-    name: 'Alex Andersson',
+    name: 'Hugo Falck',
     title: 'House & Techno Specialist',
     price: 15000,
     rating: 4.9,
     reviewCount: 147,
-    location: 'Stockholm City',
+    location: 'På Landet för fan',
     specialties: ['House', 'Techno', 'Deep House'],
     experience: '8+ år',
     imageUrl: '/assets/images/profiles/dj_image.jpg',
     available: true,
-    duration: '4 timmar',
+    duration: '9 timmar',
     equipment: 'Komplett ljudanläggning'
   },
   {
@@ -150,8 +150,8 @@ const DJDirectory: React.FC = () => {
               <Image
                 src={dj.imageUrl}
                 alt={dj.name}
-                width={64}
-                height={64}
+                width={128}
+                height={128}
                 className="w-full h-full object-cover"
               />
             </div>
@@ -245,73 +245,51 @@ const DJDirectory: React.FC = () => {
             </p>
           </div>
         </div>
-      </div>
 
-      {/* Header Search Section */}
-      <div className="bg-white dark:bg-black shadow-sm transition-colors duration-200">
-        <div className="max-w-6xl mx-auto px-4 py-6">
-
-          {/* Search Form */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Från</label>
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder="Plats/område"
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
-                  value={searchFrom}
-                  onChange={(e) => setSearchFrom(e.target.value)}
-                />
-                <MapPin className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 w-4 h-4" />
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Till</label>
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder="Musikstil/genre"
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
-                  value={searchTo}
-                  onChange={(e) => setSearchTo(e.target.value)}
-                />
-                <Music2 className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 w-4 h-4" />
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Datum</label>
+        {/* Search Form Overlay */}
+        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-full max-w-4xl px-4">
+          <div className="bg-white dark:bg-gray-800 rounded-full shadow-md flex items-center divide-x divide-gray-200 dark:divide-gray-700">
+            <div className="flex-1 px-4 py-2">
               <input
-                type="date"
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
-                value={eventDate}
-                onChange={(e) => setEventDate(e.target.value)}
+                type="text"
+                placeholder="Plats"
+                value={searchFrom}
+                onChange={(e) => setSearchFrom(e.target.value)}
+                className="w-full bg-transparent focus:outline-none text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
               />
             </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Eventtyp</label>
+            <div className="flex-1 px-4 py-2">
+              <input
+                type="text"
+                placeholder="Musikstil"
+                value={searchTo}
+                onChange={(e) => setSearchTo(e.target.value)}
+                className="w-full bg-transparent focus:outline-none text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+              />
+            </div>
+            <div className="flex-1 px-4 py-2">
+              <input
+                type="date"
+                value={eventDate}
+                onChange={(e) => setEventDate(e.target.value)}
+                className="w-full bg-transparent focus:outline-none text-gray-900 dark:text-white"
+              />
+            </div>
+            <div className="flex-1 px-4 py-2">
               <select
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
                 value={eventType}
                 onChange={(e) => setEventType(e.target.value)}
+                className="w-full bg-transparent focus:outline-none text-gray-900 dark:text-white"
               >
-                <option value="">Välj eventtyp</option>
+                <option value="">Eventtyp</option>
                 <option value="wedding">Bröllop</option>
                 <option value="corporate">Företagsevent</option>
                 <option value="party">Privat fest</option>
                 <option value="club">Klubb</option>
               </select>
             </div>
-          </div>
-
-          {/* Search Button */}
-          <div className="flex justify-center mt-6">
-            <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-md font-medium transition-colors flex items-center gap-2">
-              <Search className="w-5 h-5" />
-              Sök DJs
+            <button className="p-2 rounded-full bg-blue-600 hover:bg-blue-700 transition-colors px-4">
+              <Search className="w-5 h-5 text-white" />
             </button>
           </div>
         </div>
