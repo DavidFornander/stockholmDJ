@@ -64,7 +64,7 @@ const SamplePacks: React.FC = () => {
             We can create custom sample packs for your specific production needs or book one of our experienced DJs for your next event.
           </p>
           <a 
-            href="/bokabeta3" 
+            href="/book" 
             className="inline-block bg-orange-500 text-white px-6 py-3 rounded-md hover:bg-orange-600 transition-colors"
           >
             Contact Us

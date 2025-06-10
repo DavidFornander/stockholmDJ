@@ -47,7 +47,7 @@
 The Stockholm.DJ site is now **LIVE** and functional with:
 
 - ✅ Working navigation (Hem, Event, Boka, Om oss)
-- ✅ Interactive 3D booking system (`/bokabeta3`)
+- ✅ Interactive 3D booking system (`/book`)
 - ✅ Events showcase (`/events`)  
 - ✅ About page with timeline (`/about`)
 - ✅ Sample packs page (`/sample-packs`)

@@ -182,7 +182,7 @@ const Equipment: React.FC = () => {
 						hitta rätt setup för ditt event.
 					</p>
 					<a
-						href="/bokabeta3"
+						href="/book"
 						className="inline-block bg-orange-500 text-white px-6 py-3 rounded-md hover:bg-orange-600 transition-colors"
 					>
 						Kontakta oss

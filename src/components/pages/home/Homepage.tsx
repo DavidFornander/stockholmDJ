@@ -100,10 +100,10 @@ export default function Homepage() {
                   Bläddra DJs
                 </Link>
                 <Link 
-                  href="/bokabeta3"
+                  href="/book"
                   className="border border-gray-400 dark:border-gray-600 text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white px-8 py-3 rounded-lg font-semibold transition-colors inline-block"
                 >
-                  Testa Bokning (Beta)
+                  Boka Schema
                 </Link>
               </div>
             </motion.div>
@@ -144,7 +144,7 @@ export default function Homepage() {
                   Interaktiv 3D-konfigurator för att välja perfekt DJ-setup för ditt event
                 </p>
                 <Link 
-                  href="/bokabeta3" 
+                  href="/book" 
                   className="inline-block mt-4 text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
                 >
                   Prova nu →

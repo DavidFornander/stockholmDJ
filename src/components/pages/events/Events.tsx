@@ -146,7 +146,7 @@ const Events: React.FC = () => {
             Vi kan hjälpa dig arrangera ditt eget event, oavsett om det är en företagsfest, ett bröllop eller en privatfest.
           </p>
           <a 
-            href="/bokabeta3" 
+            href="/book" 
             className="inline-block bg-orange-500 text-white px-6 py-3 rounded-md hover:bg-orange-600 transition-colors"
           >
             Boka DJ

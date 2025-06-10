@@ -73,10 +73,10 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/bokabeta3"
+                  href="/book"
                   className="text-sm hover:text-gray-900 dark:hover:text-white transition-colors"
                 >
-                  Boka Schema (Beta)
+                  Boka Schema
                 </Link>
               </li>
               <li>

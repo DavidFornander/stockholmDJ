@@ -65,7 +65,7 @@ Completed full dark/light theme implementation for Stockholm.DJ website with:
   - Tab navigation styling
   - Filter dropdowns
 
-- **Booking Flow** (`src/app/bokabeta3/page.tsx`)
+- **Booking Flow** (`src/app/book/page.tsx`)
   - Form section backgrounds
   - Option button styling
   - Selected state indicators

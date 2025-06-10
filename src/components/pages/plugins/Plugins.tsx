@@ -64,7 +64,7 @@ const Plugins: React.FC = () => {
             Let Stockholm.DJ handle the music for your next event. Our experienced DJs create the perfect atmosphere for any occasion.
           </p>
           <a 
-            href="/bokabeta3" 
+            href="/book" 
             className="inline-block bg-orange-500 text-white px-6 py-3 rounded-md hover:bg-orange-600 transition-colors"
           >
             Book a DJ
