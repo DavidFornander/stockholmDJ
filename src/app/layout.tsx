@@ -4,6 +4,8 @@ import "./styles/globals.css";
 import { Navbar } from '../components/global/navbar/Navbar';
 import Footer from '../components/global/footer/Footer';
 import { ThemeProvider } from '../components/global/theme/ThemeProvider';
+import { BasketProvider } from '../context/BasketContext';
+import GlobalBasketFooter from '../components/shared/ui/GlobalBasketFooter';
 import Script from 'next/script';
 
 const geistSans = localFont({
@@ -43,12 +45,15 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-black text-gray-900 dark:text-gray-100 transition-colors duration-200`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-black text-gray-900 dark:text-gray-100 transition-colors duration-200 pb-20`}
       >
         <ThemeProvider>
-          <Navbar/>
-          {children}
-          <Footer/>
+          <BasketProvider>
+            <Navbar/>
+            {children}
+            <Footer/>
+            <GlobalBasketFooter/>
+          </BasketProvider>
         </ThemeProvider>
       </body>
     </html>

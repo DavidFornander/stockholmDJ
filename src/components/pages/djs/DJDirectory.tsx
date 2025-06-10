@@ -3,9 +3,15 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { Search, SlidersHorizontal, MapPin, Star, Music2, Clock } from 'lucide-react';
+import { DJ } from '@/types/dj';
+import { useBasket } from '@/context/BasketContext';
+import MiniCalendar from '@/components/shared/ui/MiniCalendar';
+import Compact3DViewer from '@/components/shared/ui/Compact3DViewer';
+import InlineGearSelector from '@/components/shared/ui/InlineGearSelector';
+import HourSlider from '@/components/shared/ui/HourSlider';
 
 // Sample DJ data
-const djsData = [
+const djsData: DJ[] = [
   {
     id: '1',
     name: 'Hugo Falck',
@@ -19,7 +25,25 @@ const djsData = [
     imageUrl: '/assets/images/profiles/dj_image.jpg',
     available: true,
     duration: '1-9 timmar',
-    equipment: 'Komplett ljudanläggning'
+    equipment: 'Komplett ljudanläggning',
+    hourlyRate: 2500,
+    availability: {
+      '2025-01-15': true,
+      '2025-01-16': true,
+      '2025-01-17': false,
+      '2025-01-18': true,
+      '2025-01-19': true,
+      '2025-01-20': true,
+      '2025-01-21': false
+    },
+    compatibleGear: {
+      speakers: ['2x 15\' toppar', '2x 15\' toppar + 1x 18\' sub', '2x 15\' toppar + 2x 18\' sub'],
+      djTables: ['Humpter B3 (Svart)', 'Humpter B3 (Vit)'],
+      players: ['Digital', 'Vinyl'],
+      microphones: ['Trådad', 'Trådlös', 'Trådlös (2st)'],
+      additionalItems: ['Uplighting', 'Strobe', 'Ljuspelare', 'Rokmaskin']
+    },
+    model3D: '/assets/models/Humpter_b3_v3.glb'
   },
   {
     id: '2',
@@ -34,7 +58,25 @@ const djsData = [
     imageUrl: '/assets/images/profiles/glow__page--irl-looks-01.jpg',
     available: true,
     duration: '1-6 timmar',
-    equipment: 'Premium ljudsystem'
+    equipment: 'Premium ljudsystem',
+    hourlyRate: 2000,
+    availability: {
+      '2025-01-15': true,
+      '2025-01-16': false,
+      '2025-01-17': true,
+      '2025-01-18': true,
+      '2025-01-19': false,
+      '2025-01-20': true,
+      '2025-01-21': true
+    },
+    compatibleGear: {
+      speakers: ['2x 15\' toppar', '2x 15\' toppar + 1x 18\' sub'],
+      djTables: ['Humpter B3 (Svart)', 'Humpter B3 (Vit)'],
+      players: ['Digital'],
+      microphones: ['Trådad', 'Trådlös', 'Trådlös (2st)'],
+      additionalItems: ['Uplighting', 'Ljuspelare', 'Projektor']
+    },
+    model3D: '/assets/models/Humpter_b3_v3.glb'
   },
   {
     id: '3',
@@ -49,7 +91,25 @@ const djsData = [
     imageUrl: '/assets/images/profiles/glow__page--irl-looks-02.jpg',
     available: false,
     duration: '1-5 timmar',
-    equipment: 'Professionell utrustning'
+    equipment: 'Professionell utrustning',
+    hourlyRate: 3000,
+    availability: {
+      '2025-01-15': false,
+      '2025-01-16': false,
+      '2025-01-17': false,
+      '2025-01-18': true,
+      '2025-01-19': true,
+      '2025-01-20': false,
+      '2025-01-21': true
+    },
+    compatibleGear: {
+      speakers: ['2x 15\' toppar + 1x 18\' sub', '2x 15\' toppar + 2x 18\' sub'],
+      djTables: ['Humpter B3 (Svart)', 'Humpter B3 (Vit)'],
+      players: ['Digital', 'Vinyl'],
+      microphones: ['Trådlös', 'Trådlös (2st)'],
+      additionalItems: ['Uplighting', 'Strobe', 'Ljuspelare', 'Rokmaskin', 'Projektor']
+    },
+    model3D: '/assets/models/Humpter_b3_v3.glb'
   },
   {
     id: '4',
@@ -64,7 +124,25 @@ const djsData = [
     imageUrl: '/assets/images/profiles/glow__page--irl-looks-03.jpg',
     available: true,
     duration: '1-4 timmar',
-    equipment: 'Standardutrustning'
+    equipment: 'Standardutrustning',
+    hourlyRate: 2200,
+    availability: {
+      '2025-01-15': true,
+      '2025-01-16': true,
+      '2025-01-17': true,
+      '2025-01-18': false,
+      '2025-01-19': true,
+      '2025-01-20': true,
+      '2025-01-21': false
+    },
+    compatibleGear: {
+      speakers: ['2x 15\' toppar', '2x 15\' toppar + 1x 18\' sub'],
+      djTables: ['Humpter B3 (Svart)'],
+      players: ['Digital', 'Vinyl'],
+      microphones: ['Trådad', 'Trådlös'],
+      additionalItems: ['Uplighting', 'Strobe']
+    },
+    model3D: '/assets/models/Humpter_b3_v3.glb'
   },
   {
     id: '5',
@@ -79,7 +157,25 @@ const djsData = [
     imageUrl: '/assets/images/profiles/glow__page--irl-looks-04.jpg',
     available: true,
     duration: '1-6 timmar',
-    equipment: 'Vintage vinyl setup'
+    equipment: 'Vintage vinyl setup',
+    hourlyRate: 2800,
+    availability: {
+      '2025-01-15': true,
+      '2025-01-16': true,
+      '2025-01-17': true,
+      '2025-01-18': true,
+      '2025-01-19': false,
+      '2025-01-20': false,
+      '2025-01-21': true
+    },
+    compatibleGear: {
+      speakers: ['2x 15\' toppar', '2x 15\' toppar + 1x 18\' sub'],
+      djTables: ['Humpter B3 (Svart)', 'Humpter B3 (Vit)'],
+      players: ['Vinyl'],
+      microphones: ['Trådad', 'Trådlös'],
+      additionalItems: ['Uplighting', 'Ljuspelare']
+    },
+    model3D: '/assets/models/Humpter_b3_v3.glb'
   },
   {
     id: '6',
@@ -94,25 +190,27 @@ const djsData = [
     imageUrl: '/assets/images/profiles/glow__page--irl-looks-05.jpg',
     available: true,
     duration: '1-5 timmar',
-    equipment: 'Diskret ljudsystem'
+    equipment: 'Diskret ljudsystem',
+    hourlyRate: 2100,
+    availability: {
+      '2025-01-15': false,
+      '2025-01-16': true,
+      '2025-01-17': true,
+      '2025-01-18': true,
+      '2025-01-19': true,
+      '2025-01-20': true,
+      '2025-01-21': false
+    },
+    compatibleGear: {
+      speakers: ['2x 15\' toppar'],
+      djTables: ['Humpter B3 (Svart)', 'Humpter B3 (Vit)'],
+      players: ['Digital'],
+      microphones: ['Trådad', 'Trådlös'],
+      additionalItems: ['Uplighting', 'Projektor']
+    },
+    model3D: '/assets/models/Humpter_b3_v3.glb'
   }
 ];
-
-interface DJ {
-  id: string;
-  name: string;
-  title: string;
-  price: number;
-  rating: number;
-  reviewCount: number;
-  location: string;
-  specialties: string[];
-  experience: string;
-  imageUrl: string;
-  available: boolean;
-  duration: string;
-  equipment: string;
-}
 
 const DJDirectory: React.FC = () => {
   const [searchFrom, setSearchFrom] = useState('');
@@ -140,89 +238,192 @@ const DJDirectory: React.FC = () => {
       }
     });
 
-  const DJCard: React.FC<{ dj: DJ }> = ({ dj }) => (
-    <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg hover:shadow-md dark:hover:shadow-lg transition-shadow duration-200">
-      <div className="p-6">
-        <div className="flex items-start gap-4">
-          {/* DJ Image */}
-          <div className="flex-shrink-0">
-            <div className="w-16 h-16 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-700">
-              <Image
-                src={dj.imageUrl}
-                alt={dj.name}
-                width={128}
-                height={128}
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </div>
+  const DJCard: React.FC<{ dj: DJ }> = ({ dj }) => {
+    const { addItem, isItemInBasket, removeItem } = useBasket();
+    const [selectedGear, setSelectedGear] = useState({
+      speakers: { name: 'Ljud finns i lokalen', cost: 0 },
+      djTable: { name: 'Finns i lokalen', cost: 0 },
+      player: { name: 'Digital', cost: 0 },
+      microphone: { name: 'Nej, tack', cost: 0 }
+    });
+    const [selectedHours, setSelectedHours] = useState(4);
+    const [selectedDate, setSelectedDate] = useState('');
 
-          {/* DJ Info */}
-          <div className="flex-grow min-w-0">
-            <div className="flex items-start justify-between">
-              <div>
-                <h3 className="font-semibold text-gray-900 dark:text-white text-lg">{dj.name}</h3>
-                <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">{dj.title}</p>
-                <div className="flex items-center gap-4 mt-2 text-sm text-gray-500 dark:text-gray-400">
-                  <div className="flex items-center gap-1">
-                    <MapPin className="w-4 h-4" />
-                    {dj.location}
+    const handleGearChange = (gearType: keyof typeof selectedGear, option: { name: string; cost: number }) => {
+      setSelectedGear(prev => ({
+        ...prev,
+        [gearType]: option
+      }));
+    };
+
+    const gearCost = Object.values(selectedGear).reduce((sum, gear) => sum + gear.cost, 0);
+    const totalPrice = (dj.hourlyRate * selectedHours) + gearCost;
+    const isInBasket = isItemInBasket(dj.id);
+
+    const handleAddToBasket = () => {
+      if (isInBasket) {
+        removeItem(dj.id);
+      } else {
+        const gearArray = Object.entries(selectedGear)
+          .filter(([_, gear]) => gear.cost > 0)
+          .map(([type, gear]) => ({
+            id: `${dj.id}-${type}`,
+            name: gear.name,
+            cost: gear.cost,
+            category: type
+          }));
+
+        addItem({
+          type: 'dj',
+          itemId: dj.id,
+          itemName: dj.name,
+          itemTitle: dj.title,
+          selectedDate: selectedDate || new Date().toISOString().split('T')[0],
+          selectedHours,
+          selectedGear: gearArray,
+          basePrice: dj.hourlyRate,
+          djData: dj
+        });
+      }
+    };
+
+    return (
+      <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg hover:shadow-md dark:hover:shadow-lg transition-shadow duration-200">
+        <div className="p-6">
+          <div className="flex items-start gap-4">
+            {/* DJ Image */}
+            <div className="flex-shrink-0">
+              <div className="w-16 h-16 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-700">
+                <Image
+                  src={dj.imageUrl}
+                  alt={dj.name}
+                  width={128}
+                  height={128}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+
+            {/* DJ Info */}
+            <div className="flex-grow min-w-0">
+              <div className="flex items-start justify-between">
+                <div>
+                  <h3 className="font-semibold text-gray-900 dark:text-white text-lg">{dj.name}</h3>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">{dj.title}</p>
+                  <div className="flex items-center gap-4 mt-2 text-sm text-gray-500 dark:text-gray-400">
+                    <div className="flex items-center gap-1">
+                      <MapPin className="w-4 h-4" />
+                      {dj.location}
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Music2 className="w-4 h-4" />
+                      {dj.experience} erfarenhet
+                    </div>
                   </div>
+                </div>
+                
+                {/* Rating */}
+                <div className="text-right">
                   <div className="flex items-center gap-1">
-                    <Clock className="w-4 h-4" />
-                    {dj.duration}
+                    <Star className="w-4 h-4 fill-blue-500 text-blue-500" />
+                    <span className="font-semibold text-gray-900 dark:text-white">{dj.rating}</span>
+                  </div>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">{dj.reviewCount} recensioner</p>
+                </div>
+              </div>
+
+              {/* Specialties */}
+              <div className="flex flex-wrap gap-1 mt-3">
+                {dj.specialties.slice(0, 3).map((specialty, index) => (
+                  <span
+                    key={index}
+                    className="inline-flex items-center px-2 py-1 text-xs font-medium bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded"
+                  >
+                    {specialty}
+                  </span>
+                ))}
+              </div>
+
+              {/* 3D Model & Calendar Section - Mobile Responsive */}
+              <div className="flex gap-3 mt-4">
+                <div className="w-[100px] h-[80px] hidden sm:block">
+                  <Compact3DViewer
+                    modelPath={dj.model3D}
+                    selectedGear={selectedGear}
+                    className="w-full h-full"
+                  />
+                </div>
+                <div className="w-[120px] h-[80px] sm:w-[120px]">
+                  <MiniCalendar
+                    availability={dj.availability}
+                    selectedDate={selectedDate}
+                    onDateSelect={setSelectedDate}
+                    className="w-full h-full text-xs"
+                  />
+                </div>
+                
+                {/* Mobile 3D Model - Below calendar on small screens */}
+                <div className="w-[100px] h-[80px] sm:hidden">
+                  <Compact3DViewer
+                    modelPath={dj.model3D}
+                    selectedGear={selectedGear}
+                    className="w-full h-full"
+                  />
+                </div>
+              </div>
+
+              {/* Interactive Controls & Pricing - Mobile Responsive */}
+              <div className="flex flex-col lg:flex-row lg:items-start justify-between mt-4 pt-4 border-t border-gray-100 dark:border-gray-700 gap-4">
+                {/* Gear Selection */}
+                <div className="flex-1 min-w-0">
+                  <InlineGearSelector
+                    compatibleGear={dj.compatibleGear}
+                    selectedGear={selectedGear}
+                    onGearChange={handleGearChange}
+                  />
+                </div>
+                
+                {/* Price and Controls */}
+                <div className="flex-shrink-0 w-full lg:w-[140px] lg:text-right">
+                  <div className="mb-3">
+                    <HourSlider
+                      value={selectedHours}
+                      onChange={setSelectedHours}
+                      hourlyRate={dj.hourlyRate}
+                      min={1}
+                      max={8}
+                    />
+                  </div>
+                  
+                  <div className="flex lg:flex-col justify-between lg:justify-start items-center lg:items-end">
+                    <div className="lg:mb-1">
+                      <div className="text-xl font-bold text-gray-900 dark:text-white">
+                        {totalPrice.toLocaleString('sv-SE')} kr
+                      </div>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 lg:mb-3">
+                        för {selectedHours}h
+                      </p>
+                    </div>
+                    
+                    <button 
+                      onClick={handleAddToBasket}
+                      className={`px-4 py-2 rounded text-sm font-medium transition-colors lg:w-full ${
+                        isInBasket
+                          ? 'bg-green-600 hover:bg-green-700 text-white'
+                          : 'bg-blue-600 hover:bg-blue-700 text-white'
+                      }`}
+                    >
+                      {isInBasket ? '✓ Tillagd' : 'Lägg till'}
+                    </button>
                   </div>
                 </div>
-              </div>
-              
-              {/* Rating */}
-              <div className="text-right">
-                <div className="flex items-center gap-1">
-                  <Star className="w-4 h-4 fill-blue-500 text-blue-500" />
-                  <span className="font-semibold text-gray-900 dark:text-white">{dj.rating}</span>
-                </div>
-                <p className="text-xs text-gray-500 dark:text-gray-400">{dj.reviewCount} recensioner</p>
-              </div>
-            </div>
-
-            {/* Specialties */}
-            <div className="flex flex-wrap gap-1 mt-3">
-              {dj.specialties.slice(0, 3).map((specialty, index) => (
-                <span
-                  key={index}
-                  className="inline-flex items-center px-2 py-1 text-xs font-medium bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded"
-                >
-                  {specialty}
-                </span>
-              ))}
-            </div>
-
-            {/* Equipment & Experience */}
-            <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-100 dark:border-gray-700">
-              <div className="text-sm text-gray-600 dark:text-gray-400">
-                <p>{dj.equipment}</p>
-                <p className="flex items-center gap-1 mt-1">
-                  <Music2 className="w-4 h-4" />
-                  {dj.experience} erfarenhet
-                </p>
-              </div>
-              
-              {/* Price and CTA */}
-              <div className="text-right">
-                <div className="text-xl font-bold text-gray-900 dark:text-white">
-                  {dj.price.toLocaleString('sv-SE')} kr
-                </div>
-                <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">per event</p>
-                <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm font-medium transition-colors">
-                  Välj DJ
-                </button>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-black transition-colors duration-200">
