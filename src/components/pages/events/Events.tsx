@@ -56,14 +56,83 @@ const eventsData = [
     description: 'Underground house under Stockholms himmel. Hemliga takfesten med utsikt över staden. Deep house och minimal när solen går upp.',
     imageUrl: '/assets/images/profiles/wink__page--gallery-08.jpg',
     link: '/events/rooftop-underground'
+  },
+  // Past events
+  {
+    id: '6',
+    title: 'Stockholm Summer Festival',
+    date: '15 Maj 2025',
+    time: '18:00 - 02:00',
+    location: 'Djurgården, Stockholm',
+    description: 'Sommarens största elektroniska musikfestival. Internationella headliners och svenska favoriter under öppna himlen.',
+    imageUrl: '/assets/images/profiles/moda__page--lookbook-01.jpg',
+    link: '/events/stockholm-summer-festival'
+  },
+  {
+    id: '7',
+    title: 'Midnight Techno',
+    date: '2 Maj 2025',
+    time: '00:00 - 08:00',
+    location: 'Klubb Undergound, Södermalm',
+    description: 'Hård techno hela natten. Detroit legends och Berlinsk underground i perfekt kombination.',
+    imageUrl: '/assets/images/profiles/glow__page--irl-looks-07.jpg',
+    link: '/events/midnight-techno'
+  },
+  {
+    id: '8',
+    title: 'House Classics Night',
+    date: '20 April 2025',
+    time: '22:00 - 06:00',
+    location: 'Café Opera, Stockholm',
+    description: 'En hyllning till house-musikens guldålder. Klassiker från Chicago och New York som formade genren.',
+    imageUrl: '/assets/images/profiles/trending__page--lookbook-02.jpg',
+    link: '/events/house-classics-night'
   }
 ];
+
+// Function to parse Swedish date format
+const parseSwedishDate = (dateString: string): Date => {
+  const monthMap: { [key: string]: number } = {
+    'Januari': 0, 'Februari': 1, 'Mars': 2, 'April': 3,
+    'Maj': 4, 'Juni': 5, 'Juli': 6, 'Augusti': 7,
+    'September': 8, 'Oktober': 9, 'November': 10, 'December': 11
+  };
+  
+  const parts = dateString.split(' ');
+  if (parts.length !== 3) return new Date();
+  
+  const day = parseInt(parts[0]);
+  const month = monthMap[parts[1]];
+  const year = parseInt(parts[2]);
+  
+  return new Date(year, month, day);
+};
 
 const Events: React.FC = () => {
   const [searchLocation, setSearchLocation] = useState('');
   const [searchEventType, setSearchEventType] = useState('');
   const [eventDate, setEventDate] = useState('');
   const [searchMusicStyle, setSearchMusicStyle] = useState('');
+
+  // Auto-categorize events based on current date
+  const today = new Date();
+  
+  // Filter and categorize events
+  const filterEvents = (events: typeof eventsData) => {
+    return events.filter(event => {
+      const matchesLocation = !searchLocation || event.location.toLowerCase().includes(searchLocation.toLowerCase());
+      const matchesEventType = !searchEventType || event.title.toLowerCase().includes(searchEventType.toLowerCase());
+      const matchesMusicStyle = !searchMusicStyle || event.description.toLowerCase().includes(searchMusicStyle.toLowerCase());
+      const matchesDate = !eventDate || event.date.includes(eventDate);
+      
+      return matchesLocation && matchesEventType && matchesMusicStyle && matchesDate;
+    });
+  };
+
+  const filteredEvents = filterEvents(eventsData);
+  
+  const upcomingEvents = filteredEvents.filter(event => parseSwedishDate(event.date) >= today);
+  const pastEvents = filteredEvents.filter(event => parseSwedishDate(event.date) < today);
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-black transition-colors duration-200">
@@ -132,26 +201,92 @@ const Events: React.FC = () => {
         </div>
       </div>
 
+      {/* Kommande Events Section */}
       <div className="container mx-auto px-4 py-8">
-        
+        {/* Results Header */}
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+              Kommande Events
+            </h2>
+            <p className="text-gray-600 dark:text-gray-400 mt-1">
+              {upcomingEvents.length} events hittade
+            </p>
+          </div>
+        </div>
+
+        {/* Upcoming Events Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {eventsData.map((event) => (
-            <EventCard key={event.id} {...event} />
+          {upcomingEvents.map((event) => (
+            <EventCard key={event.id} {...event} isPast={false} />
           ))}
         </div>
-        
-        <div className="text-center mt-16">
-          <h2 className="text-2xl font-bold mb-4">Saknar du något?</h2>
-          <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-8">
-            Vi kan hjälpa dig arrangera ditt eget event, oavsett om det är en företagsfest, ett bröllop eller en privatfest.
-          </p>
-          <a 
-            href="/book" 
-            className="inline-block bg-orange-500 text-white px-6 py-3 rounded-md hover:bg-orange-600 transition-colors"
-          >
-            Boka DJ
-          </a>
+
+        {/* No Upcoming Events */}
+        {upcomingEvents.length === 0 && (
+          <div className="text-center py-16">
+            <div className="text-gray-400 dark:text-gray-600 mb-4">
+              <Search className="w-16 h-16 mx-auto" />
+            </div>
+            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+              Inga kommande events hittades
+            </h3>
+            <p className="text-gray-600 dark:text-gray-400 mb-6">
+              Prova att ändra dina sökkriterier
+            </p>
+          </div>
+        )}
+      </div>
+
+      {/* "Saknar du något?" Section */}
+      <div className="text-center mt-16 mb-16">
+        <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Saknar du något?</h2>
+        <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-8">
+          Vi kan hjälpa dig arrangera ditt eget event, oavsett om det är en företagsfest, ett bröllop eller en privatfest.
+        </p>
+        <a 
+          href="/book" 
+          className="inline-block bg-orange-500 text-white px-6 py-3 rounded-md hover:bg-orange-600 transition-colors"
+        >
+          Boka DJ
+        </a>
+      </div>
+
+      {/* Avslutade Events Section */}
+      <div className="container mx-auto px-4 py-8">
+        {/* Results Header */}
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+              Avslutade Events
+            </h2>
+            <p className="text-gray-600 dark:text-gray-400 mt-1">
+              {pastEvents.length} events hittade
+            </p>
+          </div>
         </div>
+
+        {/* Past Events Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {pastEvents.map((event) => (
+            <EventCard key={event.id} {...event} isPast={true} />
+          ))}
+        </div>
+
+        {/* No Past Events */}
+        {pastEvents.length === 0 && (
+          <div className="text-center py-16">
+            <div className="text-gray-400 dark:text-gray-600 mb-4">
+              <Search className="w-16 h-16 mx-auto" />
+            </div>
+            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+              Inga avslutade events att visa
+            </h3>
+            <p className="text-gray-600 dark:text-gray-400 mb-6">
+              Alla events visas i kommande events-sektionen
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );
