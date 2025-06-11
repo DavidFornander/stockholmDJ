@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { Search, SlidersHorizontal, MapPin, Star, Music2, Clock } from 'lucide-react';
+import { Search, SlidersHorizontal, MapPin, Star, Music2, Clock, ChevronLeft, ChevronRight } from 'lucide-react';
 import { DJ } from '@/types/dj';
 import { useBasket } from '@/context/BasketContext';
 import MiniCalendar from '@/components/shared/ui/MiniCalendar';
@@ -23,6 +23,12 @@ const djsData: DJ[] = [
     specialties: ['House', 'Techno', 'Deep House'],
     experience: '8+ år',
     imageUrl: '/assets/images/profiles/dj_image.jpg',
+    images: [
+      '/assets/images/profiles/dj_image.jpg',
+      '/assets/images/profiles/glow__page--irl-looks-01.jpg',
+      '/assets/images/profiles/glow__page--irl-looks-02.jpg',
+      '/assets/images/profiles/glow__page--irl-looks-03.jpg'
+    ],
     available: true,
     duration: '1-9 timmar',
     equipment: 'Komplett ljudanläggning',
@@ -56,6 +62,12 @@ const djsData: DJ[] = [
     specialties: ['Pop', 'RnB', 'Wedding'],
     experience: '6+ år',
     imageUrl: '/assets/images/profiles/glow__page--irl-looks-01.jpg',
+    images: [
+      '/assets/images/profiles/glow__page--irl-looks-01.jpg',
+      '/assets/images/profiles/wink__page--gallery-02.jpg',
+      '/assets/images/profiles/moda__page--lookbook-01.jpg',
+      '/assets/images/profiles/trending__page--lookbook-01.jpg'
+    ],
     available: true,
     duration: '1-6 timmar',
     equipment: 'Premium ljudsystem',
@@ -89,6 +101,12 @@ const djsData: DJ[] = [
     specialties: ['Progressive', 'Trance', 'Electronic'],
     experience: '10+ år',
     imageUrl: '/assets/images/profiles/glow__page--irl-looks-02.jpg',
+    images: [
+      '/assets/images/profiles/glow__page--irl-looks-02.jpg',
+      '/assets/images/profiles/wink__page--gallery-03.jpg',
+      '/assets/images/profiles/moda__page--lookbook-02.jpg',
+      '/assets/images/profiles/trending__page--lookbook-02.jpg'
+    ],
     available: false,
     duration: '1-5 timmar',
     equipment: 'Professionell utrustning',
@@ -122,6 +140,12 @@ const djsData: DJ[] = [
     specialties: ['Hip-Hop', 'RnB', 'Urban'],
     experience: '5+ år',
     imageUrl: '/assets/images/profiles/glow__page--irl-looks-03.jpg',
+    images: [
+      '/assets/images/profiles/glow__page--irl-looks-03.jpg',
+      '/assets/images/profiles/wink__page--gallery-04.jpg',
+      '/assets/images/profiles/moda__page--lookbook-03.jpg',
+      '/assets/images/profiles/trending__page--lookbook-03.jpg'
+    ],
     available: true,
     duration: '1-4 timmar',
     equipment: 'Standardutrustning',
@@ -155,6 +179,12 @@ const djsData: DJ[] = [
     specialties: ['Vinyl', 'Classic House', 'Disco'],
     experience: '12+ år',
     imageUrl: '/assets/images/profiles/glow__page--irl-looks-04.jpg',
+    images: [
+      '/assets/images/profiles/glow__page--irl-looks-04.jpg',
+      '/assets/images/profiles/wink__page--gallery-05.jpg',
+      '/assets/images/profiles/moda__page--lookbook-04.jpg',
+      '/assets/images/profiles/trending__page--lookbook-04.jpg'
+    ],
     available: true,
     duration: '1-6 timmar',
     equipment: 'Vintage vinyl setup',
@@ -188,6 +218,12 @@ const djsData: DJ[] = [
     specialties: ['Corporate', 'Jazz', 'Lounge'],
     experience: '7+ år',
     imageUrl: '/assets/images/profiles/glow__page--irl-looks-05.jpg',
+    images: [
+      '/assets/images/profiles/glow__page--irl-looks-05.jpg',
+      '/assets/images/profiles/wink__page--gallery-06.jpg',
+      '/assets/images/profiles/moda__page--lookbook-05.jpg',
+      '/assets/images/profiles/trending__page--lookbook-05.jpg'
+    ],
     available: true,
     duration: '1-5 timmar',
     equipment: 'Diskret ljudsystem',
@@ -240,6 +276,8 @@ const DJDirectory: React.FC = () => {
 
   const DJCard: React.FC<{ dj: DJ }> = ({ dj }) => {
     const { addItem, isItemInBasket, removeItem } = useBasket();
+    const [showInteractive, setShowInteractive] = useState(false);
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [selectedGear, setSelectedGear] = useState({
       speakers: { name: 'Ljud finns i lokalen', cost: 0 },
       djTable: { name: 'Finns i lokalen', cost: 0 },
@@ -248,6 +286,17 @@ const DJDirectory: React.FC = () => {
     });
     const [selectedHours, setSelectedHours] = useState(4);
     const [selectedDate, setSelectedDate] = useState('');
+
+    // Get available images (use images array if available, otherwise fall back to single imageUrl)
+    const availableImages = dj.images && dj.images.length > 0 ? dj.images : [dj.imageUrl];
+
+    const nextImage = () => {
+      setCurrentImageIndex((prev) => (prev + 1) % availableImages.length);
+    };
+
+    const prevImage = () => {
+      setCurrentImageIndex((prev) => (prev - 1 + availableImages.length) % availableImages.length);
+    };
 
     const handleGearChange = (gearType: keyof typeof selectedGear, option: { name: string; cost: number }) => {
       setSelectedGear(prev => ({
@@ -290,23 +339,60 @@ const DJDirectory: React.FC = () => {
     return (
       <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg hover:shadow-md dark:hover:shadow-lg transition-shadow duration-200">
         <div className="p-6">
+          {/* Image Carousel - Full width at top, optimized for card format */}
+          <div className="relative mb-6 -mx-6 -mt-6">
+            <div className="relative h-40 md:h-44 lg:h-48 overflow-hidden rounded-t-lg">
+              <Image
+                src={availableImages[currentImageIndex]}
+                alt={`${dj.name} - bild ${currentImageIndex + 1}`}
+                fill
+                className="object-cover transition-opacity duration-300"
+              />
+              
+              {/* Navigation arrows - only show if more than 1 image */}
+              {availableImages.length > 1 && (
+                <>
+                  <button
+                    onClick={prevImage}
+                    className="absolute left-3 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 hover:bg-opacity-75 text-white p-2 rounded-full transition-all duration-200"
+                    aria-label="Föregående bild"
+                  >
+                    <ChevronLeft className="w-5 h-5" />
+                  </button>
+                  <button
+                    onClick={nextImage}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 hover:bg-opacity-75 text-white p-2 rounded-full transition-all duration-200"
+                    aria-label="Nästa bild"
+                  >
+                    <ChevronRight className="w-5 h-5" />
+                  </button>
+                </>
+              )}
+              
+              {/* Image indicators - only show if more than 1 image */}
+              {availableImages.length > 1 && (
+                <div className="absolute bottom-3 left-1/2 transform -translate-x-1/2 flex gap-2">
+                  {availableImages.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentImageIndex(index)}
+                      className={`w-2 h-2 rounded-full transition-all duration-200 ${
+                        index === currentImageIndex 
+                          ? 'bg-white' 
+                          : 'bg-white bg-opacity-50 hover:bg-opacity-75'
+                      }`}
+                      aria-label={`Visa bild ${index + 1}`}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+
           {/* Responsive Layout Container */}
           <div className="flex flex-col">
-            {/* Photo Section - Small screens only, top position */}
-            <div className="lg:hidden mb-4 flex justify-center">
-              <div className="w-20 h-20 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-700">
-                <Image
-                  src={dj.imageUrl}
-                  alt={dj.name}
-                  width={160}
-                  height={160}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
-
-            {/* Name + Reviews Section - Small screens only */}
-            <div className="lg:hidden flex justify-between items-start mb-4">
+            {/* Name + Reviews Section - Unified for all screens */}
+            <div className="flex justify-between items-start mb-4">
               <div className="flex-1">
                 <h3 className="font-semibold text-gray-900 dark:text-white text-lg">{dj.name}</h3>
                 <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">{dj.title}</p>
@@ -339,55 +425,20 @@ const DJDirectory: React.FC = () => {
                   <Star className="w-4 h-4 fill-blue-500 text-blue-500" />
                   <span className="font-semibold text-gray-900 dark:text-white text-lg">{dj.rating}</span>
                 </div>
-                <p className="text-xs text-gray-500 dark:text-gray-400">{dj.reviewCount} recensioner</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">{dj.reviewCount} recensioner</p>
+                <button
+                  onClick={() => setShowInteractive(!showInteractive)}
+                  className="px-3 py-1 text-xs font-medium bg-blue-600 hover:bg-blue-700 text-white rounded transition-colors"
+                  aria-label={showInteractive ? "Dölj interaktiva funktioner" : "Visa interaktiva funktioner"}
+                >
+                  {showInteractive ? 'Dölj' : 'Välj'}
+                </button>
               </div>
             </div>
 
-            {/* Large Screen Layout - Photo, Name, 3D/Calendar, Reviews (horizontal) */}
-            <div className="hidden lg:flex lg:items-start">
-              {/* 1. DJ Photo - Fixed Width */}
-              <div className="w-16 mr-4 flex-shrink-0">
-                <div className="w-16 h-16 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-700">
-                  <Image
-                    src={dj.imageUrl}
-                    alt={dj.name}
-                    width={128}
-                    height={128}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              </div>
-
-              {/* 2. Name Section - Fixed Width */}
-              <div className="w-48 flex-shrink-0">
-                <h3 className="font-semibold text-gray-900 dark:text-white text-lg">{dj.name}</h3>
-                <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">{dj.title}</p>
-                <div className="flex items-center gap-3 mt-2 text-sm text-gray-500 dark:text-gray-400">
-                  <div className="flex items-center gap-1">
-                    <MapPin className="w-4 h-4" />
-                    {dj.location}
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <Music2 className="w-4 h-4" />
-                    {dj.experience}
-                  </div>
-                </div>
-                
-                {/* Specialties */}
-                <div className="flex flex-wrap gap-1 mt-3">
-                  {dj.specialties.slice(0, 3).map((specialty, index) => (
-                    <span
-                      key={index}
-                      className="inline-flex items-center px-2 py-1 text-xs font-medium bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded"
-                    >
-                      {specialty}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* 3. 3D & Calendar Section - Flexible Center */}
-              <div className="flex-1 px-4">
+            {/* 3D & Calendar Section - Conditionally rendered for all screens */}
+            {showInteractive && (
+              <div className="mb-4 transition-all duration-300 ease-in-out">
                 <div className="flex gap-3 justify-center">
                   <div className="w-[120px] h-[110px]">
                     <Compact3DViewer
@@ -406,53 +457,23 @@ const DJDirectory: React.FC = () => {
                   </div>
                 </div>
               </div>
-              
-              {/* 4. Reviews Section - Fixed Width */}
-              <div className="w-20 text-right flex-shrink-0">
-                <div className="flex items-center justify-end gap-1 mb-1">
-                  <Star className="w-4 h-4 fill-blue-500 text-blue-500" />
-                  <span className="font-semibold text-gray-900 dark:text-white text-lg">{dj.rating}</span>
-                </div>
-                <p className="text-xs text-gray-500 dark:text-gray-400">{dj.reviewCount} recensioner</p>
-              </div>
-            </div>
-
-            {/* 3D & Calendar Section - Small screens only, bottom position */}
-            <div className="lg:hidden">
-              <div className="flex gap-3 justify-center">
-                <div className="w-[120px] h-[110px]">
-                  <Compact3DViewer
-                    modelPath={dj.model3D}
-                    selectedGear={selectedGear}
-                    className="w-full h-full"
-                  />
-                </div>
-                <div className="w-[180px] h-[110px]">
-                  <MiniCalendar
-                    availability={dj.availability}
-                    selectedDate={selectedDate}
-                    onDateSelect={setSelectedDate}
-                    className="w-full h-full text-xs"
-                  />
-                </div>
-              </div>
-            </div>
+            )}
           </div>
 
-          {/* Interactive Controls & Pricing - Mobile Responsive */}
-          <div className="flex flex-col lg:flex-row lg:items-start justify-between mt-4 pt-4 border-t border-gray-100 dark:border-gray-700 gap-4">
-            {/* Gear Selection */}
-            <div className="flex-1 min-w-0">
-              <InlineGearSelector
-                compatibleGear={dj.compatibleGear}
-                selectedGear={selectedGear}
-                onGearChange={handleGearChange}
-              />
-            </div>
-            
-            {/* Price and Controls */}
-            <div className="flex-shrink-0 w-full lg:w-[140px] lg:text-right">
-              <div className="mb-3">
+          {/* Interactive Controls & Pricing - Conditionally rendered, optimized for grid layout */}
+          {showInteractive && (
+            <div className="flex flex-col justify-between mt-4 pt-4 border-t border-gray-100 dark:border-gray-700 gap-4 transition-all duration-300 ease-in-out">
+              {/* Gear Selection - Simplified for card format */}
+              <div className="w-full">
+                <InlineGearSelector
+                  compatibleGear={dj.compatibleGear}
+                  selectedGear={selectedGear}
+                  onGearChange={handleGearChange}
+                />
+              </div>
+              
+              {/* Hour Slider */}
+              <div className="w-full">
                 <HourSlider
                   value={selectedHours}
                   onChange={setSelectedHours}
@@ -462,19 +483,20 @@ const DJDirectory: React.FC = () => {
                 />
               </div>
               
-              <div className="flex lg:flex-col justify-between lg:justify-start items-center lg:items-end">
-                <div className="lg:mb-1">
+              {/* Price and Controls */}
+              <div className="flex justify-between items-center">
+                <div>
                   <div className="text-xl font-bold text-gray-900 dark:text-white">
                     {totalPrice.toLocaleString('sv-SE')} kr
                   </div>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 lg:mb-3">
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
                     för {selectedHours}h
                   </p>
                 </div>
                 
                 <button 
                   onClick={handleAddToBasket}
-                  className={`px-4 py-2 rounded text-sm font-medium transition-colors lg:w-full ${
+                  className={`px-4 py-2 rounded text-sm font-medium transition-colors ${
                     isInBasket
                       ? 'bg-green-600 hover:bg-green-700 text-white'
                       : 'bg-blue-600 hover:bg-blue-700 text-white'
@@ -484,7 +506,7 @@ const DJDirectory: React.FC = () => {
                 </button>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     );
@@ -597,7 +619,7 @@ const DJDirectory: React.FC = () => {
         </div>
 
         {/* DJ Results */}
-        <div className="space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
           {filteredAndSortedDJs.map((dj) => (
             <DJCard key={dj.id} dj={dj} />
           ))}

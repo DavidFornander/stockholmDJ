@@ -24,6 +24,7 @@ export interface DJ {
   specialties: string[];
   experience: string;
   imageUrl: string;
+  images?: string[]; // Multiple images for carousel
   available: boolean;
   duration: string;
   equipment: string;
