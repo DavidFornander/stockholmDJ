@@ -290,53 +290,137 @@ const DJDirectory: React.FC = () => {
     return (
       <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg hover:shadow-md dark:hover:shadow-lg transition-shadow duration-200">
         <div className="p-6">
-          {/* Top Section - Flexbox Layout with Fixed Widths */}
-          <div className="flex items-start">
-            {/* 1. DJ Photo - Fixed Width */}
-            <div className="w-16 mr-4 flex-shrink-0">
-              <div className="w-16 h-16 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-700">
+          {/* Responsive Layout Container */}
+          <div className="flex flex-col">
+            {/* Photo Section - Small screens only, top position */}
+            <div className="lg:hidden mb-4 flex justify-center">
+              <div className="w-20 h-20 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-700">
                 <Image
                   src={dj.imageUrl}
                   alt={dj.name}
-                  width={128}
-                  height={128}
+                  width={160}
+                  height={160}
                   className="w-full h-full object-cover"
                 />
               </div>
             </div>
 
-            {/* 2. Name Section - Fixed Width */}
-            <div className="w-48 flex-shrink-0">
-              <h3 className="font-semibold text-gray-900 dark:text-white text-lg">{dj.name}</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">{dj.title}</p>
-              <div className="flex items-center gap-3 mt-2 text-sm text-gray-500 dark:text-gray-400">
-                <div className="flex items-center gap-1">
-                  <MapPin className="w-4 h-4" />
-                  {dj.location}
+            {/* Name + Reviews Section - Small screens only */}
+            <div className="lg:hidden flex justify-between items-start mb-4">
+              <div className="flex-1">
+                <h3 className="font-semibold text-gray-900 dark:text-white text-lg">{dj.name}</h3>
+                <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">{dj.title}</p>
+                <div className="flex items-center gap-3 mt-2 text-sm text-gray-500 dark:text-gray-400">
+                  <div className="flex items-center gap-1">
+                    <MapPin className="w-4 h-4" />
+                    {dj.location}
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <Music2 className="w-4 h-4" />
+                    {dj.experience}
+                  </div>
                 </div>
-                <div className="flex items-center gap-1">
-                  <Music2 className="w-4 h-4" />
-                  {dj.experience}
+                
+                {/* Specialties */}
+                <div className="flex flex-wrap gap-1 mt-3">
+                  {dj.specialties.slice(0, 3).map((specialty, index) => (
+                    <span
+                      key={index}
+                      className="inline-flex items-center px-2 py-1 text-xs font-medium bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded"
+                    >
+                      {specialty}
+                    </span>
+                  ))}
                 </div>
               </div>
               
-              {/* Specialties */}
-              <div className="flex flex-wrap gap-1 mt-3">
-                {dj.specialties.slice(0, 3).map((specialty, index) => (
-                  <span
-                    key={index}
-                    className="inline-flex items-center px-2 py-1 text-xs font-medium bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded"
-                  >
-                    {specialty}
-                  </span>
-                ))}
+              <div className="w-20 text-right flex-shrink-0 ml-4">
+                <div className="flex items-center justify-end gap-1 mb-1">
+                  <Star className="w-4 h-4 fill-blue-500 text-blue-500" />
+                  <span className="font-semibold text-gray-900 dark:text-white text-lg">{dj.rating}</span>
+                </div>
+                <p className="text-xs text-gray-500 dark:text-gray-400">{dj.reviewCount} recensioner</p>
               </div>
             </div>
 
-            {/* 3. 3D Model & Calendar Section - Flexible Center */}
-            <div className="flex-1 px-4">
+            {/* Large Screen Layout - Photo, Name, 3D/Calendar, Reviews (horizontal) */}
+            <div className="hidden lg:flex lg:items-start">
+              {/* 1. DJ Photo - Fixed Width */}
+              <div className="w-16 mr-4 flex-shrink-0">
+                <div className="w-16 h-16 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-700">
+                  <Image
+                    src={dj.imageUrl}
+                    alt={dj.name}
+                    width={128}
+                    height={128}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+
+              {/* 2. Name Section - Fixed Width */}
+              <div className="w-48 flex-shrink-0">
+                <h3 className="font-semibold text-gray-900 dark:text-white text-lg">{dj.name}</h3>
+                <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">{dj.title}</p>
+                <div className="flex items-center gap-3 mt-2 text-sm text-gray-500 dark:text-gray-400">
+                  <div className="flex items-center gap-1">
+                    <MapPin className="w-4 h-4" />
+                    {dj.location}
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <Music2 className="w-4 h-4" />
+                    {dj.experience}
+                  </div>
+                </div>
+                
+                {/* Specialties */}
+                <div className="flex flex-wrap gap-1 mt-3">
+                  {dj.specialties.slice(0, 3).map((specialty, index) => (
+                    <span
+                      key={index}
+                      className="inline-flex items-center px-2 py-1 text-xs font-medium bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded"
+                    >
+                      {specialty}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* 3. 3D & Calendar Section - Flexible Center */}
+              <div className="flex-1 px-4">
+                <div className="flex gap-3 justify-center">
+                  <div className="w-[120px] h-[110px]">
+                    <Compact3DViewer
+                      modelPath={dj.model3D}
+                      selectedGear={selectedGear}
+                      className="w-full h-full"
+                    />
+                  </div>
+                  <div className="w-[180px] h-[110px]">
+                    <MiniCalendar
+                      availability={dj.availability}
+                      selectedDate={selectedDate}
+                      onDateSelect={setSelectedDate}
+                      className="w-full h-full text-xs"
+                    />
+                  </div>
+                </div>
+              </div>
+              
+              {/* 4. Reviews Section - Fixed Width */}
+              <div className="w-20 text-right flex-shrink-0">
+                <div className="flex items-center justify-end gap-1 mb-1">
+                  <Star className="w-4 h-4 fill-blue-500 text-blue-500" />
+                  <span className="font-semibold text-gray-900 dark:text-white text-lg">{dj.rating}</span>
+                </div>
+                <p className="text-xs text-gray-500 dark:text-gray-400">{dj.reviewCount} recensioner</p>
+              </div>
+            </div>
+
+            {/* 3D & Calendar Section - Small screens only, bottom position */}
+            <div className="lg:hidden">
               <div className="flex gap-3 justify-center">
-                <div className="w-[120px] h-[110px] hidden sm:block">
+                <div className="w-[120px] h-[110px]">
                   <Compact3DViewer
                     modelPath={dj.model3D}
                     selectedGear={selectedGear}
@@ -351,25 +435,7 @@ const DJDirectory: React.FC = () => {
                     className="w-full h-full text-xs"
                   />
                 </div>
-                
-                {/* Mobile 3D Model - Below calendar on small screens */}
-                <div className="w-[80px] h-[80px] sm:hidden">
-                  <Compact3DViewer
-                    modelPath={dj.model3D}
-                    selectedGear={selectedGear}
-                    className="w-full h-full"
-                  />
-                </div>
               </div>
-            </div>
-            
-            {/* 4. Reviews Section - Fixed Width */}
-            <div className="w-20 text-right flex-shrink-0">
-              <div className="flex items-center justify-end gap-1 mb-1">
-                <Star className="w-4 h-4 fill-blue-500 text-blue-500" />
-                <span className="font-semibold text-gray-900 dark:text-white text-lg">{dj.rating}</span>
-              </div>
-              <p className="text-xs text-gray-500 dark:text-gray-400">{dj.reviewCount} recensioner</p>
             </div>
           </div>
 
