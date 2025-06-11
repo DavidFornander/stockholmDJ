@@ -16,38 +16,73 @@ const MiniCalendar: React.FC<MiniCalendarProps> = ({
   onDateSelect,
   className = "" 
 }) => {
-  const [currentMonth, setCurrentMonth] = useState(new Date());
+  const [currentWeekStart, setCurrentWeekStart] = useState(() => {
+    const today = new Date();
+    const day = today.getDay();
+    const diff = today.getDate() - day + (day === 0 ? -6 : 1); // Monday
+    const weekStart = new Date(today);
+    weekStart.setDate(diff);
+    return weekStart;
+  });
 
-  // Get the current month's dates
-  const getCalendarDates = (date: Date) => {
-    const year = date.getFullYear();
-    const month = date.getMonth();
-    const firstDay = new Date(year, month, 1);
-    const lastDay = new Date(year, month + 1, 0);
-    const daysInMonth = lastDay.getDate();
+  // Get the current week starting from Monday
+  const getWeekDates = (referenceDate: Date) => {
+    const startOfWeek = new Date(referenceDate);
+    const day = startOfWeek.getDay();
+    const diff = startOfWeek.getDate() - day + (day === 0 ? -6 : 1); // Monday
+    startOfWeek.setDate(diff);
     
     const dates = [];
-    for (let i = 1; i <= daysInMonth; i++) {
-      const dateString = `${year}-${String(month + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
+    
+    // Get the month we're primarily viewing (from Wednesday of the week)
+    const weekMiddle = new Date(startOfWeek);
+    weekMiddle.setDate(startOfWeek.getDate() + 3);
+    const primaryMonth = weekMiddle.getMonth();
+    const primaryYear = weekMiddle.getFullYear();
+    
+    for (let i = 0; i < 7; i++) {
+      const date = new Date(startOfWeek);
+      date.setDate(startOfWeek.getDate() + i);
+      
+      const year = date.getFullYear();
+      const month = date.getMonth();
+      const day = date.getDate();
+      const dateString = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+      
+      // Check if this date is in the primary month being viewed
+      const isCurrentMonth = month === primaryMonth && year === primaryYear;
+      const isToday = date.toDateString() === new Date().toDateString();
+      
       dates.push({
-        date: i,
+        date: day,
         dateString,
         available: availability[dateString] === true,
-        isSelected: selectedDate === dateString
+        isSelected: selectedDate === dateString,
+        isCurrentMonth,
+        isToday,
+        fullDate: new Date(date)
       });
     }
     return dates;
   };
 
-  const dates = getCalendarDates(currentMonth);
-  const monthName = currentMonth.toLocaleDateString('sv-SE', { month: 'short' });
+  const weekDates = getWeekDates(currentWeekStart);
+  
+  // Get month name from the middle of the current week (Wednesday)
+  const weekMiddle = new Date(currentWeekStart);
+  weekMiddle.setDate(currentWeekStart.getDate() + 3);
+  const monthName = weekMiddle.toLocaleDateString('sv-SE', { month: 'long', year: 'numeric' });
 
-  const nextMonth = () => {
-    setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1));
+  const nextWeek = () => {
+    const nextWeekStart = new Date(currentWeekStart);
+    nextWeekStart.setDate(currentWeekStart.getDate() + 7);
+    setCurrentWeekStart(nextWeekStart);
   };
 
-  const prevMonth = () => {
-    setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1));
+  const prevWeek = () => {
+    const prevWeekStart = new Date(currentWeekStart);
+    prevWeekStart.setDate(currentWeekStart.getDate() - 7);
+    setCurrentWeekStart(prevWeekStart);
   };
 
   const handleDateClick = (dateString: string, available: boolean) => {
@@ -61,8 +96,8 @@ const MiniCalendar: React.FC<MiniCalendarProps> = ({
       {/* Header */}
       <div className="flex items-center justify-between mb-2">
         <button 
-          onClick={prevMonth}
-          className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+          onClick={prevWeek}
+          className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-colors"
         >
           <ChevronLeft className="w-3 h-3" />
         </button>
@@ -70,8 +105,8 @@ const MiniCalendar: React.FC<MiniCalendarProps> = ({
           {monthName}
         </h3>
         <button 
-          onClick={nextMonth}
-          className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+          onClick={nextWeek}
+          className="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-colors"
         >
           <ChevronRight className="w-3 h-3" />
         </button>
@@ -80,25 +115,30 @@ const MiniCalendar: React.FC<MiniCalendarProps> = ({
       {/* Calendar Grid */}
       <div className="grid grid-cols-7 gap-1">
         {/* Day headers */}
-        {['M', 'T', 'W', 'T', 'F', 'S', 'S'].map((day) => (
+        {['M', 'T', 'O', 'T', 'F', 'L', 'S'].map((day) => (
           <div key={day} className="text-center text-xs text-gray-500 dark:text-gray-400 font-medium">
             {day}
           </div>
         ))}
         
         {/* Calendar dates */}
-        {dates.map(({ date, dateString, available, isSelected }) => (
+        {weekDates.map(({ date, dateString, available, isSelected, isCurrentMonth, isToday }) => (
           <button
             key={dateString}
             onClick={() => handleDateClick(dateString, available)}
             disabled={!available}
             className={`
               w-6 h-6 text-xs rounded text-center transition-colors
-              ${available 
-                ? 'text-green-700 dark:text-green-400 bg-green-50 dark:bg-green-900/20 hover:bg-green-100 dark:hover:bg-green-900/40' 
-                : 'text-gray-300 dark:text-gray-600 bg-gray-50 dark:bg-gray-800 cursor-not-allowed'
+              ${isCurrentMonth 
+                ? available 
+                  ? 'text-green-700 dark:text-green-400 bg-green-50 dark:bg-green-900/20 hover:bg-green-100 dark:hover:bg-green-900/40' 
+                  : 'text-gray-400 dark:text-gray-500 bg-gray-50 dark:bg-gray-800 cursor-not-allowed'
+                : available
+                  ? 'text-green-600/30 dark:text-green-400/30 bg-green-50/30 dark:bg-green-900/10 hover:bg-green-100/30 dark:hover:bg-green-900/20 opacity-60'
+                  : 'text-gray-300/50 dark:text-gray-600/50 bg-gray-50/30 dark:bg-gray-800/30 cursor-not-allowed opacity-40'
               }
               ${isSelected ? 'ring-2 ring-blue-500' : ''}
+              ${isToday && isCurrentMonth ? 'font-bold ring-1 ring-blue-300' : ''}
             `}
           >
             {date}

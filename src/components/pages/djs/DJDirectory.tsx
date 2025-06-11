@@ -333,7 +333,7 @@ const DJDirectory: React.FC = () => {
                       className="w-full h-full"
                     />
                   </div>
-                  <div className="w-[120px] h-[80px]">
+                  <div className="w-[140px] h-[80px]">
                     <MiniCalendar
                       availability={dj.availability}
                       selectedDate={selectedDate}
