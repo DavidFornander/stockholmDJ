@@ -322,6 +322,18 @@ const DJDirectory: React.FC = () => {
                       {dj.experience} erfarenhet
                     </div>
                   </div>
+                  
+                  {/* Specialties */}
+                  <div className="flex flex-wrap gap-1 mt-3">
+                    {dj.specialties.slice(0, 3).map((specialty, index) => (
+                      <span
+                        key={index}
+                        className="inline-flex items-center px-2 py-1 text-xs font-medium bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded"
+                      >
+                        {specialty}
+                      </span>
+                    ))}
+                  </div>
                 </div>
 
                 {/* 3D Model & Calendar Section - Centered */}
@@ -362,18 +374,6 @@ const DJDirectory: React.FC = () => {
                     <p className="text-xs text-gray-500 dark:text-gray-400">{dj.reviewCount} recensioner</p>
                   </div>
                 </div>
-              </div>
-
-              {/* Specialties */}
-              <div className="flex flex-wrap gap-1 mt-3">
-                {dj.specialties.slice(0, 3).map((specialty, index) => (
-                  <span
-                    key={index}
-                    className="inline-flex items-center px-2 py-1 text-xs font-medium bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded"
-                  >
-                    {specialty}
-                  </span>
-                ))}
               </div>
 
               {/* Interactive Controls & Pricing - Mobile Responsive */}
