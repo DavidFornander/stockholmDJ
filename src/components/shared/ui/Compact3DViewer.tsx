@@ -34,6 +34,74 @@ const Compact3DViewer: React.FC<Compact3DViewerProps> = ({
 }) => {
   const modelRef = useRef<ModelViewerElement | null>(null);
   const [isLoading, setIsLoading] = React.useState(true);
+  const [hasError, setHasError] = React.useState(false);
+
+  // Enhanced debugging for model loading
+  useEffect(() => {
+    console.log('Compact3DViewer mounted with modelPath:', modelPath);
+    
+    // Check if model-viewer is available (client-side only)
+    if (typeof window !== 'undefined') {
+      const checkModelViewer = () => {
+        const isAvailable = !!window.customElements.get('model-viewer');
+        console.log('Model-viewer element available:', isAvailable);
+        
+        if (!isAvailable) {
+          console.warn('Model-viewer not yet registered, checking again in 1s...');
+          setTimeout(checkModelViewer, 1000);
+        }
+      };
+      
+      checkModelViewer();
+    }
+  }, []);
+
+  // Handle model loading state separately
+  useEffect(() => {
+    if (!modelRef.current) {
+      console.log('Model ref not yet available');
+      return;
+    }
+
+    const modelElement = modelRef.current;
+    console.log('Setting up event listeners for model:', modelPath);
+    
+    const handleLoad = () => {
+      console.log('3D Model loaded successfully:', modelPath);
+      setIsLoading(false);
+      setHasError(false);
+    };
+
+    const handleError = (error: any) => {
+      console.error('3D Model failed to load:', modelPath, error);
+      setIsLoading(false);
+      setHasError(true);
+    };
+
+    const handleProgress = (event: any) => {
+      console.log('Model loading progress:', event.detail?.totalProgress);
+    };
+
+    // Add timeout fallback
+    const timeout = setTimeout(() => {
+      if (isLoading) {
+        console.warn('3D Model loading timeout for:', modelPath);
+        setIsLoading(false);
+        setHasError(true);
+      }
+    }, 10000); // 10 second timeout
+
+    modelElement.addEventListener('load', handleLoad);
+    modelElement.addEventListener('error', handleError);
+    modelElement.addEventListener('progress', handleProgress);
+
+    return () => {
+      clearTimeout(timeout);
+      modelElement.removeEventListener('load', handleLoad);
+      modelElement.removeEventListener('error', handleError);
+      modelElement.removeEventListener('progress', handleProgress);
+    };
+  }, [modelPath, isLoading]);
 
   // Update the 3D scene based on selected gear
   useEffect(() => {
@@ -44,8 +112,6 @@ const Compact3DViewer: React.FC<Compact3DViewerProps> = ({
     // Wait for model to load
     const updateScene = () => {
       if (!modelElement.hasLoaded) return;
-
-      setIsLoading(false);
       
       try {
         const threeModel = modelElement.model;
@@ -110,9 +176,11 @@ const Compact3DViewer: React.FC<Compact3DViewerProps> = ({
         ref={modelRef}
         src={modelPath}
         alt="DJ Equipment Setup"
-        auto-rotate
+        auto-rotate="false"
         camera-controls
         disable-zoom
+        loading="eager"
+        reveal="auto"
         style={{
           width: '100%',
           height: '100%',
@@ -128,7 +196,27 @@ const Compact3DViewer: React.FC<Compact3DViewerProps> = ({
       {/* Loading indicator */}
       {isLoading && (
         <div className="absolute inset-0 flex items-center justify-center bg-gray-100 dark:bg-gray-700 rounded-lg">
-          <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600"></div>
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600 mx-auto mb-2"></div>
+            <div className="text-xs text-gray-600 dark:text-gray-300">Loading 3D model...</div>
+          </div>
+        </div>
+      )}
+      
+      {/* Error indicator */}
+      {hasError && (
+        <div className="absolute inset-0 flex items-center justify-center bg-gray-100 dark:bg-gray-700 rounded-lg">
+          <div className="text-center text-gray-500 dark:text-gray-400">
+            <div className="text-xs">3D model unavailable</div>
+            <div className="text-xs mt-1 opacity-75">Check console for details</div>
+          </div>
+        </div>
+      )}
+      
+      {/* Success indicator (temporary) */}
+      {!isLoading && !hasError && (
+        <div className="absolute top-1 right-1 bg-green-500 text-white text-xs px-1 py-0.5 rounded opacity-75">
+          3D ✓
         </div>
       )}
     </div>

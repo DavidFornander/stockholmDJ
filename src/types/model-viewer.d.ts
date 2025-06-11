@@ -13,6 +13,14 @@ declare namespace JSX {
       "touch-action"?: string;
       ar?: boolean;
       "auto-rotate"?: boolean;
+      "disable-zoom"?: boolean;
+      "camera-orbit"?: string;
+      "field-of-view"?: string;
+      "min-camera-orbit"?: string;
+      "max-camera-orbit"?: string;
+      "interaction-prompt"?: string;
+      loading?: string;
+      reveal?: string;
     };
   }
 }
