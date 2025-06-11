@@ -290,9 +290,10 @@ const DJDirectory: React.FC = () => {
     return (
       <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg hover:shadow-md dark:hover:shadow-lg transition-shadow duration-200">
         <div className="p-6">
-          <div className="flex items-start gap-4">
-            {/* DJ Image */}
-            <div className="flex-shrink-0">
+          {/* Top Section - Flexbox Layout with Fixed Widths */}
+          <div className="flex items-start">
+            {/* 1. DJ Photo - Fixed Width */}
+            <div className="w-16 mr-4 flex-shrink-0">
               <div className="w-16 h-16 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-700">
                 <Image
                   src={dj.imageUrl}
@@ -304,123 +305,117 @@ const DJDirectory: React.FC = () => {
               </div>
             </div>
 
-            {/* DJ Info */}
-            <div className="flex-grow min-w-0">
-              {/* Name, 3D/Calendar, and Rating Row */}
-              <div className="flex items-start">
-                {/* Name Section */}
-                <div className="flex-1 min-w-0">
-                  <h3 className="font-semibold text-gray-900 dark:text-white text-lg">{dj.name}</h3>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">{dj.title}</p>
-                  <div className="flex items-center gap-4 mt-2 text-sm text-gray-500 dark:text-gray-400">
-                    <div className="flex items-center gap-1">
-                      <MapPin className="w-4 h-4" />
-                      {dj.location}
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <Music2 className="w-4 h-4" />
-                      {dj.experience} erfarenhet
-                    </div>
-                  </div>
-                  
-                  {/* Specialties */}
-                  <div className="flex flex-wrap gap-1 mt-3">
-                    {dj.specialties.slice(0, 3).map((specialty, index) => (
-                      <span
-                        key={index}
-                        className="inline-flex items-center px-2 py-1 text-xs font-medium bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded"
-                      >
-                        {specialty}
-                      </span>
-                    ))}
-                  </div>
+            {/* 2. Name Section - Fixed Width */}
+            <div className="w-48 flex-shrink-0">
+              <h3 className="font-semibold text-gray-900 dark:text-white text-lg">{dj.name}</h3>
+              <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">{dj.title}</p>
+              <div className="flex items-center gap-3 mt-2 text-sm text-gray-500 dark:text-gray-400">
+                <div className="flex items-center gap-1">
+                  <MapPin className="w-4 h-4" />
+                  {dj.location}
                 </div>
-
-                {/* 3D Model & Calendar Section - Centered */}
-                <div className="flex gap-3 flex-shrink-0 justify-center flex-1">
-                  <div className="w-[200px] h-[110px] hidden sm:block">
-                    <Compact3DViewer
-                      modelPath={dj.model3D}
-                      selectedGear={selectedGear}
-                      className="w-full h-full"
-                    />
-                  </div>
-                  <div className="w-[200px] h-[110px]">
-                    <MiniCalendar
-                      availability={dj.availability}
-                      selectedDate={selectedDate}
-                      onDateSelect={setSelectedDate}
-                      className="w-full h-full text-xs"
-                    />
-                  </div>
-                  
-                  {/* Mobile 3D Model - Below calendar on small screens */}
-                  <div className="w-[100px] h-[80px] sm:hidden">
-                    <Compact3DViewer
-                      modelPath={dj.model3D}
-                      selectedGear={selectedGear}
-                      className="w-full h-full"
-                    />
-                  </div>
-                </div>
-                
-                {/* Rating */}
-                <div className="text-right flex-shrink-0 flex-1 flex justify-end">
-                  <div>
-                    <div className="flex items-center gap-1">
-                      <Star className="w-4 h-4 fill-blue-500 text-blue-500" />
-                      <span className="font-semibold text-gray-900 dark:text-white">{dj.rating}</span>
-                    </div>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">{dj.reviewCount} recensioner</p>
-                  </div>
+                <div className="flex items-center gap-1">
+                  <Music2 className="w-4 h-4" />
+                  {dj.experience}
                 </div>
               </div>
+              
+              {/* Specialties */}
+              <div className="flex flex-wrap gap-1 mt-3">
+                {dj.specialties.slice(0, 3).map((specialty, index) => (
+                  <span
+                    key={index}
+                    className="inline-flex items-center px-2 py-1 text-xs font-medium bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded"
+                  >
+                    {specialty}
+                  </span>
+                ))}
+              </div>
+            </div>
 
-              {/* Interactive Controls & Pricing - Mobile Responsive */}
-              <div className="flex flex-col lg:flex-row lg:items-start justify-between mt-4 pt-4 border-t border-gray-100 dark:border-gray-700 gap-4">
-                {/* Gear Selection */}
-                <div className="flex-1 min-w-0">
-                  <InlineGearSelector
-                    compatibleGear={dj.compatibleGear}
+            {/* 3. 3D Model & Calendar Section - Flexible Center */}
+            <div className="flex-1 px-4">
+              <div className="flex gap-3 justify-center">
+                <div className="w-[120px] h-[110px] hidden sm:block">
+                  <Compact3DViewer
+                    modelPath={dj.model3D}
                     selectedGear={selectedGear}
-                    onGearChange={handleGearChange}
+                    className="w-full h-full"
+                  />
+                </div>
+                <div className="w-[180px] h-[110px]">
+                  <MiniCalendar
+                    availability={dj.availability}
+                    selectedDate={selectedDate}
+                    onDateSelect={setSelectedDate}
+                    className="w-full h-full text-xs"
                   />
                 </div>
                 
-                {/* Price and Controls */}
-                <div className="flex-shrink-0 w-full lg:w-[140px] lg:text-right">
-                  <div className="mb-3">
-                    <HourSlider
-                      value={selectedHours}
-                      onChange={setSelectedHours}
-                      hourlyRate={dj.hourlyRate}
-                      min={1}
-                      max={8}
-                    />
-                  </div>
-                  
-                  <div className="flex lg:flex-col justify-between lg:justify-start items-center lg:items-end">
-                    <div className="lg:mb-1">
-                      <div className="text-xl font-bold text-gray-900 dark:text-white">
-                        {totalPrice.toLocaleString('sv-SE')} kr
-                      </div>
-                      <p className="text-xs text-gray-500 dark:text-gray-400 lg:mb-3">
-                        för {selectedHours}h
-                      </p>
-                    </div>
-                    
-                    <button 
-                      onClick={handleAddToBasket}
-                      className={`px-4 py-2 rounded text-sm font-medium transition-colors lg:w-full ${
-                        isInBasket
-                          ? 'bg-green-600 hover:bg-green-700 text-white'
-                          : 'bg-blue-600 hover:bg-blue-700 text-white'
-                      }`}
-                    >
-                      {isInBasket ? '✓ Tillagd' : 'Lägg till'}
-                    </button>
-                  </div>
+                {/* Mobile 3D Model - Below calendar on small screens */}
+                <div className="w-[80px] h-[80px] sm:hidden">
+                  <Compact3DViewer
+                    modelPath={dj.model3D}
+                    selectedGear={selectedGear}
+                    className="w-full h-full"
+                  />
                 </div>
+              </div>
+            </div>
+            
+            {/* 4. Reviews Section - Fixed Width */}
+            <div className="w-20 text-right flex-shrink-0">
+              <div className="flex items-center justify-end gap-1 mb-1">
+                <Star className="w-4 h-4 fill-blue-500 text-blue-500" />
+                <span className="font-semibold text-gray-900 dark:text-white text-lg">{dj.rating}</span>
+              </div>
+              <p className="text-xs text-gray-500 dark:text-gray-400">{dj.reviewCount} recensioner</p>
+            </div>
+          </div>
+
+          {/* Interactive Controls & Pricing - Mobile Responsive */}
+          <div className="flex flex-col lg:flex-row lg:items-start justify-between mt-4 pt-4 border-t border-gray-100 dark:border-gray-700 gap-4">
+            {/* Gear Selection */}
+            <div className="flex-1 min-w-0">
+              <InlineGearSelector
+                compatibleGear={dj.compatibleGear}
+                selectedGear={selectedGear}
+                onGearChange={handleGearChange}
+              />
+            </div>
+            
+            {/* Price and Controls */}
+            <div className="flex-shrink-0 w-full lg:w-[140px] lg:text-right">
+              <div className="mb-3">
+                <HourSlider
+                  value={selectedHours}
+                  onChange={setSelectedHours}
+                  hourlyRate={dj.hourlyRate}
+                  min={1}
+                  max={8}
+                />
+              </div>
+              
+              <div className="flex lg:flex-col justify-between lg:justify-start items-center lg:items-end">
+                <div className="lg:mb-1">
+                  <div className="text-xl font-bold text-gray-900 dark:text-white">
+                    {totalPrice.toLocaleString('sv-SE')} kr
+                  </div>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 lg:mb-3">
+                    för {selectedHours}h
+                  </p>
+                </div>
+                
+                <button 
+                  onClick={handleAddToBasket}
+                  className={`px-4 py-2 rounded text-sm font-medium transition-colors lg:w-full ${
+                    isInBasket
+                      ? 'bg-green-600 hover:bg-green-700 text-white'
+                      : 'bg-blue-600 hover:bg-blue-700 text-white'
+                  }`}
+                >
+                  {isInBasket ? '✓ Tillagd' : 'Lägg till'}
+                </button>
               </div>
             </div>
           </div>
