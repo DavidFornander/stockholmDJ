@@ -6,8 +6,7 @@ import { usePathname } from "next/navigation";
 import { ThemeToggle } from "../theme/ThemeToggle";
 
 const tabs = [
-  { name: "Hitta DJs", path: "/djs" },
-  { name: "Hitta Events", path: "/events" },
+  { name: "Välj DJ", path: "/djs" },
   { name: "Hyr Utrustning", path: "/equipment" },
 ];
 
@@ -55,6 +54,14 @@ export const Navbar = () => {
               </button>
               {isMenuOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-black rounded-md shadow-lg py-1 z-50 border dark:border-gray-700">
+                  <Link
+                    href="/events"
+                    className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Hitta Events
+                  </Link>
+                  <div className="border-t dark:border-gray-700 my-1"></div>
                   <Link
                     href="/book"
                     className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
