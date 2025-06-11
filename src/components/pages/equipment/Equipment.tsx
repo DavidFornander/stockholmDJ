@@ -269,7 +269,7 @@ const Equipment: React.FC = () => {
 			{/* Hero Image Section */}
 			<div className="relative w-full h-64 md:h-80 lg:h-96 overflow-hidden">
 				<Image
-					src="/assets/images/temp/2Q.png"
+					src="/assets/images/hero/utrustning.png"
 					alt="Hyr Utrustning Hero"
 					fill
 					className="object-cover object-center"
