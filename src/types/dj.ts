@@ -22,6 +22,7 @@ export interface DJ {
   reviewCount: number;
   location: string;
   specialties: string[];
+  eventTypes: string[]; // Event types the DJ specializes in
   experience: string;
   imageUrl: string;
   images?: string[]; // Multiple images for carousel

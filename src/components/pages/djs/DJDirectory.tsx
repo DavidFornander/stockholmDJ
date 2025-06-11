@@ -2,13 +2,14 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { Search, SlidersHorizontal, MapPin, Star, Music2, Clock, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Search, SlidersHorizontal, MapPin, Star, Music2, Clock, ChevronLeft, ChevronRight, ChevronDown } from 'lucide-react';
 import { DJ } from '@/types/dj';
 import { useBasket } from '@/context/BasketContext';
 import MiniCalendar from '@/components/shared/ui/MiniCalendar';
 import Compact3DViewer from '@/components/shared/ui/Compact3DViewer';
 import InlineGearSelector from '@/components/shared/ui/InlineGearSelector';
 import HourSlider from '@/components/shared/ui/HourSlider';
+import FilterModal from '@/components/shared/ui/FilterModal';
 
 // Sample DJ data
 const djsData: DJ[] = [
@@ -21,6 +22,7 @@ const djsData: DJ[] = [
     reviewCount: 147,
     location: 'På Landet för fan',
     specialties: ['House', 'Techno', 'Deep House'],
+    eventTypes: ['Klubb', 'Privat fest'],
     experience: '8+ år',
     imageUrl: '/assets/images/profiles/dj_image.jpg',
     images: [
@@ -60,6 +62,7 @@ const djsData: DJ[] = [
     reviewCount: 203,
     location: 'Södermalm',
     specialties: ['Pop', 'RnB', 'Wedding'],
+    eventTypes: ['Bröllop', 'Företagsevent', 'Privat fest'],
     experience: '6+ år',
     imageUrl: '/assets/images/profiles/glow__page--irl-looks-01.jpg',
     images: [
@@ -99,6 +102,7 @@ const djsData: DJ[] = [
     reviewCount: 189,
     location: 'Östermalm',
     specialties: ['Progressive', 'Trance', 'Electronic'],
+    eventTypes: ['Klubb', 'Företagsevent'],
     experience: '10+ år',
     imageUrl: '/assets/images/profiles/glow__page--irl-looks-02.jpg',
     images: [
@@ -138,6 +142,7 @@ const djsData: DJ[] = [
     reviewCount: 156,
     location: 'Vasastan',
     specialties: ['Hip-Hop', 'RnB', 'Urban'],
+    eventTypes: ['Privat fest', 'Klubb'],
     experience: '5+ år',
     imageUrl: '/assets/images/profiles/glow__page--irl-looks-03.jpg',
     images: [
@@ -177,6 +182,7 @@ const djsData: DJ[] = [
     reviewCount: 98,
     location: 'Gamla Stan',
     specialties: ['Vinyl', 'Classic House', 'Disco'],
+    eventTypes: ['Bröllop', 'Privat fest', 'Företagsevent'],
     experience: '12+ år',
     imageUrl: '/assets/images/profiles/glow__page--irl-looks-04.jpg',
     images: [
@@ -216,6 +222,7 @@ const djsData: DJ[] = [
     reviewCount: 174,
     location: 'Norrmalm',
     specialties: ['Corporate', 'Jazz', 'Lounge'],
+    eventTypes: ['Företagsevent', 'Privat fest'],
     experience: '7+ år',
     imageUrl: '/assets/images/profiles/glow__page--irl-looks-05.jpg',
     images: [
@@ -250,20 +257,25 @@ const djsData: DJ[] = [
 
 const DJDirectory: React.FC = () => {
   const [searchFrom, setSearchFrom] = useState('');
-  const [searchTo, setSearchTo] = useState('');
   const [eventDate, setEventDate] = useState('');
-  const [eventType, setEventType] = useState('');
   const [showFilters, setShowFilters] = useState(false);
   const [sortBy, setSortBy] = useState('price');
+  const [selectedEventType, setSelectedEventType] = useState('Alla');
+  const [selectedMusicStyle, setSelectedMusicStyle] = useState('Alla');
+  const [showEventTypeModal, setShowEventTypeModal] = useState(false);
+  const [showMusicStyleModal, setShowMusicStyleModal] = useState(false);
+
+  // Get unique event types and music styles for filtering
+  const eventTypes = ['Alla', ...Array.from(new Set(djsData.flatMap(dj => dj.eventTypes)))];
+  const musicStyles = ['Alla', ...Array.from(new Set(djsData.flatMap(dj => dj.specialties)))];
 
   // Filter and sort logic
   const filteredAndSortedDJs = djsData
     .filter(dj => {
       const matchesLocation = !searchFrom || dj.location.toLowerCase().includes(searchFrom.toLowerCase());
-      const matchesGenre = !searchTo || dj.specialties.some(specialty => 
-        specialty.toLowerCase().includes(searchTo.toLowerCase())
-      );
-      return matchesLocation && matchesGenre;
+      const matchesEventType = selectedEventType === 'Alla' || dj.eventTypes.includes(selectedEventType);
+      const matchesMusicStyle = selectedMusicStyle === 'Alla' || dj.specialties.includes(selectedMusicStyle);
+      return matchesLocation && matchesEventType && matchesMusicStyle;
     })
     .sort((a, b) => {
       switch(sortBy) {
@@ -536,8 +548,8 @@ const DJDirectory: React.FC = () => {
 
         {/* Search Form Overlay */}
         <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-full max-w-4xl px-4">
-          <div className="bg-white dark:bg-gray-800 rounded-full shadow-md flex items-center divide-x divide-gray-200 dark:divide-gray-700">
-            <div className="flex-1 px-4 py-2">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl md:rounded-full shadow-md flex flex-col md:flex-row items-center md:divide-x divide-gray-200 dark:divide-gray-700">
+            <div className="flex-1 px-4 py-3 w-full md:w-auto">
               <input
                 type="text"
                 placeholder="Plats"
@@ -546,16 +558,19 @@ const DJDirectory: React.FC = () => {
                 className="w-full bg-transparent focus:outline-none text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
               />
             </div>
-            <div className="flex-1 px-4 py-2">
-              <input
-                type="text"
-                placeholder="Musikstil"
-                value={searchTo}
-                onChange={(e) => setSearchTo(e.target.value)}
-                className="w-full bg-transparent focus:outline-none text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
-              />
+            <div className="flex-1 px-4 py-3 w-full md:w-auto border-t md:border-t-0 border-gray-200 dark:border-gray-700 md:border-none">
+              <button
+                type="button"
+                onClick={() => setShowMusicStyleModal(true)}
+                className="w-full bg-transparent focus:outline-none text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 flex items-center justify-between text-left"
+              >
+                <span className={selectedMusicStyle === 'Alla' ? 'text-gray-500 dark:text-gray-400' : ''}>
+                  {selectedMusicStyle === 'Alla' ? 'Musikstil' : selectedMusicStyle}
+                </span>
+                <ChevronDown className="w-4 h-4 text-gray-400" />
+              </button>
             </div>
-            <div className="flex-1 px-4 py-2">
+            <div className="flex-1 px-4 py-3 w-full md:w-auto border-t md:border-t-0 border-gray-200 dark:border-gray-700 md:border-none">
               <input
                 type="date"
                 value={eventDate}
@@ -563,22 +578,23 @@ const DJDirectory: React.FC = () => {
                 className="w-full bg-transparent focus:outline-none text-gray-900 dark:text-white"
               />
             </div>
-            <div className="flex-1 px-4 py-2">
-              <select
-                value={eventType}
-                onChange={(e) => setEventType(e.target.value)}
-                className="w-full bg-transparent focus:outline-none text-gray-900 dark:text-white"
+            <div className="flex-1 px-4 py-3 w-full md:w-auto border-t md:border-t-0 border-gray-200 dark:border-gray-700 md:border-none">
+              <button
+                type="button"
+                onClick={() => setShowEventTypeModal(true)}
+                className="w-full bg-transparent focus:outline-none text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 flex items-center justify-between text-left"
               >
-                <option value="">Eventtyp</option>
-                <option value="wedding">Bröllop</option>
-                <option value="corporate">Företagsevent</option>
-                <option value="party">Privat fest</option>
-                <option value="club">Klubb</option>
-              </select>
+                <span className={selectedEventType === 'Alla' ? 'text-gray-500 dark:text-gray-400' : ''}>
+                  {selectedEventType === 'Alla' ? 'Eventtyp' : selectedEventType}
+                </span>
+                <ChevronDown className="w-4 h-4 text-gray-400" />
+              </button>
             </div>
-            <button className="p-2 rounded-full bg-blue-600 hover:bg-blue-700 transition-colors px-4">
-              <Search className="w-5 h-5 text-white" />
-            </button>
+            <div className="w-full md:w-auto p-3 border-t md:border-t-0 border-gray-200 dark:border-gray-700 md:border-none">
+              <button className="w-full md:w-auto p-2 rounded-full bg-blue-600 hover:bg-blue-700 transition-colors px-4">
+                <Search className="w-5 h-5 text-white" />
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -586,7 +602,7 @@ const DJDirectory: React.FC = () => {
       {/* Results Section */}
       <div className="container mx-auto px-4 py-8">
         {/* Results Header */}
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-4">
           <div>
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
               Tillgängliga DJs
@@ -594,6 +610,39 @@ const DJDirectory: React.FC = () => {
             <p className="text-gray-600 dark:text-gray-400 mt-1">
               {filteredAndSortedDJs.length} DJs hittade
             </p>
+            
+            {/* Active Filters */}
+            {(selectedMusicStyle !== 'Alla' || selectedEventType !== 'Alla' || searchFrom) && (
+              <div className="flex items-center gap-2 mt-2 flex-wrap">
+                <span className="text-sm text-gray-500 dark:text-gray-400">Aktiva filter:</span>
+                {searchFrom && (
+                  <span className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs rounded-full">
+                    Plats: {searchFrom}
+                  </span>
+                )}
+                {selectedMusicStyle !== 'Alla' && (
+                  <span className="px-2 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 text-xs rounded-full">
+                    Musikstil: {selectedMusicStyle}
+                  </span>
+                )}
+                {selectedEventType !== 'Alla' && (
+                  <span className="px-2 py-1 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 text-xs rounded-full">
+                    Eventtyp: {selectedEventType}
+                  </span>
+                )}
+                <button
+                  onClick={() => {
+                    setSearchFrom('');
+                    setEventDate('');
+                    setSelectedEventType('Alla');
+                    setSelectedMusicStyle('Alla');
+                  }}
+                  className="text-xs text-blue-600 dark:text-blue-400 hover:underline ml-2"
+                >
+                  Rensa alla filter
+                </button>
+              </div>
+            )}
           </div>
           
           {/* Sort and Filter Controls */}
@@ -640,9 +689,9 @@ const DJDirectory: React.FC = () => {
             <button
               onClick={() => {
                 setSearchFrom('');
-                setSearchTo('');
                 setEventDate('');
-                setEventType('');
+                setSelectedEventType('Alla');
+                setSelectedMusicStyle('Alla');
               }}
               className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-md font-medium transition-colors"
             >
@@ -651,6 +700,29 @@ const DJDirectory: React.FC = () => {
           </div>
         )}
       </div>
+
+      {/* Filter Modals */}
+      <FilterModal
+        isOpen={showMusicStyleModal}
+        onClose={() => setShowMusicStyleModal(false)}
+        title="Filtrera efter musikstil"
+        options={musicStyles}
+        selectedValue={selectedMusicStyle}
+        onSelect={setSelectedMusicStyle}
+        dataSource={djsData}
+        getItemCategories={(dj) => dj.specialties}
+      />
+
+      <FilterModal
+        isOpen={showEventTypeModal}
+        onClose={() => setShowEventTypeModal(false)}
+        title="Filtrera efter eventtyp"
+        options={eventTypes}
+        selectedValue={selectedEventType}
+        onSelect={setSelectedEventType}
+        dataSource={djsData}
+        getItemCategories={(dj) => dj.eventTypes}
+      />
     </div>
   );
 };
