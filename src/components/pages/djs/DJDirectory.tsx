@@ -326,14 +326,14 @@ const DJDirectory: React.FC = () => {
 
                 {/* 3D Model & Calendar Section - Centered */}
                 <div className="flex gap-3 flex-shrink-0 justify-center flex-1">
-                  <div className="w-[100px] h-[80px] hidden sm:block">
+                  <div className="w-[200px] h-[110px] hidden sm:block">
                     <Compact3DViewer
                       modelPath={dj.model3D}
                       selectedGear={selectedGear}
                       className="w-full h-full"
                     />
                   </div>
-                  <div className="w-[140px] h-[80px]">
+                  <div className="w-[200px] h-[110px]">
                     <MiniCalendar
                       availability={dj.availability}
                       selectedDate={selectedDate}

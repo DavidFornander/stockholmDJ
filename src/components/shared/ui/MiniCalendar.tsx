@@ -128,7 +128,7 @@ const MiniCalendar: React.FC<MiniCalendarProps> = ({
             onClick={() => handleDateClick(dateString, available)}
             disabled={!available}
             className={`
-              w-6 h-6 text-xs rounded text-center transition-colors
+              w-5 h-5 text-xs rounded text-center transition-colors
               ${isCurrentMonth 
                 ? available 
                   ? 'text-green-700 dark:text-green-400 bg-green-50 dark:bg-green-900/20 hover:bg-green-100 dark:hover:bg-green-900/40' 
