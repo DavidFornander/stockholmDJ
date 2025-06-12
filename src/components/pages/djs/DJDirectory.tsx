@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Search, SlidersHorizontal, MapPin, Star, Music2, Clock, ChevronLeft, ChevronRight, ChevronDown } from 'lucide-react';
 import { DJ } from '@/types/dj';
@@ -264,11 +264,22 @@ const DJDirectory: React.FC = () => {
   const [selectedMusicStyle, setSelectedMusicStyle] = useState('Alla');
   const [showEventTypeModal, setShowEventTypeModal] = useState(false);
   const [showMusicStyleModal, setShowMusicStyleModal] = useState(false);
+  const [showSortDropdown, setShowSortDropdown] = useState(false);
 
   // Get unique event types and music styles for filtering
   const eventTypes = ['Alla', ...Array.from(new Set(djsData.flatMap(dj => dj.eventTypes)))];
   const musicStyles = ['Alla', ...Array.from(new Set(djsData.flatMap(dj => dj.specialties)))];
 
+  // Sort options
+  const sortOptions = [
+    { value: 'price', label: 'Sortera efter pris' },
+    { value: 'rating', label: 'Sortera efter betyg' },
+    { value: 'reviews', label: 'Sortera efter recensioner' }
+  ];
+
+  const getCurrentSortLabel = () => {
+    return sortOptions.find(option => option.value === sortBy)?.label || 'Sortera';
+  };
   // Filter and sort logic
   const filteredAndSortedDJs = djsData
     .filter(dj => {
@@ -524,6 +535,31 @@ const DJDirectory: React.FC = () => {
     );
   };
 
+  // Close sort dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (showSortDropdown) {
+        setShowSortDropdown(false);
+      }
+    };
+
+    const handleEscapeKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && showSortDropdown) {
+        setShowSortDropdown(false);
+      }
+    };
+
+    if (showSortDropdown) {
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('keydown', handleEscapeKey);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEscapeKey);
+    };
+  }, [showSortDropdown]);
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-black transition-colors duration-200">
       {/* Hero Image Section */}
@@ -647,15 +683,37 @@ const DJDirectory: React.FC = () => {
           
           {/* Sort and Filter Controls */}
           <div className="flex items-center gap-4">
-            <select
-              className="px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md text-sm bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-            >
-              <option value="price">Sortera efter pris</option>
-              <option value="rating">Sortera efter betyg</option>
-              <option value="reviews">Sortera efter recensioner</option>
-            </select>
+            <div className="relative">
+              <button
+                className="flex items-center gap-2 px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md text-sm hover:bg-gray-50 dark:hover:bg-gray-800 bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors"
+                onClick={() => setShowSortDropdown(!showSortDropdown)}
+              >
+                {getCurrentSortLabel()}
+                <ChevronDown className="w-4 h-4" />
+              </button>
+              
+              {/* Sort Dropdown */}
+              {showSortDropdown && (
+                <div className="absolute top-full left-0 mt-2 w-48 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-50">
+                  {sortOptions.map((option) => (
+                    <button
+                      key={option.value}
+                      onClick={() => {
+                        setSortBy(option.value);
+                        setShowSortDropdown(false);
+                      }}
+                      className={`w-full text-left px-3 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors ${
+                        sortBy === option.value 
+                          ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' 
+                          : 'text-gray-700 dark:text-gray-300'
+                      } ${option.value === sortOptions[0].value ? 'rounded-t-md' : ''} ${option.value === sortOptions[sortOptions.length - 1].value ? 'rounded-b-md' : ''}`}
+                    >
+                      {option.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
             
             <button
               className="flex items-center gap-2 px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md text-sm hover:bg-gray-50 dark:hover:bg-gray-800 bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors"
