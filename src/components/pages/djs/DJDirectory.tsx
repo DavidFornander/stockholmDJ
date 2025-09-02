@@ -11,6 +11,24 @@ import InlineGearSelector from '@/components/shared/ui/InlineGearSelector';
 import HourSlider from '@/components/shared/ui/HourSlider';
 import FilterModal from '@/components/shared/ui/FilterModal';
 
+// Lorem Picsum image utility functions
+const getLoremPicsumImage = (width: number, height: number, seed: number) => {
+  return `https://picsum.photos/seed/${seed}/${width}/${height}`;
+};
+
+const getHeroImage = () => {
+  // DJ/event themed hero image - using a fixed seed for consistency
+  return getLoremPicsumImage(1920, 800, 1001);
+};
+
+const getDJProfileImages = (djId: string, count: number = 4) => {
+  // Generate consistent images for each DJ based on their ID
+  const baseSeeed = parseInt(djId) * 100;
+  return Array.from({ length: count }, (_, index) => 
+    getLoremPicsumImage(400, 300, baseSeeed + index + 1)
+  );
+};
+
 // Sample DJ data
 const djsData: DJ[] = [
   {
@@ -24,13 +42,8 @@ const djsData: DJ[] = [
     specialties: ['House', 'Techno', 'Deep House'],
     eventTypes: ['Klubb', 'Privat fest'],
     experience: '8+ år',
-    imageUrl: '/assets/images/profiles/dj_image.jpg',
-    images: [
-      '/assets/images/profiles/dj_image.jpg',
-      '/assets/images/profiles/glow__page--irl-looks-01.jpg',
-      '/assets/images/profiles/glow__page--irl-looks-02.jpg',
-      '/assets/images/profiles/glow__page--irl-looks-03.jpg'
-    ],
+    imageUrl: getDJProfileImages('1', 1)[0],
+    images: getDJProfileImages('1', 4),
     available: true,
     duration: '1-9 timmar',
     equipment: 'Komplett ljudanläggning',
@@ -64,13 +77,8 @@ const djsData: DJ[] = [
     specialties: ['Pop', 'RnB', 'Wedding'],
     eventTypes: ['Bröllop', 'Företagsevent', 'Privat fest'],
     experience: '6+ år',
-    imageUrl: '/assets/images/profiles/glow__page--irl-looks-01.jpg',
-    images: [
-      '/assets/images/profiles/glow__page--irl-looks-01.jpg',
-      '/assets/images/profiles/wink__page--gallery-02.jpg',
-      '/assets/images/profiles/moda__page--lookbook-01.jpg',
-      '/assets/images/profiles/trending__page--lookbook-01.jpg'
-    ],
+    imageUrl: getDJProfileImages('2', 1)[0],
+    images: getDJProfileImages('2', 4),
     available: true,
     duration: '1-6 timmar',
     equipment: 'Premium ljudsystem',
@@ -104,13 +112,8 @@ const djsData: DJ[] = [
     specialties: ['Progressive', 'Trance', 'Electronic'],
     eventTypes: ['Klubb', 'Företagsevent'],
     experience: '10+ år',
-    imageUrl: '/assets/images/profiles/glow__page--irl-looks-02.jpg',
-    images: [
-      '/assets/images/profiles/glow__page--irl-looks-02.jpg',
-      '/assets/images/profiles/wink__page--gallery-03.jpg',
-      '/assets/images/profiles/moda__page--lookbook-02.jpg',
-      '/assets/images/profiles/trending__page--lookbook-02.jpg'
-    ],
+    imageUrl: getDJProfileImages('3', 1)[0],
+    images: getDJProfileImages('3', 4),
     available: false,
     duration: '1-5 timmar',
     equipment: 'Professionell utrustning',
@@ -144,13 +147,8 @@ const djsData: DJ[] = [
     specialties: ['Hip-Hop', 'RnB', 'Urban'],
     eventTypes: ['Privat fest', 'Klubb'],
     experience: '5+ år',
-    imageUrl: '/assets/images/profiles/glow__page--irl-looks-03.jpg',
-    images: [
-      '/assets/images/profiles/glow__page--irl-looks-03.jpg',
-      '/assets/images/profiles/wink__page--gallery-04.jpg',
-      '/assets/images/profiles/moda__page--lookbook-03.jpg',
-      '/assets/images/profiles/trending__page--lookbook-03.jpg'
-    ],
+    imageUrl: getDJProfileImages('4', 1)[0],
+    images: getDJProfileImages('4', 4),
     available: true,
     duration: '1-4 timmar',
     equipment: 'Standardutrustning',
@@ -184,13 +182,8 @@ const djsData: DJ[] = [
     specialties: ['Vinyl', 'Classic House', 'Disco'],
     eventTypes: ['Bröllop', 'Privat fest', 'Företagsevent'],
     experience: '12+ år',
-    imageUrl: '/assets/images/profiles/glow__page--irl-looks-04.jpg',
-    images: [
-      '/assets/images/profiles/glow__page--irl-looks-04.jpg',
-      '/assets/images/profiles/wink__page--gallery-05.jpg',
-      '/assets/images/profiles/moda__page--lookbook-04.jpg',
-      '/assets/images/profiles/trending__page--lookbook-04.jpg'
-    ],
+    imageUrl: getDJProfileImages('5', 1)[0],
+    images: getDJProfileImages('5', 4),
     available: true,
     duration: '1-6 timmar',
     equipment: 'Vintage vinyl setup',
@@ -224,13 +217,8 @@ const djsData: DJ[] = [
     specialties: ['Corporate', 'Jazz', 'Lounge'],
     eventTypes: ['Företagsevent', 'Privat fest'],
     experience: '7+ år',
-    imageUrl: '/assets/images/profiles/glow__page--irl-looks-05.jpg',
-    images: [
-      '/assets/images/profiles/glow__page--irl-looks-05.jpg',
-      '/assets/images/profiles/wink__page--gallery-06.jpg',
-      '/assets/images/profiles/moda__page--lookbook-05.jpg',
-      '/assets/images/profiles/trending__page--lookbook-05.jpg'
-    ],
+    imageUrl: getDJProfileImages('6', 1)[0],
+    images: getDJProfileImages('6', 4),
     available: true,
     duration: '1-5 timmar',
     equipment: 'Diskret ljudsystem',
@@ -565,7 +553,7 @@ const DJDirectory: React.FC = () => {
       {/* Hero Image Section */}
       <div className="relative w-full h-64 md:h-80 lg:h-96 overflow-hidden">
         <Image
-          src="/assets/images/hero/image3.png"
+          src={getHeroImage()}
           alt="DJ performing at event"
           fill
           className="object-cover object-center"
