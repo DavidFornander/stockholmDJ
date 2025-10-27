@@ -13,10 +13,6 @@ import { useBasket } from '@/context/BasketContext';
 import { DJ } from '@/types/dj';
 
 // Lorem Picsum image utility functions
-const getLoremPicsumImage = (width: number, height: number, seed: number) => {
-  return `https://picsum.photos/seed/${seed}/${width}/${height}`;
-};
-
 const getHeroImage = () => {
   // DJ/event themed hero image - using local image
   return '/assets/images/hero/dj-cool-1.jpg';
