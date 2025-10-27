@@ -5,12 +5,8 @@ import Image from 'next/image';
 import React, { useState, useEffect, useMemo } from 'react';
 
 import { useTheme } from '@/components/global/theme/ThemeProvider';
-import Compact3DViewer from '@/components/shared/ui/Compact3DViewer';
+import DJModal from '@/components/shared/ui/DJModal';
 import FilterModal from '@/components/shared/ui/FilterModal';
-import HourSlider from '@/components/shared/ui/HourSlider';
-import InlineGearSelector from '@/components/shared/ui/InlineGearSelector';
-import MiniCalendar from '@/components/shared/ui/MiniCalendar';
-import { useBasket } from '@/context/BasketContext';
 import { DJ } from '@/types/dj';
 
 // Lorem Picsum image utility functions
@@ -37,6 +33,8 @@ const DJDirectory: React.FC = () => {
   const [showEventTypeModal, setShowEventTypeModal] = useState(false);
   const [showMusicStyleModal, setShowMusicStyleModal] = useState(false);
   const [showSortDropdown, setShowSortDropdown] = useState(false);
+  const [selectedDJ, setSelectedDJ] = useState<DJ | null>(null);
+  const [showDJModal, setShowDJModal] = useState(false);
 
   // Sample DJ data - memoized to only update when theme changes
   const djsData: DJ[] = useMemo(() => [
@@ -183,17 +181,7 @@ const DJDirectory: React.FC = () => {
     });
 
   const DJCard: React.FC<{ dj: DJ }> = ({ dj }) => {
-    const { addItem, isItemInBasket, removeItem } = useBasket();
-    const [showInteractive, setShowInteractive] = useState(false);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
-    const [selectedGear, setSelectedGear] = useState({
-      speakers: { name: 'Ljud finns i lokalen', cost: 0 },
-      djTable: { name: 'Finns i lokalen', cost: 0 },
-      player: { name: 'Digital', cost: 0 },
-      microphone: { name: 'Nej, tack', cost: 0 }
-    });
-    const [selectedHours, setSelectedHours] = useState(4);
-    const [selectedDate, setSelectedDate] = useState('');
 
     // Get available images (use images array if available, otherwise fall back to single imageUrl)
     const availableImages = dj.images && dj.images.length > 0 ? dj.images : [dj.imageUrl];
@@ -204,44 +192,6 @@ const DJDirectory: React.FC = () => {
 
     const prevImage = () => {
       setCurrentImageIndex((prev) => (prev - 1 + availableImages.length) % availableImages.length);
-    };
-
-    const handleGearChange = (gearType: keyof typeof selectedGear, option: { name: string; cost: number }) => {
-      setSelectedGear(prev => ({
-        ...prev,
-        [gearType]: option
-      }));
-    };
-
-    const gearCost = Object.values(selectedGear).reduce((sum, gear) => sum + gear.cost, 0);
-    const totalPrice = (dj.hourlyRate * selectedHours) + gearCost;
-    const isInBasket = isItemInBasket(dj.id);
-
-    const handleAddToBasket = () => {
-      if (isInBasket) {
-        removeItem(dj.id);
-      } else {
-        const gearArray = Object.entries(selectedGear)
-          .filter(([, gear]) => gear.cost > 0)
-          .map(([type, gear]) => ({
-            id: `${dj.id}-${type}`,
-            name: gear.name,
-            cost: gear.cost,
-            category: type
-          }));
-
-        addItem({
-          type: 'dj',
-          itemId: dj.id,
-          itemName: dj.name,
-          itemTitle: dj.title,
-          selectedDate: selectedDate || new Date().toISOString().split('T')[0],
-          selectedHours,
-          selectedGear: gearArray,
-          basePrice: dj.hourlyRate,
-          djData: dj
-        });
-      }
     };
 
     return (
@@ -300,7 +250,7 @@ const DJDirectory: React.FC = () => {
           {/* Responsive Layout Container */}
           <div className="flex flex-col">
             {/* Name + Reviews Section - Unified for all screens */}
-            <div className="flex justify-between items-start mb-4">
+            <div className="flex justify-between items-end mb-4">
               <div className="flex-1">
                 <h3 className="font-semibold text-gray-900 dark:text-white text-lg">{dj.name}</h3>
                 <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">{dj.title}</p>
@@ -335,86 +285,18 @@ const DJDirectory: React.FC = () => {
                 </div>
                 <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">{dj.reviewCount} recensioner</p>
                 <button
-                  onClick={() => setShowInteractive(!showInteractive)}
-                  className="px-3 py-1 text-xs font-medium bg-blue-600 hover:bg-blue-700 text-white rounded transition-colors"
-                  aria-label={showInteractive ? "Dölj interaktiva funktioner" : "Visa interaktiva funktioner"}
+                  onClick={() => {
+                    setSelectedDJ(dj);
+                    setShowDJModal(true);
+                  }}
+                  className="px-4 py-2 text-sm font-medium bg-blue-600 hover:bg-blue-700 text-white rounded transition-colors"
+                  aria-label="Öppna DJ detaljer"
                 >
-                  {showInteractive ? 'Dölj' : 'Välj'}
+                  Boka
                 </button>
               </div>
             </div>
-
-            {/* 3D & Calendar Section - Conditionally rendered for all screens */}
-            {showInteractive && (
-              <div className="mb-4 transition-all duration-300 ease-in-out">
-                <div className="flex gap-3 justify-center">
-                  <div className="w-[120px] h-[110px]">
-                    <Compact3DViewer
-                      modelPath={dj.model3D}
-                      selectedGear={selectedGear}
-                      className="w-full h-full"
-                    />
-                  </div>
-                  <div className="w-[180px] h-[110px]">
-                    <MiniCalendar
-                      availability={dj.availability}
-                      selectedDate={selectedDate}
-                      onDateSelect={setSelectedDate}
-                      className="w-full h-full text-xs"
-                    />
-                  </div>
-                </div>
-              </div>
-            )}
           </div>
-
-          {/* Interactive Controls & Pricing - Conditionally rendered, optimized for grid layout */}
-          {showInteractive && (
-            <div className="flex flex-col justify-between mt-4 pt-4 border-t border-gray-100 dark:border-gray-700 gap-4 transition-all duration-300 ease-in-out">
-              {/* Gear Selection - Simplified for card format */}
-              <div className="w-full">
-                <InlineGearSelector
-                  compatibleGear={dj.compatibleGear}
-                  selectedGear={selectedGear}
-                  onGearChange={handleGearChange}
-                />
-              </div>
-              
-              {/* Hour Slider */}
-              <div className="w-full">
-                <HourSlider
-                  value={selectedHours}
-                  onChange={setSelectedHours}
-                  hourlyRate={dj.hourlyRate}
-                  min={1}
-                  max={8}
-                />
-              </div>
-              
-              {/* Price and Controls */}
-              <div className="flex justify-between items-center">
-                <div>
-                  <div className="text-xl font-bold text-gray-900 dark:text-white">
-                    {totalPrice.toLocaleString('sv-SE')} kr
-                  </div>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">
-                    för {selectedHours}h
-                  </p>
-                </div>
-                
-                <button 
-                  onClick={handleAddToBasket}
-                  className={`px-4 py-2 rounded text-sm font-medium transition-colors ${
-                    isInBasket
-                      ? 'bg-green-600 hover:bg-green-700 text-white'
-                      : 'bg-blue-600 hover:bg-blue-700 text-white'
-                  }`}
-                >
-                  {isInBasket ? '✓ Tillagd' : 'Lägg till'}
-                </button>
-              </div>
-            </div>
-          )}
         </div>
       </div>
     );
@@ -670,6 +552,13 @@ const DJDirectory: React.FC = () => {
         onSelect={setSelectedEventType}
         dataSource={djsData}
         getItemCategories={(dj) => dj.eventTypes}
+      />
+
+      {/* DJ Modal */}
+      <DJModal
+        isOpen={showDJModal}
+        onClose={() => setShowDJModal(false)}
+        dj={selectedDJ}
       />
     </div>
   );
