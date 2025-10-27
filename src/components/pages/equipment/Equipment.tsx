@@ -324,7 +324,7 @@ const Equipment: React.FC = () => {
 								className="w-full bg-transparent focus:outline-none text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
 							/>
 						</div>
-						<button className="p-2 rounded-full bg-blue-600 hover:bg-blue-700 transition-colors px-4">
+						<button className="p-2 rounded-full bg-blue-600 hover:bg-blue-700 transition-colors px-3 mr-2">
 							<Search className="w-5 h-5 text-white" />
 						</button>
 					</div>

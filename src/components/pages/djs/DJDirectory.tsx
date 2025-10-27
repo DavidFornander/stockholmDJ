@@ -466,8 +466,8 @@ const DJDirectory: React.FC = () => {
 
         {/* Search Form Overlay */}
         <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-full max-w-4xl px-4">
-          <div className="bg-white dark:bg-gray-800 rounded-2xl md:rounded-full shadow-md flex flex-col md:flex-row items-center md:divide-x divide-gray-200 dark:divide-gray-700">
-            <div className="flex-1 px-4 py-3 w-full md:w-auto">
+          <div className="bg-white dark:bg-gray-800 rounded-full shadow-md flex items-center divide-x divide-gray-200 dark:divide-gray-700">
+            <div className="flex-1 px-4 py-2">
               <input
                 type="text"
                 placeholder="Plats"
@@ -476,7 +476,7 @@ const DJDirectory: React.FC = () => {
                 className="w-full bg-transparent focus:outline-none text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
               />
             </div>
-            <div className="flex-1 px-4 py-3 w-full md:w-auto border-t md:border-t-0 border-gray-200 dark:border-gray-700 md:border-none">
+            <div className="flex-1 px-4 py-2">
               <button
                 type="button"
                 onClick={() => setShowMusicStyleModal(true)}
@@ -488,7 +488,7 @@ const DJDirectory: React.FC = () => {
                 <ChevronDown className="w-4 h-4 text-gray-400" />
               </button>
             </div>
-            <div className="flex-1 px-4 py-3 w-full md:w-auto border-t md:border-t-0 border-gray-200 dark:border-gray-700 md:border-none">
+            <div className="flex-1 px-4 py-2">
               <input
                 type="date"
                 value={eventDate}
@@ -496,7 +496,7 @@ const DJDirectory: React.FC = () => {
                 className="w-full bg-transparent focus:outline-none text-gray-900 dark:text-white"
               />
             </div>
-            <div className="flex-1 px-4 py-3 w-full md:w-auto border-t md:border-t-0 border-gray-200 dark:border-gray-700 md:border-none">
+            <div className="flex-1 px-4 py-2">
               <button
                 type="button"
                 onClick={() => setShowEventTypeModal(true)}
@@ -508,11 +508,9 @@ const DJDirectory: React.FC = () => {
                 <ChevronDown className="w-4 h-4 text-gray-400" />
               </button>
             </div>
-            <div className="w-full md:w-auto p-3 border-t md:border-t-0 border-gray-200 dark:border-gray-700 md:border-none">
-              <button className="w-full md:w-auto p-2 rounded-full bg-blue-600 hover:bg-blue-700 transition-colors px-4">
-                <Search className="w-5 h-5 text-white" />
-              </button>
-            </div>
+            <button className="p-2 rounded-full bg-blue-600 hover:bg-blue-700 transition-colors px-3 mr-2">
+              <Search className="w-5 h-5 text-white" />
+            </button>
           </div>
         </div>
       </div>
