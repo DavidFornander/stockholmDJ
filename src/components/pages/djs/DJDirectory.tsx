@@ -1,9 +1,10 @@
 "use client";
 
-import { Search, SlidersHorizontal, MapPin, Star, Music2, ChevronLeft, ChevronRight, ChevronDown } from 'lucide-react';
+import { Search, MapPin, Star, Music2, ChevronLeft, ChevronRight, ChevronDown } from 'lucide-react';
 import Image from 'next/image';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
+import { useTheme } from '@/components/global/theme/ThemeProvider';
 import Compact3DViewer from '@/components/shared/ui/Compact3DViewer';
 import FilterModal from '@/components/shared/ui/FilterModal';
 import HourSlider from '@/components/shared/ui/HourSlider';
@@ -18,134 +19,136 @@ const getHeroImage = () => {
   return '/assets/images/hero/dj-cool-1.jpg';
 };
 
-const getDJProfileImages = (djId: string, count: number = 4) => {
-  // Temporarily use local profile image for all DJs
-  const tempImage = '/assets/images/profiles/temp-profile.jpg';
+const getDJProfileImages = (djId: string, count: number = 4, theme: 'light' | 'dark' = 'light') => {
+  // Use different profile images based on theme
+  const tempImage = theme === 'light' 
+    ? '/assets/images/profiles/temp-profile-light.jpg' 
+    : '/assets/images/profiles/temp-profile.jpg';
   return Array.from({ length: count }, () => tempImage);
 };
 
-// Sample DJ data
-const djsData: DJ[] = [
-  {
-    id: '1',
-    name: 'Hugo Falck',
-    title: 'House & Techno Specialist',
-    price: 15000,
-    rating: 4.9,
-    reviewCount: 147,
-    location: 'Enköping',
-    specialties: ['House', 'Techno', 'Deep House'],
-    eventTypes: ['Klubb', 'Privat fest'],
-    experience: '5+ år',
-    imageUrl: getDJProfileImages('1', 1)[0],
-    images: getDJProfileImages('1', 4),
-    available: true,
-    active: true,
-    duration: '1-9 timmar',
-    equipment: 'Komplett ljudanläggning',
-    hourlyRate: 2500,
-    availability: {
-      '2025-01-15': true,
-      '2025-01-16': true,
-      '2025-01-17': false,
-      '2025-01-18': true,
-      '2025-01-19': true,
-      '2025-01-20': true,
-      '2025-01-21': false
-    },
-    compatibleGear: {
-      speakers: ['2x 15\' toppar', '2x 15\' toppar + 1x 18\' sub', '2x 15\' toppar + 2x 18\' sub'],
-      djTables: ['Humpter B3 (Svart)', 'Humpter B3 (Vit)'],
-      players: ['Digital', 'Vinyl'],
-      microphones: ['Trådad', 'Trådlös', 'Trådlös (2st)'],
-      additionalItems: ['Uplighting', 'Strobe', 'Ljuspelare', 'Rokmaskin']
-    },
-    model3D: '/assets/models/Humpter_b3_v3.glb'
-  },
-  {
-    id: '2',
-    name: 'David Fornander',
-    title: 'DJ - Bröllop & Event',
-    price: 12000,
-    rating: 4.8,
-    reviewCount: 89,
-    location: 'Stockholm',
-    specialties: ['Pop', 'Hits', 'Fest'],
-    eventTypes: ['Bröllop', 'Privat fest', 'Företagsevent'],
-    experience: '3+ år',
-    imageUrl: getDJProfileImages('2', 1)[0],
-    images: getDJProfileImages('2', 4),
-    available: true,
-    active: true,
-    duration: '1-6 timmar',
-    equipment: 'Digital',
-    hourlyRate: 2000,
-    availability: {
-      '2025-01-15': true,
-      '2025-01-16': false,
-      '2025-01-17': true,
-      '2025-01-18': true,
-      '2025-01-19': false,
-      '2025-01-20': true,
-      '2025-01-21': true
-    },
-    compatibleGear: {
-      speakers: ['2x 15\' toppar', '2x 15\' toppar + 1x 18\' sub'],
-      djTables: ['Humpter B3 (Svart)', 'Humpter B3 (Vit)'],
-      players: ['Digital'],
-      microphones: ['Trådad', 'Trådlös'],
-      additionalItems: ['Uplighting', 'Ljuspelare', 'Projektor']
-    },
-    model3D: '/assets/models/Humpter_b3_v3.glb'
-  },
-  {
-    id: '3',
-    name: 'Sefan Ceccaldi',
-    title: 'Saxophone & DJ',
-    price: 25000,
-    rating: 4.9,
-    reviewCount: 203,
-    location: 'Stockholm',
-    specialties: ['Wedding', 'Party', 'Saxophone'],
-    eventTypes: ['Företagsevent', 'Bröllop', 'Privat fest'],
-    experience: '15+ år',
-    imageUrl: getDJProfileImages('3', 1)[0],
-    images: getDJProfileImages('3', 4),
-    available: true,
-    active: true,
-    duration: '2-8 timmar',
-    equipment: 'Professionell saxofon setup',
-    hourlyRate: 4000,
-    availability: {
-      '2025-01-15': true,
-      '2025-01-16': true,
-      '2025-01-17': true,
-      '2025-01-18': false,
-      '2025-01-19': true,
-      '2025-01-20': true,
-      '2025-01-21': true
-    },
-    compatibleGear: {
-      speakers: ['2x 15\' toppar', '2x 15\' toppar + 1x 18\' sub', '2x 15\' toppar + 2x 18\' sub'],
-      djTables: ['Humpter B3 (Svart)', 'Humpter B3 (Vit)'],
-      players: ['Digital', 'Vinyl'],
-      microphones: ['Trådlös', 'Trådlös (2st)'],
-      additionalItems: ['Uplighting', 'Strobe', 'Ljuspelare', 'Rokmaskin', 'Projektor']
-    },
-    model3D: '/assets/models/Humpter_b3_v3.glb'
-  }
-];
-
 const DJDirectory: React.FC = () => {
+  const { theme } = useTheme();
   const [searchFrom, setSearchFrom] = useState('');
   const [eventDate, setEventDate] = useState('');
-  const [showFilters, setShowFilters] = useState(false);
   const [sortBy, setSortBy] = useState('price');
   const [selectedEventType, setSelectedEventType] = useState('Alla');
   const [selectedMusicStyle, setSelectedMusicStyle] = useState('Alla');
   const [showEventTypeModal, setShowEventTypeModal] = useState(false);
   const [showMusicStyleModal, setShowMusicStyleModal] = useState(false);
   const [showSortDropdown, setShowSortDropdown] = useState(false);
+
+  // Sample DJ data - memoized to only update when theme changes
+  const djsData: DJ[] = useMemo(() => [
+    {
+      id: '1',
+      name: 'Hugo Falck',
+      title: 'House & Techno Specialist',
+      price: 15000,
+      rating: 4.9,
+      reviewCount: 147,
+      location: 'Enköping',
+      specialties: ['House', 'Techno', 'Deep House'],
+      eventTypes: ['Klubb', 'Privat fest'],
+      experience: '5+ år',
+      imageUrl: getDJProfileImages('1', 1, theme)[0],
+      images: getDJProfileImages('1', 4, theme),
+      available: true,
+      active: true,
+      duration: '1-9 timmar',
+      equipment: 'Komplett ljudanläggning',
+      hourlyRate: 2500,
+      availability: {
+        '2025-01-15': true,
+        '2025-01-16': true,
+        '2025-01-17': false,
+        '2025-01-18': true,
+        '2025-01-19': true,
+        '2025-01-20': true,
+        '2025-01-21': false
+      },
+      compatibleGear: {
+        speakers: ['2x 15\' toppar', '2x 15\' toppar + 1x 18\' sub', '2x 15\' toppar + 2x 18\' sub'],
+        djTables: ['Humpter B3 (Svart)', 'Humpter B3 (Vit)'],
+        players: ['Digital', 'Vinyl'],
+        microphones: ['Trådad', 'Trådlös', 'Trådlös (2st)'],
+        additionalItems: ['Uplighting', 'Strobe', 'Ljuspelare', 'Rokmaskin']
+      },
+      model3D: '/assets/models/Humpter_b3_v3.glb'
+    },
+    {
+      id: '2',
+      name: 'David Fornander',
+      title: 'DJ - Bröllop & Event',
+      price: 12000,
+      rating: 4.8,
+      reviewCount: 89,
+      location: 'Stockholm',
+      specialties: ['Pop', 'Hits', 'Fest'],
+      eventTypes: ['Bröllop', 'Privat fest', 'Företagsevent'],
+      experience: '3+ år',
+      imageUrl: getDJProfileImages('2', 1, theme)[0],
+      images: getDJProfileImages('2', 4, theme),
+      available: true,
+      active: true,
+      duration: '1-6 timmar',
+      equipment: 'Digital',
+      hourlyRate: 2000,
+      availability: {
+        '2025-01-15': true,
+        '2025-01-16': false,
+        '2025-01-17': true,
+        '2025-01-18': true,
+        '2025-01-19': false,
+        '2025-01-20': true,
+        '2025-01-21': true
+      },
+      compatibleGear: {
+        speakers: ['2x 15\' toppar', '2x 15\' toppar + 1x 18\' sub'],
+        djTables: ['Humpter B3 (Svart)', 'Humpter B3 (Vit)'],
+        players: ['Digital'],
+        microphones: ['Trådad', 'Trådlös'],
+        additionalItems: ['Uplighting', 'Ljuspelare', 'Projektor']
+      },
+      model3D: '/assets/models/Humpter_b3_v3.glb'
+    },
+    {
+      id: '3',
+      name: 'Sefan Ceccaldi',
+      title: 'Saxophone & DJ',
+      price: 25000,
+      rating: 4.9,
+      reviewCount: 203,
+      location: 'Stockholm',
+      specialties: ['Wedding', 'Party', 'Saxophone'],
+      eventTypes: ['Företagsevent', 'Bröllop', 'Privat fest'],
+      experience: '15+ år',
+      imageUrl: getDJProfileImages('3', 1, theme)[0],
+      images: getDJProfileImages('3', 4, theme),
+      available: true,
+      active: true,
+      duration: '2-8 timmar',
+      equipment: 'Professionell saxofon setup',
+      hourlyRate: 4000,
+      availability: {
+        '2025-01-15': true,
+        '2025-01-16': true,
+        '2025-01-17': true,
+        '2025-01-18': false,
+        '2025-01-19': true,
+        '2025-01-20': true,
+        '2025-01-21': true
+      },
+      compatibleGear: {
+        speakers: ['2x 15\' toppar', '2x 15\' toppar + 1x 18\' sub', '2x 15\' toppar + 2x 18\' sub'],
+        djTables: ['Humpter B3 (Svart)', 'Humpter B3 (Vit)'],
+        players: ['Digital', 'Vinyl'],
+        microphones: ['Trådlös', 'Trådlös (2st)'],
+        additionalItems: ['Uplighting', 'Strobe', 'Ljuspelare', 'Rokmaskin', 'Projektor']
+      },
+      model3D: '/assets/models/Humpter_b3_v3.glb'
+    }
+  ], [theme]);
 
   // Get unique event types and music styles for filtering
   const eventTypes = ['Alla', ...Array.from(new Set(djsData.flatMap(dj => dj.eventTypes)))];
@@ -517,18 +520,40 @@ const DJDirectory: React.FC = () => {
 
       {/* Results Section */}
       <div className="container mx-auto px-4 py-8">
-        {/* Results Header */}
+        {/* Category Filter */}
+        <div className="mb-8">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Stockholm DJs</h2>
+          <div className="flex flex-wrap gap-2">
+            {eventTypes.map((eventType) => {
+              const count = eventType === 'Alla' 
+                ? djsData.filter(dj => dj.active).length 
+                : djsData.filter(dj => dj.active && dj.eventTypes.includes(eventType)).length;
+              return (
+                <button
+                  key={eventType}
+                  onClick={() => setSelectedEventType(eventType)}
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                    selectedEventType === eventType
+                      ? 'bg-blue-600 text-white'
+                      : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
+                  }`}
+                >
+                  {eventType} ({count})
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Sort and Filter Controls */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-4">
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-              Tillgängliga DJs
-            </h2>
-            <p className="text-gray-600 dark:text-gray-400 mt-1">
+            <p className="text-gray-600 dark:text-gray-400">
               {filteredAndSortedDJs.length} DJs hittade
             </p>
             
             {/* Active Filters */}
-            {(selectedMusicStyle !== 'Alla' || selectedEventType !== 'Alla' || searchFrom) && (
+            {(selectedMusicStyle !== 'Alla' || searchFrom) && (
               <div className="flex items-center gap-2 mt-2 flex-wrap">
                 <span className="text-sm text-gray-500 dark:text-gray-400">Aktiva filter:</span>
                 {searchFrom && (
@@ -541,27 +566,20 @@ const DJDirectory: React.FC = () => {
                     Musikstil: {selectedMusicStyle}
                   </span>
                 )}
-                {selectedEventType !== 'Alla' && (
-                  <span className="px-2 py-1 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 text-xs rounded-full">
-                    Eventtyp: {selectedEventType}
-                  </span>
-                )}
                 <button
                   onClick={() => {
                     setSearchFrom('');
                     setEventDate('');
-                    setSelectedEventType('Alla');
                     setSelectedMusicStyle('Alla');
                   }}
                   className="text-xs text-blue-600 dark:text-blue-400 hover:underline ml-2"
                 >
-                  Rensa alla filter
+                  Rensa filter
                 </button>
               </div>
             )}
           </div>
           
-          {/* Sort and Filter Controls */}
           <div className="flex items-center gap-4">
             <div className="relative">
               <button
@@ -594,14 +612,6 @@ const DJDirectory: React.FC = () => {
                 </div>
               )}
             </div>
-            
-            <button
-              className="flex items-center gap-2 px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md text-sm hover:bg-gray-50 dark:hover:bg-gray-800 bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors"
-              onClick={() => setShowFilters(!showFilters)}
-            >
-              <SlidersHorizontal className="w-4 h-4" />
-              Filter
-            </button>
           </div>
         </div>
 
