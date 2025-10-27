@@ -99,12 +99,6 @@ export default function Homepage() {
                 >
                   Bläddra DJs
                 </Link>
-                <Link 
-                  href="/book"
-                  className="border border-gray-400 dark:border-gray-600 text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white px-8 py-3 rounded-lg font-semibold transition-colors inline-block"
-                >
-                  Boka Schema
-                </Link>
               </div>
             </motion.div>
           </motion.div>
