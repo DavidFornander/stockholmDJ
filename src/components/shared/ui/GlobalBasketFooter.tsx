@@ -1,8 +1,9 @@
 "use client";
 
-import React from 'react';
-import { useBasket } from '@/context/BasketContext';
 import { ShoppingCart, X, Clock, Calendar, Users } from 'lucide-react';
+import React from 'react';
+
+import { useBasket } from '@/context/BasketContext';
 
 const GlobalBasketFooter: React.FC = () => {
   const { state, toggleBasket, removeItem } = useBasket();
@@ -186,6 +187,13 @@ const GlobalBasketFooter: React.FC = () => {
         <div
           className="fixed inset-0 bg-black bg-opacity-50 z-40"
           onClick={toggleBasket}
+          onKeyDown={(e) => {
+            if (e.key === 'Escape') {
+              toggleBasket();
+            }
+          }}
+          tabIndex={-1}
+          role="presentation"
         />
       )}
     </>

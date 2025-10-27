@@ -28,7 +28,7 @@ const HourSlider: React.FC<HourSliderProps> = ({
   return (
     <div className={`space-y-2 ${className}`}>
       <div className="flex items-center justify-between">
-        <label className="text-xs font-medium text-gray-700 dark:text-gray-300">
+        <label htmlFor="hour-slider" className="text-xs font-medium text-gray-700 dark:text-gray-300">
           Timmar
         </label>
         <span className="text-xs font-semibold text-blue-600 dark:text-blue-400">
@@ -38,6 +38,7 @@ const HourSlider: React.FC<HourSliderProps> = ({
       
       <div className="relative">
         <input
+          id="hour-slider"
           type="range"
           min={min}
           max={max}
@@ -63,6 +64,7 @@ const HourSlider: React.FC<HourSliderProps> = ({
         </span>
       </div>
 
+      {/* eslint-disable-next-line react/no-unknown-property */}
       <style jsx>{`
         .slider::-webkit-slider-thumb {
           appearance: none;

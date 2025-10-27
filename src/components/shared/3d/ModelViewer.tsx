@@ -36,9 +36,11 @@ const ModelViewer = forwardRef<HTMLElement, ModelViewerProps>(
         // Check if the element is registered or already imported via a global flag.
         if (
           !window.customElements.get("model-viewer") &&
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           !(window as any).__MODEL_VIEWER_IMPORTED__
         ) {
           import("@google/model-viewer").then(() => {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             (window as any).__MODEL_VIEWER_IMPORTED__ = true;
           });
         }

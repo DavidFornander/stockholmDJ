@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
 import { motion } from "framer-motion";
+import React, { useState } from "react";
 
 const AccountSettings = () => {
   const [activeSection, setActiveSection] = useState("profile");

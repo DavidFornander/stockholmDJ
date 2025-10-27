@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import React, { useState, useEffect } from "react";
 
 export default function LaunchingSoonClient() {
   const [timeLeft, setTimeLeft] = useState({
@@ -54,7 +54,7 @@ export default function LaunchingSoonClient() {
       >
         <div className="mb-12">
           <h1 className="text-4xl md:text-6xl font-bold mb-4 text-gray-900 dark:text-white">Launching Soon</h1>
-          <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300">We're working hard to bring you something amazing. Stay tuned!</p>
+          <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300">We&apos;re working hard to bring you something amazing. Stay tuned!</p>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">

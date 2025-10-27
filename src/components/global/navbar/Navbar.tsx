@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import React, { useState } from "react";
+
 import { ThemeToggle } from "../theme/ThemeToggle";
 
 const tabs = [

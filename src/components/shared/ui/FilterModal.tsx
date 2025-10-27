@@ -1,17 +1,17 @@
 "use client";
 
-import React, { useEffect } from 'react';
 import { X } from 'lucide-react';
+import React, { useEffect } from 'react';
 
-interface FilterModalProps {
+interface FilterModalProps<T = unknown> {
   isOpen: boolean;
   onClose: () => void;
   title: string;
   options: string[];
   selectedValue: string;
   onSelect: (value: string) => void;
-  dataSource: any[]; // For counting items per category
-  getItemCategories: (item: any) => string[]; // Function to extract categories from item
+  dataSource: T[]; // For counting items per category
+  getItemCategories: (item: T) => string[]; // Function to extract categories from item
 }
 
 const FilterModal: React.FC<FilterModalProps> = ({
@@ -68,8 +68,13 @@ const FilterModal: React.FC<FilterModalProps> = ({
       onClick={handleBackdropClick}
       onKeyDown={handleKeyDown}
       tabIndex={-1}
+      role="presentation"
     >
-      <div className="bg-white dark:bg-gray-900 rounded-xl shadow-2xl max-w-2xl w-full max-h-[80vh] overflow-hidden animate-slideIn">
+      <div 
+        className="bg-white dark:bg-gray-900 rounded-xl shadow-2xl max-w-2xl w-full max-h-[80vh] overflow-hidden animate-slideIn"
+        role="dialog"
+        aria-modal="true"
+      >
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
@@ -79,7 +84,6 @@ const FilterModal: React.FC<FilterModalProps> = ({
             onClick={onClose}
             className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors"
             aria-label="Stäng filter"
-            autoFocus
           >
             <X className="w-5 h-5 text-gray-500 dark:text-gray-400" />
           </button>

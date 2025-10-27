@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
-import Image from "next/image";
 import { Search } from 'lucide-react';
+import Image from "next/image";
+import React, { useState } from "react";
 
 const equipmentData = [
 	// Pioneer DJ Controllers & All-in-One Systems

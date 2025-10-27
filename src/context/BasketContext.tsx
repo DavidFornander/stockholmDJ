@@ -1,7 +1,8 @@
 "use client";
 
 import React, { createContext, useContext, useReducer, useEffect, ReactNode } from 'react';
-import { DJ, GearOption } from '@/types/dj';
+
+import { DJ } from '@/types/dj';
 
 // Types for basket management
 export interface Equipment {
@@ -60,23 +61,25 @@ const calculateItemPrice = (basePrice: number, hours: number, gear: Equipment[])
 
 function basketReducer(state: BasketState, action: BasketAction): BasketState {
   switch (action.type) {
-    case 'ADD_ITEM':
+    case 'ADD_ITEM': {
       const newItems = [...state.items, action.payload];
       return {
         ...state,
         items: newItems,
         totalPrice: calculateTotalPrice(newItems),
       };
+    }
 
-    case 'REMOVE_ITEM':
+    case 'REMOVE_ITEM': {
       const filteredItems = state.items.filter(item => item.itemId !== action.payload);
       return {
         ...state,
         items: filteredItems,
         totalPrice: calculateTotalPrice(filteredItems),
       };
+    }
 
-    case 'UPDATE_GEAR':
+    case 'UPDATE_GEAR': {
       const updatedGearItems = state.items.map(item =>
         item.itemId === action.payload.itemId
           ? {
@@ -91,8 +94,9 @@ function basketReducer(state: BasketState, action: BasketAction): BasketState {
         items: updatedGearItems,
         totalPrice: calculateTotalPrice(updatedGearItems),
       };
+    }
 
-    case 'UPDATE_HOURS':
+    case 'UPDATE_HOURS': {
       const updatedHoursItems = state.items.map(item =>
         item.itemId === action.payload.itemId
           ? {
@@ -107,8 +111,9 @@ function basketReducer(state: BasketState, action: BasketAction): BasketState {
         items: updatedHoursItems,
         totalPrice: calculateTotalPrice(updatedHoursItems),
       };
+    }
 
-    case 'UPDATE_DATE':
+    case 'UPDATE_DATE': {
       const updatedDateItems = state.items.map(item =>
         item.itemId === action.payload.itemId
           ? { ...item, selectedDate: action.payload.date }
@@ -118,6 +123,7 @@ function basketReducer(state: BasketState, action: BasketAction): BasketState {
         ...state,
         items: updatedDateItems,
       };
+    }
 
     case 'CLEAR_BASKET':
       return {

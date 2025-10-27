@@ -1,10 +1,9 @@
-import React from 'react';
+import { CalendarIcon, MapPinIcon, ClockIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { CalendarIcon, MapPinIcon, ClockIcon } from 'lucide-react';
+import React from 'react';
 
 interface EventCardProps {
-  id: string;
   title: string;
   date: string;
   time: string;
@@ -16,7 +15,6 @@ interface EventCardProps {
 }
 
 const EventCard: React.FC<EventCardProps> = ({
-  id,
   title,
   date,
   time,

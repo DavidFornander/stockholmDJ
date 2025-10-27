@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useRef, useEffect } from 'react';
-import dynamic from 'next/dynamic';
 
 // Define an interface for the model viewer element
 interface ModelViewerElement extends HTMLElement {
@@ -72,12 +71,14 @@ const Compact3DViewer: React.FC<Compact3DViewerProps> = ({
       setHasError(false);
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleError = (error: any) => {
       console.error('3D Model failed to load:', modelPath, error);
       setIsLoading(false);
       setHasError(true);
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleProgress = (event: any) => {
       console.log('Model loading progress:', event.detail?.totalProgress);
     };
@@ -176,7 +177,7 @@ const Compact3DViewer: React.FC<Compact3DViewerProps> = ({
         ref={modelRef}
         src={modelPath}
         alt="DJ Equipment Setup"
-        auto-rotate="false"
+        auto-rotate={false}
         camera-controls
         disable-zoom
         loading="eager"

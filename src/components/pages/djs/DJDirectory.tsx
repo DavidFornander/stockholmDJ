@@ -1,15 +1,16 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import { Search, SlidersHorizontal, MapPin, Star, Music2, ChevronLeft, ChevronRight, ChevronDown } from 'lucide-react';
 import Image from 'next/image';
-import { Search, SlidersHorizontal, MapPin, Star, Music2, Clock, ChevronLeft, ChevronRight, ChevronDown } from 'lucide-react';
-import { DJ } from '@/types/dj';
-import { useBasket } from '@/context/BasketContext';
-import MiniCalendar from '@/components/shared/ui/MiniCalendar';
+import React, { useState, useEffect } from 'react';
+
 import Compact3DViewer from '@/components/shared/ui/Compact3DViewer';
-import InlineGearSelector from '@/components/shared/ui/InlineGearSelector';
-import HourSlider from '@/components/shared/ui/HourSlider';
 import FilterModal from '@/components/shared/ui/FilterModal';
+import HourSlider from '@/components/shared/ui/HourSlider';
+import InlineGearSelector from '@/components/shared/ui/InlineGearSelector';
+import MiniCalendar from '@/components/shared/ui/MiniCalendar';
+import { useBasket } from '@/context/BasketContext';
+import { DJ } from '@/types/dj';
 
 // Lorem Picsum image utility functions
 const getLoremPicsumImage = (width: number, height: number, seed: number) => {
@@ -325,7 +326,7 @@ const DJDirectory: React.FC = () => {
         removeItem(dj.id);
       } else {
         const gearArray = Object.entries(selectedGear)
-          .filter(([_, gear]) => gear.cost > 0)
+          .filter(([, gear]) => gear.cost > 0)
           .map(([type, gear]) => ({
             id: `${dj.id}-${type}`,
             name: gear.name,
@@ -525,7 +526,7 @@ const DJDirectory: React.FC = () => {
 
   // Close sort dropdown when clicking outside
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
+    const handleClickOutside = () => {
       if (showSortDropdown) {
         setShowSortDropdown(false);
       }

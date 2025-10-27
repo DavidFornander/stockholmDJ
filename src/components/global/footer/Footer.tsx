@@ -1,6 +1,5 @@
 "use client";
 
-import { Button } from "@/components/global/ui/button";
 import { Mail, MapPin } from "lucide-react";
 import Link from "next/link";
 import {
@@ -9,6 +8,8 @@ import {
   PiSoundcloudLogo,
   PiTiktokLogo,
 } from "react-icons/pi";
+
+import { Button } from "@/components/global/ui/button";
 
 export default function Footer() {
   return (

@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+
 import "./styles/globals.css";
-import { Navbar } from '../components/global/navbar/Navbar';
-import Footer from '../components/global/footer/Footer';
-import { ThemeProvider } from '../components/global/theme/ThemeProvider';
-import { BasketProvider } from '../context/BasketContext';
-import GlobalBasketFooter from '../components/shared/ui/GlobalBasketFooter';
 import Script from 'next/script';
+
+import Footer from '../components/global/footer/Footer';
+import { Navbar } from '../components/global/navbar/Navbar';
+import { ThemeProvider } from '../components/global/theme/ThemeProvider';
+import GlobalBasketFooter from '../components/shared/ui/GlobalBasketFooter';
+import { BasketProvider } from '../context/BasketContext';
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",

@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState } from 'react';
-import EventCard from './EventCard';
-import Image from 'next/image';
 import { Search } from 'lucide-react';
+import Image from 'next/image';
+import React, { useState } from 'react';
+
+import EventCard from './EventCard';
 
 // Sample event data - in a real app, this would come from an API or CMS
 const eventsData = [

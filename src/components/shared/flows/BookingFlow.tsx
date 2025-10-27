@@ -1,6 +1,6 @@
 "use client";
-import React, { useState, useRef, useCallback, useEffect } from "react";
 import dynamic from "next/dynamic";
+import React, { useState, useRef, useCallback, useEffect } from "react";
 
 // Define an interface for the model viewer element
 interface ModelViewerElement extends HTMLElement {

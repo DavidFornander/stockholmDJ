@@ -1,6 +1,6 @@
 "use client";
-import React, { useEffect, useRef, useCallback } from "react";
 import dynamic from "next/dynamic";
+import React, { useEffect, useRef, useCallback } from "react";
 
 // Dynamically import ModelViewer to ensure it loads only on the client side
 const ModelViewer = dynamic(() => import("@/components/shared/3d/ModelViewer"), {
@@ -15,15 +15,18 @@ interface DjSetupProps {
 }
 
 const DjSetup: React.FC<DjSetupProps> = ({ speaker, djTable, uplighting }) => {
-  const modelRef = useRef<any>(null);
+  const modelRef = useRef<HTMLElement>(null);
 
   const updateSceneVisibility = useCallback(() => {
     const model = modelRef.current;
-    if (model && model.scene) {
-      console.log("Model scene exists:", model.scene);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    if (model && (model as any).scene) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      console.log("Model scene exists:", (model as any).scene);
 
       // Update speaker visibility.
-      const speakerNode = model.scene.getObjectByName("evolve50");
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const speakerNode = (model as any).scene.getObjectByName("evolve50");
       console.log("Speaker node:", speakerNode);
       if (speakerNode) {
         speakerNode.visible = speaker.name !== "Ljud finns i lokalen";
@@ -31,7 +34,8 @@ const DjSetup: React.FC<DjSetupProps> = ({ speaker, djTable, uplighting }) => {
       }
 
       // Update DJ table visibility.
-      const djTableNode = model.scene.getObjectByName("dj_table");
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const djTableNode = (model as any).scene.getObjectByName("dj_table");
       console.log("DJ table node:", djTableNode);
       if (djTableNode) {
         djTableNode.visible = djTable.name !== "Finns i lokalen";
@@ -39,7 +43,8 @@ const DjSetup: React.FC<DjSetupProps> = ({ speaker, djTable, uplighting }) => {
       }
 
       // Update uplighting visibility.
-      const uplightingNode = model.scene.getObjectByName("uplighting");
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const uplightingNode = (model as any).scene.getObjectByName("uplighting");
       console.log("Uplighting node:", uplightingNode);
       if (uplightingNode) {
         uplightingNode.visible = uplighting.name !== "Nej, tack";
@@ -64,7 +69,8 @@ const DjSetup: React.FC<DjSetupProps> = ({ speaker, djTable, uplighting }) => {
       updateSceneVisibility();
     };
 
-    if (model.hasLoaded) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    if ((model as any).hasLoaded) {
       // If already loaded, call it immediately.
       handleLoad();
     } else {
