@@ -2,7 +2,7 @@
 
 import { Search, MapPin, Star, Music2, ChevronLeft, ChevronRight, ChevronDown } from 'lucide-react';
 import Image from 'next/image';
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 
 import { useTheme } from '@/components/global/theme/ThemeProvider';
 import DJModal from '@/components/shared/ui/DJModal';
@@ -27,12 +27,10 @@ const DJDirectory: React.FC = () => {
   const { theme } = useTheme();
   const [searchFrom, setSearchFrom] = useState('');
   const [eventDate, setEventDate] = useState('');
-  const [sortBy, setSortBy] = useState('price');
   const [selectedEventType, setSelectedEventType] = useState('Alla');
   const [selectedMusicStyle, setSelectedMusicStyle] = useState('Alla');
   const [showEventTypeModal, setShowEventTypeModal] = useState(false);
   const [showMusicStyleModal, setShowMusicStyleModal] = useState(false);
-  const [showSortDropdown, setShowSortDropdown] = useState(false);
   const [selectedDJ, setSelectedDJ] = useState<DJ | null>(null);
   const [showDJModal, setShowDJModal] = useState(false);
 
@@ -152,17 +150,7 @@ const DJDirectory: React.FC = () => {
   const eventTypes = ['Alla', ...Array.from(new Set(djsData.flatMap(dj => dj.eventTypes)))];
   const musicStyles = ['Alla', ...Array.from(new Set(djsData.flatMap(dj => dj.specialties)))];
 
-  // Sort options
-  const sortOptions = [
-    { value: 'price', label: 'Sortera efter pris' },
-    { value: 'rating', label: 'Sortera efter betyg' },
-    { value: 'reviews', label: 'Sortera efter recensioner' }
-  ];
-
-  const getCurrentSortLabel = () => {
-    return sortOptions.find(option => option.value === sortBy)?.label || 'Sortera';
-  };
-  // Filter and sort logic
+  // Filter logic
   const filteredAndSortedDJs = djsData
     .filter(dj => {
       const matchesLocation = !searchFrom || dj.location.toLowerCase().includes(searchFrom.toLowerCase());
@@ -170,14 +158,6 @@ const DJDirectory: React.FC = () => {
       const matchesMusicStyle = selectedMusicStyle === 'Alla' || dj.specialties.includes(selectedMusicStyle);
       const isActive = dj.active === true;
       return matchesLocation && matchesEventType && matchesMusicStyle && isActive;
-    })
-    .sort((a, b) => {
-      switch(sortBy) {
-        case 'price': return a.price - b.price;
-        case 'rating': return b.rating - a.rating;
-        case 'reviews': return b.reviewCount - a.reviewCount;
-        default: return 0;
-      }
     });
 
   const DJCard: React.FC<{ dj: DJ }> = ({ dj }) => {
@@ -302,31 +282,6 @@ const DJDirectory: React.FC = () => {
     );
   };
 
-  // Close sort dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = () => {
-      if (showSortDropdown) {
-        setShowSortDropdown(false);
-      }
-    };
-
-    const handleEscapeKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape' && showSortDropdown) {
-        setShowSortDropdown(false);
-      }
-    };
-
-    if (showSortDropdown) {
-      document.addEventListener('mousedown', handleClickOutside);
-      document.addEventListener('keydown', handleEscapeKey);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-      document.removeEventListener('keydown', handleEscapeKey);
-    };
-  }, [showSortDropdown]);
-
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-black transition-colors duration-200">
       {/* Hero Image Section */}
@@ -404,7 +359,7 @@ const DJDirectory: React.FC = () => {
       <div className="container mx-auto px-4 py-8">
         {/* Category Filter */}
         <div className="mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Stockholm DJs</h2>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Våra DJ:s</h2>
           <div className="flex flex-wrap gap-2">
             {eventTypes.map((eventType) => {
               const count = eventType === 'Alla' 
@@ -424,76 +379,6 @@ const DJDirectory: React.FC = () => {
                 </button>
               );
             })}
-          </div>
-        </div>
-
-        {/* Sort and Filter Controls */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-4">
-          <div>
-            <p className="text-gray-600 dark:text-gray-400">
-              {filteredAndSortedDJs.length} DJs hittade
-            </p>
-            
-            {/* Active Filters */}
-            {(selectedMusicStyle !== 'Alla' || searchFrom) && (
-              <div className="flex items-center gap-2 mt-2 flex-wrap">
-                <span className="text-sm text-gray-500 dark:text-gray-400">Aktiva filter:</span>
-                {searchFrom && (
-                  <span className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs rounded-full">
-                    Plats: {searchFrom}
-                  </span>
-                )}
-                {selectedMusicStyle !== 'Alla' && (
-                  <span className="px-2 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 text-xs rounded-full">
-                    Musikstil: {selectedMusicStyle}
-                  </span>
-                )}
-                <button
-                  onClick={() => {
-                    setSearchFrom('');
-                    setEventDate('');
-                    setSelectedMusicStyle('Alla');
-                  }}
-                  className="text-xs text-blue-600 dark:text-blue-400 hover:underline ml-2"
-                >
-                  Rensa filter
-                </button>
-              </div>
-            )}
-          </div>
-          
-          <div className="flex items-center gap-4">
-            <div className="relative">
-              <button
-                className="flex items-center gap-2 px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md text-sm hover:bg-gray-50 dark:hover:bg-gray-800 bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors"
-                onClick={() => setShowSortDropdown(!showSortDropdown)}
-              >
-                {getCurrentSortLabel()}
-                <ChevronDown className="w-4 h-4" />
-              </button>
-              
-              {/* Sort Dropdown */}
-              {showSortDropdown && (
-                <div className="absolute top-full left-0 mt-2 w-48 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-50">
-                  {sortOptions.map((option) => (
-                    <button
-                      key={option.value}
-                      onClick={() => {
-                        setSortBy(option.value);
-                        setShowSortDropdown(false);
-                      }}
-                      className={`w-full text-left px-3 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors ${
-                        sortBy === option.value 
-                          ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' 
-                          : 'text-gray-700 dark:text-gray-300'
-                      } ${option.value === sortOptions[0].value ? 'rounded-t-md' : ''} ${option.value === sortOptions[sortOptions.length - 1].value ? 'rounded-b-md' : ''}`}
-                    >
-                      {option.label}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
           </div>
         </div>
 
