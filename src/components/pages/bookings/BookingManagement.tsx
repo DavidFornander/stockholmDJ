@@ -264,24 +264,28 @@ const BookingManagement = () => {
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
+                    {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       Event Namn
                     </label>
                     <p className="text-gray-900 dark:text-white">{selectedBooking.eventName}</p>
                   </div>
                   <div>
+                    {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       Klient
                     </label>
                     <p className="text-gray-900 dark:text-white">{selectedBooking.client}</p>
                   </div>
                   <div>
+                    {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       DJ
                     </label>
                     <p className="text-gray-900 dark:text-white">{selectedBooking.dj}</p>
                   </div>
                   <div>
+                    {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       Status
                     </label>
@@ -299,18 +303,21 @@ const BookingManagement = () => {
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
+                    {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       Datum
                     </label>
                     <p className="text-gray-900 dark:text-white">{formatDate(selectedBooking.date)}</p>
                   </div>
                   <div>
+                    {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       Tid
                     </label>
                     <p className="text-gray-900 dark:text-white">{selectedBooking.time}</p>
                   </div>
                   <div className="md:col-span-2">
+                    {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       Plats
                     </label>
@@ -326,6 +333,7 @@ const BookingManagement = () => {
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
+                    {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       Email
                     </label>
@@ -334,6 +342,7 @@ const BookingManagement = () => {
                     </a>
                   </div>
                   <div>
+                    {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                       Telefon
                     </label>

@@ -3,18 +3,7 @@
 import { X } from 'lucide-react';
 import React, { useEffect } from 'react';
 
-interface FilterModalProps<T = unknown> {
-  isOpen: boolean;
-  onClose: () => void;
-  title: string;
-  options: string[];
-  selectedValue: string;
-  onSelect: (value: string) => void;
-  dataSource: T[]; // For counting items per category
-  getItemCategories: (item: T) => string[]; // Function to extract categories from item
-}
-
-const FilterModal: React.FC<FilterModalProps> = ({
+const FilterModal = <T = unknown,>({
   isOpen,
   onClose,
   title,
@@ -23,6 +12,15 @@ const FilterModal: React.FC<FilterModalProps> = ({
   onSelect,
   dataSource,
   getItemCategories
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  title: string;
+  options: string[];
+  selectedValue: string;
+  onSelect: (value: string) => void;
+  dataSource: T[];
+  getItemCategories: (item: T) => string[];
 }) => {
   useEffect(() => {
     if (isOpen) {

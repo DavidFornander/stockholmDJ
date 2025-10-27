@@ -70,10 +70,11 @@ const AccountSettings = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               First Name
             </label>
             <input
+              id="firstName"
               type="text"
               value={profileData.firstName}
               onChange={(e) => handleInputChange("firstName", e.target.value)}
@@ -81,10 +82,11 @@ const AccountSettings = () => {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Last Name
             </label>
             <input
+              id="lastName"
               type="text"
               value={profileData.lastName}
               onChange={(e) => handleInputChange("lastName", e.target.value)}
@@ -92,10 +94,11 @@ const AccountSettings = () => {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Email address
             </label>
             <input
+              id="email"
               type="email"
               value={profileData.email}
               onChange={(e) => handleInputChange("email", e.target.value)}
@@ -103,10 +106,11 @@ const AccountSettings = () => {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label htmlFor="phone" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Phone
             </label>
             <input
+              id="phone"
               type="tel"
               value={profileData.phone}
               onChange={(e) => handleInputChange("phone", e.target.value)}
@@ -114,10 +118,11 @@ const AccountSettings = () => {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label htmlFor="role" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Role
             </label>
             <select
+              id="role"
               value={profileData.role}
               onChange={(e) => handleInputChange("role", e.target.value)}
               className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
@@ -142,10 +147,11 @@ const AccountSettings = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label htmlFor="country" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Country
             </label>
             <input
+              id="country"
               type="text"
               value={profileData.country}
               onChange={(e) => handleInputChange("country", e.target.value)}
@@ -153,10 +159,11 @@ const AccountSettings = () => {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label htmlFor="city" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               City/State
             </label>
             <input
+              id="city"
               type="text"
               value={profileData.city}
               onChange={(e) => handleInputChange("city", e.target.value)}
@@ -164,10 +171,11 @@ const AccountSettings = () => {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label htmlFor="postalCode" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               ZIP/Postal Code
             </label>
             <input
+              id="postalCode"
               type="text"
               value={profileData.postalCode}
               onChange={(e) => handleInputChange("postalCode", e.target.value)}
@@ -175,10 +183,11 @@ const AccountSettings = () => {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label htmlFor="taxId" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               TAX ID
             </label>
             <input
+              id="taxId"
               type="text"
               value="A556664756"
               className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-900 text-gray-900 dark:text-white"

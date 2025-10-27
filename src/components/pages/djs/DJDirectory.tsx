@@ -749,7 +749,7 @@ const DJDirectory: React.FC = () => {
       </div>
 
       {/* Filter Modals */}
-      <FilterModal
+      <FilterModal<DJ>
         isOpen={showMusicStyleModal}
         onClose={() => setShowMusicStyleModal(false)}
         title="Filtrera efter musikstil"
@@ -760,7 +760,7 @@ const DJDirectory: React.FC = () => {
         getItemCategories={(dj) => dj.specialties}
       />
 
-      <FilterModal
+      <FilterModal<DJ>
         isOpen={showEventTypeModal}
         onClose={() => setShowEventTypeModal(false)}
         title="Filtrera efter eventtyp"
