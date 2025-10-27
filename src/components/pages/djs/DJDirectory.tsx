@@ -18,16 +18,14 @@ const getLoremPicsumImage = (width: number, height: number, seed: number) => {
 };
 
 const getHeroImage = () => {
-  // DJ/event themed hero image - using a fixed seed for consistency
-  return getLoremPicsumImage(1920, 800, 1001);
+  // DJ/event themed hero image - using local image
+  return '/assets/images/hero/dj-cool-1.jpg';
 };
 
 const getDJProfileImages = (djId: string, count: number = 4) => {
-  // Generate consistent images for each DJ based on their ID
-  const baseSeeed = parseInt(djId) * 100;
-  return Array.from({ length: count }, (_, index) => 
-    getLoremPicsumImage(400, 300, baseSeeed + index + 1)
-  );
+  // Temporarily use local profile image for all DJs
+  const tempImage = '/assets/images/profiles/temp-profile.jpg';
+  return Array.from({ length: count }, () => tempImage);
 };
 
 // Sample DJ data
@@ -39,13 +37,14 @@ const djsData: DJ[] = [
     price: 15000,
     rating: 4.9,
     reviewCount: 147,
-    location: 'På Landet för fan',
+    location: 'Enköping',
     specialties: ['House', 'Techno', 'Deep House'],
     eventTypes: ['Klubb', 'Privat fest'],
-    experience: '8+ år',
+    experience: '5+ år',
     imageUrl: getDJProfileImages('1', 1)[0],
     images: getDJProfileImages('1', 4),
     available: true,
+    active: true,
     duration: '1-9 timmar',
     equipment: 'Komplett ljudanläggning',
     hourlyRate: 2500,
@@ -69,20 +68,21 @@ const djsData: DJ[] = [
   },
   {
     id: '2',
-    name: 'Emma Eriksson',
-    title: 'Wedding & Event DJ',
+    name: 'David Fornander',
+    title: 'Full-Stack Developer & DJ',
     price: 12000,
     rating: 4.8,
-    reviewCount: 203,
-    location: 'Södermalm',
-    specialties: ['Pop', 'RnB', 'Wedding'],
-    eventTypes: ['Bröllop', 'Företagsevent', 'Privat fest'],
-    experience: '6+ år',
+    reviewCount: 89,
+    location: 'Stockholm',
+    specialties: ['Electronic', 'Techno', 'House'],
+    eventTypes: ['Klubb', 'Privat fest', 'Företagsevent'],
+    experience: '3+ år',
     imageUrl: getDJProfileImages('2', 1)[0],
     images: getDJProfileImages('2', 4),
     available: true,
+    active: true,
     duration: '1-6 timmar',
-    equipment: 'Premium ljudsystem',
+    equipment: 'Digital setup med laptop',
     hourlyRate: 2000,
     availability: {
       '2025-01-15': true,
@@ -97,63 +97,29 @@ const djsData: DJ[] = [
       speakers: ['2x 15\' toppar', '2x 15\' toppar + 1x 18\' sub'],
       djTables: ['Humpter B3 (Svart)', 'Humpter B3 (Vit)'],
       players: ['Digital'],
-      microphones: ['Trådad', 'Trådlös', 'Trådlös (2st)'],
+      microphones: ['Trådad', 'Trådlös'],
       additionalItems: ['Uplighting', 'Ljuspelare', 'Projektor']
     },
     model3D: '/assets/models/Humpter_b3_v3.glb'
   },
   {
     id: '3',
-    name: 'Marcus Johansson',
-    title: 'Electronic & Progressive',
-    price: 18000,
+    name: 'Sefan',
+    title: 'Saxophone & Jazz Specialist',
+    price: 25000,
     rating: 4.9,
-    reviewCount: 189,
-    location: 'Östermalm',
-    specialties: ['Progressive', 'Trance', 'Electronic'],
-    eventTypes: ['Klubb', 'Företagsevent'],
-    experience: '10+ år',
+    reviewCount: 203,
+    location: 'Stockholm',
+    specialties: ['Jazz', 'Saxophone', 'Smooth Jazz'],
+    eventTypes: ['Företagsevent', 'Bröllop', 'Privat fest'],
+    experience: '15+ år',
     imageUrl: getDJProfileImages('3', 1)[0],
     images: getDJProfileImages('3', 4),
-    available: false,
-    duration: '1-5 timmar',
-    equipment: 'Professionell utrustning',
-    hourlyRate: 3000,
-    availability: {
-      '2025-01-15': false,
-      '2025-01-16': false,
-      '2025-01-17': false,
-      '2025-01-18': true,
-      '2025-01-19': true,
-      '2025-01-20': false,
-      '2025-01-21': true
-    },
-    compatibleGear: {
-      speakers: ['2x 15\' toppar + 1x 18\' sub', '2x 15\' toppar + 2x 18\' sub'],
-      djTables: ['Humpter B3 (Svart)', 'Humpter B3 (Vit)'],
-      players: ['Digital', 'Vinyl'],
-      microphones: ['Trådlös', 'Trådlös (2st)'],
-      additionalItems: ['Uplighting', 'Strobe', 'Ljuspelare', 'Rokmaskin', 'Projektor']
-    },
-    model3D: '/assets/models/Humpter_b3_v3.glb'
-  },
-  {
-    id: '4',
-    name: 'Sofia Lindberg',
-    title: 'Hip-Hop & Urban',
-    price: 14000,
-    rating: 4.7,
-    reviewCount: 156,
-    location: 'Vasastan',
-    specialties: ['Hip-Hop', 'RnB', 'Urban'],
-    eventTypes: ['Privat fest', 'Klubb'],
-    experience: '5+ år',
-    imageUrl: getDJProfileImages('4', 1)[0],
-    images: getDJProfileImages('4', 4),
     available: true,
-    duration: '1-4 timmar',
-    equipment: 'Standardutrustning',
-    hourlyRate: 2200,
+    active: true,
+    duration: '2-8 timmar',
+    equipment: 'Professionell saxofon setup',
+    hourlyRate: 4000,
     availability: {
       '2025-01-15': true,
       '2025-01-16': true,
@@ -161,84 +127,14 @@ const djsData: DJ[] = [
       '2025-01-18': false,
       '2025-01-19': true,
       '2025-01-20': true,
-      '2025-01-21': false
-    },
-    compatibleGear: {
-      speakers: ['2x 15\' toppar', '2x 15\' toppar + 1x 18\' sub'],
-      djTables: ['Humpter B3 (Svart)'],
-      players: ['Digital', 'Vinyl'],
-      microphones: ['Trådad', 'Trådlös'],
-      additionalItems: ['Uplighting', 'Strobe']
-    },
-    model3D: '/assets/models/Humpter_b3_v3.glb'
-  },
-  {
-    id: '5',
-    name: 'David Forsberg',
-    title: 'Vinyl & Classic House',
-    price: 16000,
-    rating: 5.0,
-    reviewCount: 98,
-    location: 'Gamla Stan',
-    specialties: ['Vinyl', 'Classic House', 'Disco'],
-    eventTypes: ['Bröllop', 'Privat fest', 'Företagsevent'],
-    experience: '12+ år',
-    imageUrl: getDJProfileImages('5', 1)[0],
-    images: getDJProfileImages('5', 4),
-    available: true,
-    duration: '1-6 timmar',
-    equipment: 'Vintage vinyl setup',
-    hourlyRate: 2800,
-    availability: {
-      '2025-01-15': true,
-      '2025-01-16': true,
-      '2025-01-17': true,
-      '2025-01-18': true,
-      '2025-01-19': false,
-      '2025-01-20': false,
       '2025-01-21': true
     },
     compatibleGear: {
-      speakers: ['2x 15\' toppar', '2x 15\' toppar + 1x 18\' sub'],
+      speakers: ['2x 15\' toppar', '2x 15\' toppar + 1x 18\' sub', '2x 15\' toppar + 2x 18\' sub'],
       djTables: ['Humpter B3 (Svart)', 'Humpter B3 (Vit)'],
-      players: ['Vinyl'],
-      microphones: ['Trådad', 'Trådlös'],
-      additionalItems: ['Uplighting', 'Ljuspelare']
-    },
-    model3D: '/assets/models/Humpter_b3_v3.glb'
-  },
-  {
-    id: '6',
-    name: 'Lisa Pettersson',
-    title: 'Corporate & Private Events',
-    price: 13000,
-    rating: 4.8,
-    reviewCount: 174,
-    location: 'Norrmalm',
-    specialties: ['Corporate', 'Jazz', 'Lounge'],
-    eventTypes: ['Företagsevent', 'Privat fest'],
-    experience: '7+ år',
-    imageUrl: getDJProfileImages('6', 1)[0],
-    images: getDJProfileImages('6', 4),
-    available: true,
-    duration: '1-5 timmar',
-    equipment: 'Diskret ljudsystem',
-    hourlyRate: 2100,
-    availability: {
-      '2025-01-15': false,
-      '2025-01-16': true,
-      '2025-01-17': true,
-      '2025-01-18': true,
-      '2025-01-19': true,
-      '2025-01-20': true,
-      '2025-01-21': false
-    },
-    compatibleGear: {
-      speakers: ['2x 15\' toppar'],
-      djTables: ['Humpter B3 (Svart)', 'Humpter B3 (Vit)'],
-      players: ['Digital'],
-      microphones: ['Trådad', 'Trådlös'],
-      additionalItems: ['Uplighting', 'Projektor']
+      players: ['Digital', 'Vinyl'],
+      microphones: ['Trådlös', 'Trådlös (2st)'],
+      additionalItems: ['Uplighting', 'Strobe', 'Ljuspelare', 'Rokmaskin', 'Projektor']
     },
     model3D: '/assets/models/Humpter_b3_v3.glb'
   }
@@ -275,7 +171,8 @@ const DJDirectory: React.FC = () => {
       const matchesLocation = !searchFrom || dj.location.toLowerCase().includes(searchFrom.toLowerCase());
       const matchesEventType = selectedEventType === 'Alla' || dj.eventTypes.includes(selectedEventType);
       const matchesMusicStyle = selectedMusicStyle === 'Alla' || dj.specialties.includes(selectedMusicStyle);
-      return matchesLocation && matchesEventType && matchesMusicStyle;
+      const isActive = dj.active === true;
+      return matchesLocation && matchesEventType && matchesMusicStyle && isActive;
     })
     .sort((a, b) => {
       switch(sortBy) {

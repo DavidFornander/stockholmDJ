@@ -27,6 +27,7 @@ export interface DJ {
   imageUrl: string;
   images?: string[]; // Multiple images for carousel
   available: boolean;
+  active: boolean; // Controls whether DJ is displayed on the site
   duration: string;
   equipment: string;
   // Enhanced properties for interactive cards
